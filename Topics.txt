@@ -1,0 +1,163 @@
+79 Kinks with Long-Range Tails  
+   Kink-antikink annihilaiton is super cool
+     Field oscilates
+     Then radiates
+   Other local kinks
+     Sextic potential with three quadratic minima
+     Cosine potential! (Sine-Gordon), infinite minima
+   Long-range tails
+     Three minima, two are quadratic, middle one is quartic
+     V = ½(1-ϕ²)²ϕ⁴
+     arxiv.org/abs/1811.07872
+
+
+88 Confinement                    —— Skinner
+   Open ended
+   What is it?
+     Non-Abelian gauge thy w/ group G
+     Gauge fields interact, even without matter
+     Coupling runs with energy scale, large in IR
+     But then we can't do perturbation theory!
+     If we add (not too much matter), thory is confining
+       All states are in singlet representation
+     But beta function comes from perturbation theory…
+   We want a more precise notion
+   Toy models in low dimensions
+     E&M in 1+1d
+       No interesting solution to vacuum equations
+       With point charge, electric field is step function
+         Energy diverges
+       But you can have two charges! (charge—anticharge)
+         But energy is linear in charge seperation (flux tube)
+         Confining in IR
+         Check this is still true QM *
+     CP^{N-1} model
+       Gauge theory with N complex scalars, broken scalar symmetry
+       Minimum of action is S^{2N-1} \in C^N
+       With guage transformations we get CP^{N-1}=S^{2N-1}/U(1)
+       Should have low energy description as NLSM
+       Shockingly, the low energy limit is confining
+       Also solvable in N->∞
+   Wilson loops
+     Gauge invariant way to create quark-antiquark pair at different locations
+     Instead do M = \bar(q(x))U(x,y)q(y)
+       Can't always satisfy D_μU=0
+       But can do v^μD_μU=0
+     U(x,y)→g(x)U(x,y)g(y)
+     Consider quantum expectation of M(x,y)U(T)M(x,y)
+       Move quark from x to y, evolve for T, move back from y to x
+       Alternatively make pair at time 0, then remove at time T
+       Should be proportional to exp(-E(R)T)
+       Theory is contining if E(R)∼R
+     More generally, expectation of Wilson loop for closed curve
+       ∼perimeter: nonconfining
+       ∼area:      confining
+   't Hooft dual superconductor
+     Meissner effect B field expelled from superconductor
+       True up to critical value
+       Then you get two behaviors
+         Type 1) fat tube of magnetic vortex lines
+         Type 2) vortex lines repel
+     Lines in type 2 look like flux tubes in confining phase
+     This duality is the EM duality
+   Sources
+     Tong: Gauge Theory 
+     Nair: Modern QFT ch. 18
+   Steps
+     Do prelim reading over break
+     Send email
+     
+                                        
+92 Chiral Fermions on the Lattice —— Tong
+   Weyl Fermions
+   Hard to put them on a lattice
+   Essay will be in 3+1, easier to explain in d=1+1
+     Clifford algebra has two elements
+       \gamma^0= \sigma^1
+       \gamma^1=i\sigma^2
+       \gamma^3= \sigma^3
+     Massless fermions travel at the speed of light
+       in 1+1, one Weyl fermion is left-moving, the other is right-moving
+       Dispersion relation: E=p and E=-p with negative energies filled
+       Left and right are seperately conserved
+     Massive fermions
+       Dispersion is a hyperbola with gap E=mc^2
+     What happens in discrete space?
+       Momentum becomes periodic (Brillouin zone)
+       Chiral symmetry is broken
+         But dispersion has to be smooth at the periodic point
+       Single chiral fermion gets sine-valued dispersion
+         Creates another massless fermion with other chirality
+   Back to 3+1
+     Nielsen-Ninomiya theorem (1st part of essay)
+   What's the problem?
+     We live in a universe with chiral symmetry of Weyl fermions
+   Ways around
+     Chiral symmetry—overlap fermions (kinda hard)
+     Chiral perticles—Lattice with a boundary
+       Can have chiral fermions in 1+1 as edge of 2+1
+       Same thing with 3+1 on edge of 4+1 lattice
+         Kaplan & Grabowska 1610.02151
+       Use interactions to give masses to unwanted fermion
+         Eichten & Preskill (1986)
+         Xiao-Gang Wen 1305.1045
+         You, Bentov & Xu 1402.4151
+         Suggestion that it's possible in 3+1
+           if you have N*16 unwanted fermions
+
+
+98 Instantons                     ——Dorey
+   Localized in spacetime, not just space like solitons
+   Path Integrals 
+     Paths are weighted by action of path
+     Coupling looks like hbar
+     Higher Feynman diagrams are higher orders of coupling
+   Normal integral of e^{-1/g^2 f(x)}
+     Global minimum and local minima
+     Looks like sum of contributions at each minimum, weighted by second derivative
+     Within each sector can develop perturbation theory
+     Same applies to QFT
+   Configurations that "stationarize" Euclidean action
+     Solutions of classical EoM
+     \phi(x)=\phi_cl(x)
+     Also want finite action (decays at infinity?)
+     Called instantons
+   Non-abelian gauge theory — SU(2)
+     L_YM = 1/g^2 tr{F_mnF^mn} (Killing form is just trace)
+     Lagrangian is action density — Should decay
+     Field has to go to pure gauge U^dag \partial_\mu U
+       U is map from \boundary R^4 = S^3 to SU(2) = S^3
+       These maps have winding number \pi_3(S^3) = Z
+       Seperate sectors in field space set by winding number
+     Winding number k = 1/(16pi^2) \int tr{F*F}
+     Something else
+       \int tr{(F\pm*F)^2} \ge 0
+       Equality iff F = \pm *F
+       Gives bound on action S_E \ge 8pi^2|k|
+     k-instanton
+       F^mn = (\sigma^mn l^2)/(|x-X|^2 - l^2) (k=1)
+       Something about moduli space
+       dim[M_k] = 8k
+   Interesting connections
+     Fermions
+       Dirac operator \slashD
+       \slashD \lambda_a = 0
+       Number of solutions 2k
+       Atiyah Singer index theorem
+     Why are they interesting?
+     Somtimes contribute when pert. vanish
+       Anomalies
+     Instantons and SUSY
+       Some observables have instantons give whole answer
+       Projector onto self-dual F=*F
+       BPS something
+     N=2 SUSY G=SU(2)
+       Yang-Mills with A_μ and multiplet
+       Multiplet has two fermions and a scalar
+       A_μ gets higgsed
+         SU(2) -> U(1)
+         One photon and two massive gauge bosons
+       L = F_μνF^μν/g^2_eff
+       1/g2_eff(\phi, exp(-8π²/g²)) = im{∂²F/∂ϕ}
+   Solutions on interesting manifolds
+   Mirror symmetry in string theory
