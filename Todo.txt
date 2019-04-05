@@ -1,9 +1,38 @@
-——Questions——
+——To Do——
 
+Split discussion of thermalization and RUCs
+Localization
+Tensor gauge theory
+Start writing up Pai paper
+
+——To Learn——
+
+Fracton conservation laws
+Hydrodynamics from circuits
+Operator entanglement 
+Entanglement spectrum 
+Quantum phase transition 
+Locator expansions 
 
 ——Papers to Read——
 
+GogolinStatMech
+  Links therein
+DeutschClosed
 
+——Notes——
+
+'Trotterize' continuous time evolution into discrete
+https://en.wikipedia.org/wiki/Time-evolving_block_decimation
+Provides a good excuse for looking at circuits
+
+——Questions——
+
+Should I use the conserving circuits papers?
+Is this turning too much into a summary of Nandkishore reviews?
 
 ——Timeline——
-Email Lamacraft Feb. 4
+
+Write outline
+Email Lamacraft March 7
+Meet Lamacraft March 11
