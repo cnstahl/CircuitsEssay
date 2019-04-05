@@ -1,0 +1,163 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{epsfig,amssymb,amsmath,}
+\usepackage{color}
+
+\textwidth=18cm%6.25true in
+\textheight=24.5cm%9.65true in
+\voffset=-2.5cm%-1true in
+\hoffset=-0.75true in
+      
+\usepackage[hyperfootnotes=false]{hyperref}     
+\usepackage{titlesec}
+\titleformat{\subsection}
+{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\usepackage[sorting=none, url=false, style=numeric-comp]{biblatex}
+\bibliography{../global.bib}
+
+\renewcommand{\bf}{\mathbf}
+\renewcommand{\cal}{\mathcal}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdn}[3]{\frac{\partial^{#3} #1}{\partial #2^{#3}}}
+\newcommand{\pdop}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\nd}[2]{\frac{d #1}{d #2}}
+\newcommand{\ndn}[3]{\frac{d^{#3} #1}{d #2^{#3}}}
+\newcommand{\ndop}[1]{\frac{d}{d #1}}
+\newcommand{\dt}{\frac{d}{dt}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\third}{\frac{1}{3}}
+\renewcommand{\th}[1]{\frac{1}{#1}}
+\newcommand{\ex}[1]{\left\langle #1 \right\rangle}
+\renewcommand{\d}{\delta}
+\renewcommand{\l}{\ell}
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle#1\right|}
+\newcommand{\braket}[2]{\left\langle#1\middle|#2\right\rangle}
+\newcommand{\brakett}[3]{\left\langle#1\middle|#2\middle|#3\right\rangle}
+\newcommand{\nn}{\nonumber\\}
+\newcommand{\note}[1]{{\color{red}{#1}}}
+
+\DeclareMathOperator{\Tr}{Tr}
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+
+\title{Thermalization and localization in random unitary circuits}
+\author{Charles Stahl}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction} \label{sec:intro}
+
+In this essay we will discuss the quantum dynamics of closed systems, showing that the two late-time possibilities are thermalization and localization. We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:ruc} presents various methods of describing dynamics in thermalizing circuits. The majority of circuits currently described in the literature thermalize, although this is not a necessity. One path to localization in random unitary circuits is through fractonic conservation laws. To motivate these we will introduce fractonic systems in Sec.~\ref{sec:frac} and show how they naturally conserve higher moments of charges. Finally, in Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize. We will follow the results of~\cite{PaiFracton}, and in fact the first 4 sections of this essay are designed to build to these results. Sec~\ref{sec:conc} reviews the broad structure of this essay and presents some possibilities for future research.
+
+\note{Include term ``scrambling"}
+
+\section{Thermalization and localization} \label{sec:therm}
+
+This section will serve to introduce the reader to the basics of quantum dynamics of closed systems. It will closely follow Ref.~\cite{Nandkishore14}, drawing on other sources for examples.
+
+I'll cover operator spreading here, although some of that material may belong in the RUC section. Other sources include~\cite{GogolinStatMech, PolkovnikovClosed, Cazalilla2010}.
+
+\subsection{Closed quantum systems} \label{sub:closed}
+
+Quantum statistical mechanics usually considers a quantum system coupled to a bath. As in classical statistical mechanics, this allows the system to exchange energy and conserved charges with the bath. Additionally, the system may become entangled with the bath, leading to dephasing. Then, as in the classical case, the state of the system at long time (is|may be approximated by) the thermal state, $\rho^{\text{th}}(T)=Z^{-1}(T)e^{-H/T}$. 
+
+\subsection{Thermalization and localization} \label{sub:therm}
+
+Since the bath itself is quantum mechanical, we could consider the system and bath together as a single closed quantum system. We will take this perspective for the remainder of the essay, referring to the original system as some subsystem. The study of closed quantum systems has expanded recently, driven by experimental, numerical, and theoretical motivations~\cite{GogolinStatMech}.
+
+I'll discuss the ETH here as it seems to be an important enough result, but I don't think it's strictly necessary for the flow of the essay.
+
+I'll continue to follow the Nandkishore review for this section and the section on MBL.
+
+\subsection{Operator spreading with and without conserved quantities} \label{sub:opsp}
+
+We'll start by discussing Hamiltonians with no conserved quantities, and then see how adding conserved quantities back in slows down the dynamics. \note{Will we get to localization in this section?}
+
+
+
+\subsection{Operator spreading in Floquet systems} \label{sub:floq}
+
+Theres a thorny issue that we brushed asie when we discussed systems without conserved quantities. We defined the systems by their Hamiltonians, but any system with a Hamiltonian conserves energy. As discussed in Sec.~\ref{sec:intro}, random circuits need not have any conserved quantities at all. How then can we compare them to any sort of Hamiltonian system?
+
+The resolution lies in Floquet systems. In this branch of systems, there is a succession of Hamiltonians applied, each for a set amount of time. For example, if we ``turn on" Hamiltonian $H_1$ for time $T/2$ and then $H_2$ for $T/2$, then the unitary time evolution operator for one whole period of time $T$ is 
+\begin{align}
+U(T) = U_2\left(\frac{T}{2}\right)\; U_1\left(\frac{T}{2}\right) = e^{-i\frac{T}{2}H_2} e^{-i\frac{T}{2}H_1}.
+\end{align}
+For $t=nT$ with $n\in \mathbb{Z}$, the time evolution operator is $U(t)=U^n(T),$ while for noninteger multiples of $T$ it is more complicated. 
+
+One example is the kicked Ising model~\cite{vonKeyserlingkHydro}, with 
+\begin{align}
+H_1 &= \phantom{h}\sum_i\left(Z_iZ_{i+1}+gZ_i\right),\nn
+H_2 &= h\sum_iX_i.
+\end{align}
+Note that all terms within a single Hamiltonian commute with each other \note{why does this matter?}.
+
+We can compare this model to the time-independent Hamiltonians we previously looked at.
+
+\subsection{Diagnosing localization} \label{sub:local}
+
+I like the transition between thermalizing and localizing phases, so I'll spend some time on that, with sources~\cite{PalHuse, KhemaniCP}. Specifically, the fact that this is not a phase transition of the ground state, like we are used to, and different order parameters for the transition. 
+
+\subsection{Many-body localization} \label{sub:mbl}
+
+
+\section{Thermalization in random unitary circuits} \label{sec:ruc}
+
+In this section I'll bring back the concepts of thermalization and show how they can be quantified in random circuits. For the actual construction of circuits I'll use~\cite{NahumRuhmanHuse, NahumEntanglement}.
+For operator hydrodynamics I'll cite~\cite{NahumOpSp, vonKeyserlingkHydro, KhemaniLambda, KhemaniOpSp, JonayEntanglement}. Some of this material is not in RUCs though, so I still have to sort that out.
+
+I will also go through conservation laws in conserving circuits, using~\cite{RakovskyDiff, HuangRenyi}.
+
+
+\section{Fractonic systems} \label{sec:frac}
+
+In this section we will explore various fractonic systems. We will start with exactly solvable models and show that these naturally result in massive (gapped) fractons. However we will quickly transition to tensor gauge theory, where we can create gapless fractons. Ultimately, we want to show the connection between multipole conservation laws (specifically dipole) and fractons. This motivates the study of random circuits that conserve dipole moment as a setting for localized charges, which will be presented in Sec.~\ref{sec:fraccirc}.
+
+\subsection{Tensor gauge theory} \label{sub:tensor}
+
+Make sure to use~\cite{PretkoFractonGauge}.
+
+Another way to create fractons is through symmetric tensor gauge theory. This method will be the most useful for our purposes. We will start with a lightning review of electromagnetism simply for the sake of notation, and show why considering tensors results in conservation of higher moments of charge. 
+
+Nonrelativistically, electromagnetism can be described with the Lagrangian \cite{TongQft}
+\begin{align}
+\mathcal{L} = -\th{4}F_{\mu\nu}F^{\mu\nu} + j^\mu A_\mu.
+\end{align}
+We can derive conservation of charge from the equations of motion\dots (Something happens here where we have to use the gauge freedom instead but I haven't totally worked this out yet.)
+
+Consider generalizing from a vector potential $A_{i}$ to a tensor potential $A_{ij}$ which can be decomposed into a trace and symmetric and antisymmetric parts, $A_{ij} = k\delta_{ij} + \tilde{\omega}_{ij} + A'_{ij}$. The first term\dots. The second term can be rewritten as a vector potential, so it will have the same dynamics as electromagnetism. That leaves with only the symmetric tensor, which we will relabel $A_{ij}$.
+
+(Somehow\dots) the gauge transformation $A_{ij}\to A_{ij}+\partial_i\partial_j\alpha$ gives the constraint 
+\begin{align}
+\partial_i\partial_jE_{ij}=\rho.\label{eqn:dipole}
+\end{align}
+Once again, we have conservation of charge:
+\begin{align}
+\int_V\rho dV = \int_V \partial_i\partial_j E_{ij}dV = \int_{\partial V}n_i\partial_jE_{ij}dA,
+\end{align}
+which says that charge cannot be produced locally. It must instead come in through the boundary. We also have a new conservation law
+\begin{align}
+\int_Vx_i\rho dV = \int_V x_i\partial_j\partial_k E_{jk}dV = \text{boundary terms},
+\end{align}
+where the boundary terms come from both partial integration and Stokes' theorem~\cite{NandkishoreFractons}.
+
+(I don't have a good understanding of this process yet but I'll refer to~\cite{PretkoSubdim, RasmussenYouXu, SlagleTensor}.)
+
+The conservation of dipole moment means that an isolated charge cannot move without creating an isolated dipole somewhere else, which costs energy. Thus, the charges are immobile in the low-energy limit. 
+
+(I'll then discuss this model more, including the difference between the discrete and continuous cases. I'll also present some of the connections to elasticity and gravity, such as in~\cite{PretkoElasticity}.)
+
+
+\section{Localization in fractonic circuits} \label{sec:fraccirc}
+
+This section will mostly cover the results in~\cite{PaiFracton}. I'll go through their analytic results and show that their numerics match up. I'd prefer not to do my own numerics because I assume anything I can do in the next month and a half will be a subset of what they achieved, but if you think my essay would benefit from some validation of their numerics at lower $L$, then I'll go for it. 
+
+
+\section{Results and Conclusions} \label{sec:conc}
+
+
+\printbibliography
+\end{document}
