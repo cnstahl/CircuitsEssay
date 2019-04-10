@@ -1,0 +1,24 @@
+\begin{tikzpicture}[scale = 1]
+\draw (0,0) -- (0,2.5);
+\draw (1,0) -- (1,2.5);
+\draw (2,0) -- (2,2.5);
+\draw (3,0) -- (3,2.5);
+\draw (4,0) -- (4,2.5);
+\draw (5,0) -- (5,2.5);
+
+\foreach \x/\y in {0/1, 2/1, 4/1, 1/2, 3/2} 
+\filldraw[color=black, fill=blue!50] (\x-.2,\y-.5) rectangle (\x+1.2,\y);
+
+\draw (0.5,0) circle [x radius=.8, y radius=.2];
+\draw (0.5,-0.2) node[below]{$\tilde{\rho}_R(i-2,\t)$};
+\draw (2.5,0) circle [x radius=.8, y radius=.2];
+\draw (2.5,-0.2) node[below]{$\tilde{\rho}_R(i,\t)$};
+\draw (2.5,2.5) circle [x radius=.8, y radius=.2];
+\draw (2.5,2.7) node[above]{$\tilde{\rho}_R(i,\t+2)$};
+\draw (4.5,0) circle [x radius=.8, y radius=.2];
+\draw (4.5,-0.2) node[below]{$\tilde{\rho}_R(i+2,\t)$};
+
+\draw[fill=blue!50] (-.4,1.5) -- (.2,1.5) -- (.2,2) -- (-.4,2);
+\draw[fill=blue!50] (5.4,2) -- (4.8,2) -- (4.8,1.5) -- (5.4,1.5);
+
+\end{tikzpicture}
