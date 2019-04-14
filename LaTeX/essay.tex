@@ -28,6 +28,11 @@
 \usepackage{graphicx} % Allows including images    
 \graphicspath{{../figures/}, {../figures/growthrates/}}
 
+\usepackage{dcolumn}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\usepackage{makecell}
+
 \renewcommand{\bf}{\mathbf}
 \renewcommand{\cal}{\mathcal}
 \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
@@ -44,6 +49,7 @@
 \renewcommand{\d}{\delta}
 \renewcommand{\l}{\ell}
 \renewcommand{\t}{\tau}
+\newcommand{\ret}{\text{return}}
 \newcommand{\ket}[1]{\left|#1\right\rangle}
 \newcommand{\bra}[1]{\left\langle#1\right|}
 \newcommand{\braket}[2]{\left\langle#1\middle|#2\right\rangle}
@@ -66,7 +72,7 @@
 
 In this essay we will discuss the quantum dynamics of closed systems, showing that the two late-time possibilities are thermalization and localization. We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:ruc} presents various methods of describing dynamics in thermalizing circuits. The majority of circuits currently described in the literature thermalize, although this is not a necessity. One path to localization in random unitary circuits is through fractonic conservation laws. To motivate these we will introduce fractonic systems in Sec.~\ref{sec:frac} and show how they naturally conserve higher moments of charges. Finally, in Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize. We will follow the results of~\cite{PaiFracton}, and in fact the first 4 sections of this essay are designed to build to these results. Sec~\ref{sec:conc} reviews the broad structure of this essay and presents some possibilities for future research.
 
-\note{Include term ``scrambling"}
+\note{Include term ``scrambling, ergodic"}
 
 
 \section{Quantum dynamics of closed systems} \label{sec:dyn}
@@ -242,15 +248,41 @@ To do so, we will define some dense but useful notation. Since the sum of weight
 \begin{align}
 \tilde{\rho}_R(i,\t) \equiv \rho_R(i,\tau) + \rho_R(i+1, \tau). \label{eqn:rhotil}
 \end{align}
-Now, referring to Fig.~\ref{fig:4sites}, 
+We will want to find $\tilde{\rho}_R(i,\t+2)$. To do so we find
+\begin{align}
+\rho_R(i-1, \t+1) &=    p  \tilde{\rho}_R(i-2, \t),\nn
+\rho_R(i  , \t+1) &= (1-p) \tilde{\rho}_R(i  , \t),\nn
+\rho_R(i+1, \t+1) &=    p  \tilde{\rho}_R(i  , \t),\nn
+\rho_R(i+2, \t+1) &= (1-p) \tilde{\rho}_R(i+2, \t).\label{eqn:4sites1}
+\end{align}
+Similar calculation at time $\t+2$ result in
+\begin{align}
+\rho_R(i  , \t+2) &= p^2\tilde{\rho}_R(1-2,\t) + p(1-p)\tilde{\rho}_R(i,\t),\nn
+\rho_R(i+1, \t+2) &= p(1-p)\tilde{\rho}_R(i,\t) + (1-p)^2\tilde{\rho}_R(i+2,
+	\t), \nn
+\tilde{\rho}_R(i,\t+1)&=p^2\tilde{\rho}_R(i-2,\t)+2p(1-p)\tilde{\rho}_R(i,\t)+
+	(1-p)^2\tilde{\rho}_R(i+2,\t). \label{eqn:4sites2}
+\end{align}
+Fig.~\ref{fig:4sites} shows a diagram containing these values.
 \begin{figure}
 	\centering
 	\input{4sites}
 	\caption{Operator weights after two layers of the circuit}
 	\label{fig:4sites}
 \end{figure}
-we have
 
+The fact that $i\pm1$ and $\t\pm1$ do not appear in Eq.~\ref{eqn:4sites2} demonstrates the usefulness of the coarse-grained variables, defined in Fig.~\ref{fig:circuit}. Switching to those variable and dropping the tilde, Eq~\ref{eqn:4sites2} becomes
+\begin{align}
+\rho_R(x,t+1)&=p^2\rho_R(x-1,t)+2p(1-p)\rho_R(x,t)+(1-p)^2\rho_R(x+1,t), 
+	\label{eqn:4sites3}
+\end{align}
+which is the equation for a biased random walk that steps to the right with probability $p^2$ and to the left with probability $(1-p)^2$, otherwise staying at the same site. 
+
+Therefore, for any operator initially local at position $x_0$, $\rho_R$ spreads linearly with a front located near position $x = x_0 + v_B t$. The front spreads diffusively as $\ex{x^2}-\ex{x}^2=2Dt$~\cite{vonKeyserlingkHydro}. The values are
+\begin{align}
+v_B &= p^2-(1-p)^2 = \frac{q^2-1}{q^2+1},\nn
+D   &= \sqrt{1-v_B^2}/4 = \frac{q/2}{q^2+1}.
+\end{align}
 These results can be summarized in Fig.~\ref{fig:vonKSpreading}.
 \begin{figure}
 	\centering
@@ -258,6 +290,11 @@ These results can be summarized in Fig.~\ref{fig:vonKSpreading}.
 	\caption{Spreading of an initially local operator under a quantum circuit with no conservation laws~\cite{vonKeyserlingkHydro}.}
 	\label{fig:vonKSpreading}
 \end{figure}
+As an interesting aside, note that in the large $q$ limit the front does not diffuse and $v_B=1$, the lightcone velocity~\cite{NahumOpSp}.
+
+The important features that we can match to the behavior of the floquet model are the exponential growth at early time and the behavior of the front of the spreading operator. As in the kicked Ising model, we have shown that the front moves linearly. The diffusion process has a width $\sim \sqrt{Dt}$, which is to say $\alpha=0.5$
+
+\note{vonKeyserlingk page 6.}
 
 
 \section{Thermalization in systems with conservation laws} \label{sec:cons}
@@ -278,42 +315,80 @@ H_{xy} &= J_{xy}\sum_i\left[X_iX_{i+1}+Y_iY_{i+1}\right].
 
 \note{In these ``physical systems," it is possible to have approximately conserved charges, i.e. on the localized side of a phase transition\dots}
 
+\subsection{Circuits with conservation laws} \label{sub:ccons}
+
+\note{ballistic front,
+	a power-law tail behind the front, and diffusively spread-
+	ing charges near the origin}
+
 
 \section{Fractonic systems} \label{sec:frac}
 
 In this section we will explore various fractonic systems. We will start with exactly solvable models and show that these naturally result in massive (gapped) fractons. However we will quickly transition to tensor gauge theory, where we can create gapless fractons. Ultimately, we want to show the connection between multipole conservation laws (specifically dipole) and fractons. This motivates the study of random circuits that conserve dipole moment as a setting for localized charges, which will be presented in Sec.~\ref{sec:fraccirc}.
 
+The conservation of dipole moment means that an isolated charge cannot move without creating an isolated dipole somewhere else, which costs energy. Thus, the charges are immobile in the low-energy limit. 
+
 \subsection{Tensor gauge theory} \label{sub:tensor}
 
-Make sure to use~\cite{PretkoFractonGauge}.
+We will show how fracton conservation laws naturally lead to tensor gauge theory. Although this is not strictly necessary to understand the dynamics of fracton systems, the literature often refers to fractons using the language of tensor gauge theory. This discussion follows the treatment in~\cite{PretkoFractonGauge}. 
 
-Another way to create fractons is through symmetric tensor gauge theory. This method will be the most useful for our purposes. We will start with a lightning review of electromagnetism simply for the sake of notation, and show why considering tensors results in conservation of higher moments of charge. 
-
-Nonrelativistically, electromagnetism can be described with the Lagrangian \cite{TongQft}
+To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to \note{requiring
 \begin{align}
-\mathcal{L} = -\th{4}F_{\mu\nu}F^{\mu\nu} + j^\mu A_\mu.
-\end{align}
-We can derive conservation of charge from the equations of motion\dots (Something happens here where we have to use the gauge freedom instead but I haven't totally worked this out yet.)
+\phi\to e^{i\alpha}\phi
+\end{align}	
+be a symmetry of the theory,} for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
 
-Consider generalizing from a vector potential $A_{i}$ to a tensor potential $A_{ij}$ which can be decomposed into a trace and symmetric and antisymmetric parts, $A_{ij} = k\delta_{ij} + \tilde{\omega}_{ij} + A'_{ij}$. The first term\dots. The second term can be rewritten as a vector potential, so it will have the same dynamics as electromagnetism. That leaves with only the symmetric tensor, which we will relabel $A_{ij}$.
-
-(Somehow\dots) the gauge transformation $A_{ij}\to A_{ij}+\partial_i\partial_j\alpha$ gives the constraint 
+Gauging this theory requires that the theory be invariant under $\phi\to e^{i\alpha(x,t)}\phi$ for arbitrary $\alpha(x,t)$. However, the derivative of the field now transforms as 
 \begin{align}
-\partial_i\partial_jE_{ij}=\rho.\label{eqn:dipole}
+\partial_i\phi\to e^{i\alpha}\left(\partial_i+\partial_i\alpha\right)\phi,\nn
+\partial_t\phi\to e^{i\alpha}\left(\partial_t+\partial_t\alpha\right)\phi.
+	\label{eqn:nconv}
 \end{align}
-Once again, we have conservation of charge:
+This is not a covariant transformation, as it mixes the derivatives of $\phi$ with $\phi$ itself. The standard solution is to introduce gauge derivatives $D_i=\partial_i-iA_i$ and $D_t=\partial_t-i\Phi$, where $\Phi$ recalls the notation for the scalar potential of electromagnetism. We then have 
 \begin{align}
-\int_V\rho dV = \int_V \partial_i\partial_j E_{ij}dV = \int_{\partial V}n_i\partial_jE_{ij}dA,
+D_i\phi\to e^{i\alpha}D_i\phi,\nn
+D_t\phi\to e^{i\alpha}D_t\phi,
 \end{align}
-which says that charge cannot be produced locally. It must instead come in through the boundary. We also have a new conservation law
+if 
 \begin{align}
-\int_Vx_i\rho dV = \int_V x_i\partial_j\partial_k E_{jk}dV = \text{boundary terms},
+A_i &\to A_i+\partial_i\alpha, \nn
+\Phi&\to\Phi+\partial_t\alpha.
 \end{align}
-where the boundary terms come from both partial integration and Stokes' theorem~\cite{NandkishoreFractons}.
+We can then go on to calculate field strengths and possible terms in the action, but our main interest is in the fact that the gauge field is a spacetime vector $A_\mu=(\Phi,A_i)$. For more details see~\cite{PretkoFractonGauge}.
 
-(I don't have a good understanding of this process yet but I'll refer to~\cite{PretkoSubdim, RasmussenYouXu, SlagleTensor}.)
+We will now go through the same steps for a fracton field $\phi$ in order to show the natural emergence of symmetric tensor gauge fields. $\phi$ is again a complex scalar that conserves charge $Q=\int d^dx\rho$. It also conserves dipole moment $P_i = \int d^dx\rho x^i$ (breaking Lorentz invariance). Together these correspond to phase rotations of the form 
+\begin{align}
+\phi\to e^{i\alpha+i\lambda_ix^i}\phi.
+\end{align}
+We will write this phase as $e^{i\alpha(x)}$ where $\alpha$ is restricted to be linear until we gauge the theory.
 
-The conservation of dipole moment means that an isolated charge cannot move without creating an isolated dipole somewhere else, which costs energy. Thus, the charges are immobile in the low-energy limit. 
+Now $\partial_i\phi\to e^{i\alpha}(\partial_i+\lambda_i)\phi$ is no longer covariant. The second derivative 
+\begin{align}
+\partial_i\partial_j\phi\to e^{i\alpha}(\partial_i\partial_j+\lambda_i\partial_j+\lambda_j\partial_i)\phi
+\end{align}
+looks slightly more promising because its symmetric structure can also be obtained from the operator $\partial_i\phi\partial_j\phi$. In fact, the lowest order operator is~\cite{PretkoFractonGauge}
+\begin{align}
+\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi\right).
+\end{align}
+This means that the action can contain this operator.
+
+Gauging the fracton theory so that $\alpha$ is again an arbitrary function, we now find
+\begin{align}
+\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + i(\partial_i\partial_j\alpha)\phi^2\right).
+\end{align}
+This suggests that, instead of constructing the covariant first derivative $D_i\phi$, we construct a covariant second derivative 
+\begin{align}
+D_{ij}\phi^2=\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + iA_{ij}\phi^2,
+\end{align}
+where this is shorthand for $D_{ij}$ being a bilinear derivative operator acting on two copies of the field $\phi$. This operator transforms covariantly if 
+\begin{align}
+A_{ij}\to A_{ij}+\partial_i\partial_j\alpha.
+\end{align}
+This transformation law requires $A_{ij}$ to be symmetric, and we have found our symmetric tensor gauge field. 
+
+The theory still contains a scalar gauge field $\Phi\to\Phi+\partial_t\alpha$. For the construction of the lowest order Lagrangian of this theory, and other possible symmetric tensor gauge theories, see~\cite{PretkoFractonGauge}.
+
+\subsection{More on fractons} \label{sub:morefrac}
 
 (I'll then discuss this model more, including the difference between the discrete and continuous cases. I'll also present some of the connections to elasticity and gravity, such as in~\cite{PretkoElasticity}.)
 
@@ -321,6 +396,109 @@ The conservation of dipole moment means that an isolated charge cannot move with
 \section{Localization in fractonic circuits} \label{sec:fraccirc}
 
 This section will mostly cover the results in~\cite{PaiFracton}. I'll go through their analytic results and show that their numerics match up. I'd prefer not to do my own numerics because I assume anything I can do in the next month and a half will be a subset of what they achieved, but if you think my essay would benefit from some validation of their numerics at lower $L$, then I'll go for it. 
+
+Since the dipole density is a conserved charge whose higher moments are not conserved, it should behave the way that charge density did in the ergodic charge conserving circuit.
+
+The entirety of this section is based on the work in~\cite{PaiFracton}.
+
+\subsection{Random walks in $d=1$} \label{sub:walks}
+
+The diffusion operator is $\mathcal{D} = \partial_t-D\partial_x^2$, where $D$ is the diffusion constant. Consider the function $G(x,t)=(4\pi Dt)^{-d/2} e^{-x^2/4Dt}$. We can see that $\mathcal{D}G(x,t)=0$ for $t>0$ 
+\begin{align}
+\partial_t G(x,t) &= \phantom{D}(4\pi D)^{-\frac{d}{2}} \left[-\frac{d}{2} 
+	t^{-\frac{d}{2}-1} + t^{-\frac{d}{2}}\frac{x^2}{4Dt^2} \right]
+	e^{\frac{-x^2}{4Dt}},\\
+D\partial_x^2 G(x,t) &= D(4\pi D)^{-\frac{d}{2}} \vec{\partial_x}\cdot 
+	\frac{-\vec{x}}{2Dt}e^{\frac{-x^2}{4Dt}} \nn
+&= D(4\pi D)^{-\frac{d}{2}} \left[-\frac{d}{2D} 
+	t^{-\frac{d}{2}
+	-1} + t^{-\frac{d}{2}}\frac{x^2}{4D^2t^2} \right]e^{\frac{-x^2}{4Dt}}, \\ 
+\mathcal{D}G(x,t) &= 0.
+\end{align}
+Furthermore, at early time we have $G(x,t)\xrightarrow[t\to0]{}\delta(x)$:
+\begin{align}
+G(x,0) = 0, \quad x\ne 0,\\
+\int dx\, G(x,t) = (4\pi Dt)^{-d/2}(4\pi Dt)^{d/2}=1\quad \forall t,
+\end{align}
+so $G(x,t)$ acts as a Green's function, or propagator, for the diffusion kernel.
+
+From this function we can estimate how long it takes for a randomly walking particle to return to the origin, the return time $t_\ret$. This is done by setting an arbitrarily high constant $C$, and finding at what time the integrated propagator at the origin reaches that value. For $d=1$,
+\begin{align}
+C &= \int_{0}^{t_\ret}dt\,G(0,t)\\
+&= \int_{0}^{t_\ret}dt\, (4\pi Dt)^{-1/2}\\
+&= \sqrt{\frac{t_\ret}{\pi D}},
+\end{align}
+or $t_\ret=\pi D C^2$. In $d=2$, $t_\ret=\exp(4\pi DC)$, while for larger $d$, $t_\ret=\infty$, which is to say the particle never returns to the origin. 
+
+At equilibrium, the particle density will be spread out over a region with length scale $\xi\sim\sqrt{Dt_\ret}$ \note{(Why?)}. We will use these facts in the analysis of continuous fracton systems in the next subsection.
+
+\subsection{Analytic predictions} \label{sub:analytic}
+
+Here we will make analytic predictions for the dynamics of a fracton system in continuous time and space before showing that they match numeric simulations for a fractonic quantum circuit with discrete time and space. We will do this only for $d=1$ systems, but Ref.~\cite{PaiFracton} includes calculations for general $d$.
+
+Start by recalling that fractons (charges) are indeed mobile, but dipole conservation requires that the movement of a fracton is paired with the creation of a dipole. These dipoles are then free to move, and in fact they diffuse randomly (hence our previous discussion of diffusion). Say the fracton, with unit negative charge, starts at the origin, and call its position $R$. Since we are in $d=1$, quantities like position and dipole strength will be scalars.
+
+Consider the creation of a single dipole of magnitude $R$. In $d=1$, a random walk returns to the origin in time $\sim D$.  When the dipole returns to the location of the fracton, the fracton reabsorbs the dipole, returning to the origin. Thus in $d=1$ the fracton stays near the origin, constantly emitting and reabsorbing dipoles. We can think of this situation as a diffusing dipole field, with the fracton acting as a source and sink. This results in the equation
+\begin{align}
+\pd{\eta}{t}(x) = D\pdn{\eta(x)}{x}{2} + \nd{R}{t}\delta(x-R),
+\end{align}
+where $\eta$ is the local dipole density.
+
+If initially the fracton is at the origin and no dipoles are present, then the total dipole required to balance out the charge is $\tilde{\eta}=R$. The dipole density at the location of the fracton is $\eta = \tilde{\eta}/\xi$. Thus the fracton equation of motion is
+\begin{align}
+\nd{R}{t} &= -\eta(R) + A(t)\\
+&= \frac{-R}{\sqrt{\pi DC}}+ A(t),
+\end{align}
+where $A(t)$ is a random force satisfying $\ex{A(t)A(t')} = 2T\delta(t-t')$. \note{The units are very wonky here.} This is a Langavin equation~\cite{MarenduAsp}. The probability distribution for $R$ has solution
+\begin{align}
+P(R) \sim \exp\left(\frac{R^2}{2\sqrt{\pi}DCT}\right),
+\end{align}
+where $T$ is the strength of the random force. 
+
+There are few prediction that we can test against in the numerical simulation of the circuit. The zeroth prediction is that the fractons are localized. The first is the above shape of the tails of fracton density away from the origin. Second, the correlation length should scale as $\xi_\text{fracton}\sim \sqrt{DT}$ as the diffusion constant and force strength change. 
+localization length and $D$
+power-law tail - note exponents
+diffusing spreading
+
+There is one other prediction, indirectly related to the analytic solution. Since the dipole density behaves like a normal conserved charge, its operator spreading should look like that in Sec.~\ref{sec:cons}. In particular, for an initially local dipole operator, there should be a linearly propagating front that broadens as $\sqrt{t}$, with a power-law tail. As in the previous case, the exponent for this tail is $-3/2$.
+
+Since an initially local fracton operator can also emit nonconserved operators, it will also have a linearly propagating front. This front will broaden as $\sqrt{t}$ and have a power-law tail. However, the nonconserved operators are actually emitted by the dipole operators, which are in turn emitted by the fracton operator. The fracton density scales as $t^{-1/2}$, meaning that the (conserved) dipole density scales as $\rho_c\sim t^{-3/2}$ and the tail scales as $d\rho_c/dt\sim t^{-5/2}$, a faster decay than in the previous case. 
+
+\subsection{Construction of fractonic circuits} \label{sub:construct}
+
+In order to construct our fractonic circuits, we need to define charges. The naive solution would be to use a spin-$\th{2}$ system, with spin-up being positive charge and spin-down being negative. However, in this case there is no obvious background. Instead, we can use a chain of spin-1 sites. The $Z_i=1$ state will be a positive charge, the $Z_i=-1$ state a negative charge, and the $Z_i=0$ state neutral. We will write these states as +, $-$, and 0, respectively.
+
+Now we need to impose the conservation laws. Charge conservation is equivalent to conservation of $Z_\text{tot}$, so that's easy. In order to impose dipole conservation, we just need to make sure that each of our gates individually conserves dipole. However, that poses a problem because there are no non-trivial 2-site gates that conserve dipole. The solution is to consider 3-site unitary gates (or larger).
+
+This gate set is still very restricted. Consider the initial state $+-0$. The only possible gates that conserve both $Q$ and $P$ are the identity and the gate $+-0\leftrightarrow 0+-$. The gate is defined by its action on states, with the assumption that it acts as the identity on all other states. A list of allowed gates is shown in Tab.~\ref{tab:pai}. Note that there are very few 3-site gates. This raises concerns that the small number of gates affects the behavior of the circuit. We can allow more gates by having the gates each act on more sites, as in Tab.~\ref{tab:pai}. Ref.~\cite{PaiFracton} repeats their calculations for various size gates and finds the same results, so the number of allowed gates is not an issue.
+\input{Pai}
+
+Now that we have 3-site gates, there is one last complication to sort out, which is the placement of the gates. We cannot use the simple alternative structure of Fig.\ref{fig:arch}. Instead, Ref.~\cite{PaiFracton} uses an asymmetric structure, shown in Fig.~\ref{fig:PaiArch}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{PaiArch}
+	\caption{Architecture of the 3-site gate circuit. Each gate is a matrix of the form on the right, where each square is independently chosen from the applicable Haar distribution. The matrix is very sparse, corresponding to the small number of possible transitions. There are 4, as in Tab.~\ref{tab:pai} after adding the negative charge states. Figure from~\cite{PaiFracton}.}
+	\label{fig:PaiArch}
+\end{figure}
+This architecture results in asymmetric lightcone velocities, but we will only look at spreading in one direction, so that will not be an issue.
+
+\subsection{Numerical simulation} \label{sub:numeric}
+
+As in the rest of this essay, we will discuss numerical results that are taken from another paper, unsurprisingly~\cite{PaiFracton}. We will individually show that the predictions listed in Sec.~\ref{sub:analytic} are met.
+
+The zeroth prediction was that of fracton localization. That can be shown by starting with an initially local fracton operator and calculating its evolution. The chosen operator is $IZIII\dots$, where the only non-identity operator is on site 2. Recall that these are spin-1 systems, so 
+\begin{align}
+Z = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & -1 \end{pmatrix}.
+\end{align}
+The right-weight for this operator is shown in Fig.~\ref{fig:PaiChargeOp}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.49\textwidth]{PaiChargeOp}
+	\includegraphics[width=.49\textwidth]{PaiDipoleOp}
+	\caption{Operator spreading of the fracton operator and dipole operator, in a 21-site system with open boundary conditions. For the fracton, note the persistent peak at site 2, along with the propagating front. The dipole charge also has a propagating front, but the peak continues to die away at late time. Figures from~\cite{PaiFracton}}
+	\label{fig:PaiChargeOp}
+\end{figure}
+Note that although the peak falls to around .5, it does not fall below that value, even at late time.
 
 
 \section{Results and Conclusions} \label{sec:conc}

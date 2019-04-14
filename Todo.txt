@@ -1,17 +1,10 @@
 ——To Do——
 
-Split discussion of thermalization and RUCs
-Localization
-Tensor gauge theory
+Fracton gauge theory
 Start writing up Pai paper
 
 ——To Learn——
 
-Fracton conservation laws
-Hydrodynamics from circuits
-Operator entanglement 
-Entanglement spectrum 
-Quantum phase transition 
 Locator expansions 
 
 ——Papers to Read——
@@ -33,6 +26,6 @@ Is this turning too much into a summary of Nandkishore reviews?
 
 ——Timeline——
 
-Write outline
-Email Lamacraft March 7
-Meet Lamacraft March 11
+Apr 20  Email Lamacraft draft
+Apr 26? Meet with Lamacraft
+May 02  Essay due
