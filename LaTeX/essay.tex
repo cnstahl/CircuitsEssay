@@ -50,6 +50,7 @@
 \renewcommand{\l}{\ell}
 \renewcommand{\t}{\tau}
 \newcommand{\ret}{\text{return}}
+\newcommand{\tot}{\text{tot}}
 \newcommand{\ket}[1]{\left|#1\right\rangle}
 \newcommand{\bra}[1]{\left\langle#1\right|}
 \newcommand{\braket}[2]{\left\langle#1\middle|#2\right\rangle}
@@ -73,6 +74,8 @@
 In this essay we will discuss the quantum dynamics of closed systems, showing that the two late-time possibilities are thermalization and localization. We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:ruc} presents various methods of describing dynamics in thermalizing circuits. The majority of circuits currently described in the literature thermalize, although this is not a necessity. One path to localization in random unitary circuits is through fractonic conservation laws. To motivate these we will introduce fractonic systems in Sec.~\ref{sec:frac} and show how they naturally conserve higher moments of charges. Finally, in Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize. We will follow the results of~\cite{PaiFracton}, and in fact the first 4 sections of this essay are designed to build to these results. Sec~\ref{sec:conc} reviews the broad structure of this essay and presents some possibilities for future research.
 
 \note{Include term ``scrambling, ergodic"}
+
+\note{Always write $S_Z$ as $Z$?}
 
 
 \section{Quantum dynamics of closed systems} \label{sec:dyn}
@@ -447,20 +450,17 @@ where $\eta$ is the local dipole density.
 If initially the fracton is at the origin and no dipoles are present, then the total dipole required to balance out the charge is $\tilde{\eta}=R$. The dipole density at the location of the fracton is $\eta = \tilde{\eta}/\xi$. Thus the fracton equation of motion is
 \begin{align}
 \nd{R}{t} &= -\eta(R) + A(t)\\
-&= \frac{-R}{\sqrt{\pi DC}}+ A(t),
+&= \frac{-R}{\sqrt{\pi} DC}+ A(t),
 \end{align}
-where $A(t)$ is a random force satisfying $\ex{A(t)A(t')} = 2T\delta(t-t')$. \note{The units are very wonky here.} This is a Langavin equation~\cite{MarenduAsp}. The probability distribution for $R$ has solution
+where $A(t)$ is a random force satisfying $\ex{A(t)A(t')} = 2T\delta(t-t')$. \note{The units are very wonky here.} This is a Langavin equation~\cite{MarenduAsp}. The probability distribution for the fracton to be distance $R$ from the origin has solution
 \begin{align}
-P(R) \sim \exp\left(\frac{R^2}{2\sqrt{\pi}DCT}\right),
+P(R) \sim \exp\left(\frac{R^2}{2\sqrt{\pi}DCT}\right), \label{eqn:lange}
 \end{align}
 where $T$ is the strength of the random force. 
 
-There are few prediction that we can test against in the numerical simulation of the circuit. The zeroth prediction is that the fractons are localized. The first is the above shape of the tails of fracton density away from the origin. Second, the correlation length should scale as $\xi_\text{fracton}\sim \sqrt{DT}$ as the diffusion constant and force strength change. 
-localization length and $D$
-power-law tail - note exponents
-diffusing spreading
+There are few prediction that we can test against in the numerical simulation of the circuit. The zeroth prediction is that the fractons are localized. The first is that the tails of fracton density away from the origin (but within the operator spreading front) should take the form of Eq.~\ref{eqn:lange}. Second, as in Eq.~\ref{eqn:lange}, the correlation length of fracton density should scale as $\xi_\text{fracton}\sim \sqrt{DT}$ as the diffusion constant and force strength change. 
 
-There is one other prediction, indirectly related to the analytic solution. Since the dipole density behaves like a normal conserved charge, its operator spreading should look like that in Sec.~\ref{sec:cons}. In particular, for an initially local dipole operator, there should be a linearly propagating front that broadens as $\sqrt{t}$, with a power-law tail. As in the previous case, the exponent for this tail is $-3/2$.
+There is one other prediction, related to the shape of the operator front for dipole and fracton operators. Since the dipole density behaves like a normal conserved charge, its operator spreading should look like that in Sec.~\ref{sec:cons}. In particular, for an initially local dipole operator, there should be a linearly propagating front that broadens as $\sqrt{t}$, with a power-law tail. As in the previous case, the exponent for this tail is $-3/2$.
 
 Since an initially local fracton operator can also emit nonconserved operators, it will also have a linearly propagating front. This front will broaden as $\sqrt{t}$ and have a power-law tail. However, the nonconserved operators are actually emitted by the dipole operators, which are in turn emitted by the fracton operator. The fracton density scales as $t^{-1/2}$, meaning that the (conserved) dipole density scales as $\rho_c\sim t^{-3/2}$ and the tail scales as $d\rho_c/dt\sim t^{-5/2}$, a faster decay than in the previous case. 
 
@@ -473,7 +473,7 @@ Now we need to impose the conservation laws. Charge conservation is equivalent t
 This gate set is still very restricted. Consider the initial state $+-0$. The only possible gates that conserve both $Q$ and $P$ are the identity and the gate $+-0\leftrightarrow 0+-$. The gate is defined by its action on states, with the assumption that it acts as the identity on all other states. A list of allowed gates is shown in Tab.~\ref{tab:pai}. Note that there are very few 3-site gates. This raises concerns that the small number of gates affects the behavior of the circuit. We can allow more gates by having the gates each act on more sites, as in Tab.~\ref{tab:pai}. Ref.~\cite{PaiFracton} repeats their calculations for various size gates and finds the same results, so the number of allowed gates is not an issue.
 \input{Pai}
 
-Now that we have 3-site gates, there is one last complication to sort out, which is the placement of the gates. We cannot use the simple alternative structure of Fig.\ref{fig:arch}. Instead, Ref.~\cite{PaiFracton} uses an asymmetric structure, shown in Fig.~\ref{fig:PaiArch}.
+Now that we have 3-site gates, there is one last complication to sort out, which is the placement of the gates. We cannot use the simple alternating structure of Fig.\ref{fig:arch}. Instead, Ref.~\cite{PaiFracton} uses an asymmetric structure, shown in Fig.~\ref{fig:PaiArch}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{PaiArch}
@@ -495,10 +495,44 @@ The right-weight for this operator is shown in Fig.~\ref{fig:PaiChargeOp}.
 	\centering
 	\includegraphics[width=.49\textwidth]{PaiChargeOp}
 	\includegraphics[width=.49\textwidth]{PaiDipoleOp}
-	\caption{Operator spreading of the fracton operator and dipole operator, in a 21-site system with open boundary conditions. For the fracton, note the persistent peak at site 2, along with the propagating front. The dipole charge also has a propagating front, but the peak continues to die away at late time. Figures from~\cite{PaiFracton}}
+	\caption{Operator spreading of the fracton operator and dipole operator, in a 21-site system with open boundary conditions. For the fracton, note the persistent peak at site 2, along with the propagating front. The dipole charge also has a propagating front, but the peak is nonexistent at late time. Figures from~\cite{PaiFracton}}
 	\label{fig:PaiChargeOp}
 \end{figure}
-Note that although the peak falls to around .5, it does not fall below that value, even at late time.
+Note that although the peak falls to around .5, it does not fall below that value, even at late time. \note{Is this value significant?}
+
+This is in contrast to the evolution of an initially local dipole operator. Such an operator should be the sum of adjacent fracton operators, so that its eigenstates have positive charge at one state and negative charge at the next. The chosen operator in this case is 
+\begin{align}
+\th{2}\left(IZIII\dots \vphantom{j}-IIZII\dots\right)
+\end{align}
+\note{Shouldn't it be $\th{\sqrt{2}}$?} The initial $\th{2}$ ensures that $\sum_i\rho_R(i)=1$. The time evolution of this operator is also shown in Fig.~\ref{fig:PaiChargeOp}. Note that at late time $\sum_i\rho_R(i, t)$ is essentially flat. This shows that the dipole operator is not localized, and suggests further that the late-time behavior of the fracton operator is true localization. 
+
+To verify the first prediction, we need to move away from our familiar territory of operator spreading. The prediction is that charge density should be proportional to $\exp(R^2/2\sqrt{\pi}DCT)$. Recall that positive charge is represented by the $+1$ eigenstate of $Z$. Therefore the state with an initially local fracton is one where $\ex{Z_i}=0$ for all $i$, except for one site $j$ where $\ex{Z_j}=1$. We will once again choose $j=2$. Then we just have to show that $\ex{Z_i}\sim\exp(R^2/2\sqrt{\pi}DCT)$, $|i-j|=R$, where $\ex{Z_i}$ is evaluated with respect to a time-evolved state.
+
+In Fig.~\ref{fig:PaiSz} we show a plot of charge density at large $t$. 
+\begin{figure}
+	\centering
+	\includegraphics[width=.46\textwidth]{PaiSz}
+	\includegraphics[width=.49\textwidth]{PaiLocLen}
+	\caption{Left: Charge density at late times. If $\ex{Z_i}\sim\exp(-x^2)$, then this curve should be quadratic. It cannot be distinguished from a linear function, but the quadratic dependence is not ruled out. Right: Dependence of $\xi_\text{fracton}$ on gate size. This plot more strongly confirms the second prediction of Sec.~\ref{sub:analytic}.}
+	\label{fig:PaiSz}
+\end{figure}
+The exponential dependence means that we can not distinguish between $\exp(-x^2)$ and $\exp(-x)$, so we count the first prediction as a maybe. 
+
+The second prediction also depends on the spreading of charge in a single fracton state. Here, however, we have to be able to change the diffusion constant $D$ and random force $T$. We don't have many parameters left to vary in our system (the circuit is minimally structured) except for gate size. Ref.~\cite{PaiFracton} shows that both $D$ and $T$ scale as $(\text{gate size})^2$, so the second prediction reduces to
+\begin{align}
+\xi_\text{fracton}\sim\sqrt{DT}\sim(\text{gate size})^2.
+\end{align}
+$\xi_\text{fracton}$ can be extracted from the late-time charge density, as the half width at half maximum of the charge density peak.
+Fig.~\ref{fig:PaiSz} also shows this relationship, confirming this prediction.
+
+To test the last prediction, we head back to the operator spreading picture and focus on the fronts of the spreading operators. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{PaiTails}
+	\caption{Behavior of the operator right weight behind the front. For the dipole operator, $\rho_R$ decreases with exponent $-3/2$ as in Sec.~\ref{sec:cons}. For the fracton operator the exponent is $-5/2$ instead. }
+	\label{fig:PaiTails}
+\end{figure}
 
 
 \section{Results and Conclusions} \label{sec:conc}
