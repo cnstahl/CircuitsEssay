@@ -46,6 +46,7 @@
 \newcommand{\third}{\frac{1}{3}}
 \renewcommand{\th}[1]{\frac{1}{#1}}
 \newcommand{\ex}[1]{\left\langle #1 \right\rangle}
+\newcommand{\abs}[1]{\left| #1 \right|}
 \renewcommand{\d}{\delta}
 \renewcommand{\l}{\ell}
 \renewcommand{\t}{\tau}
@@ -320,9 +321,16 @@ H_{xy} &= J_{xy}\sum_i\left[X_iX_{i+1}+Y_iY_{i+1}\right].
 
 \subsection{Circuits with conservation laws} \label{sub:ccons}
 
-\note{ballistic front,
-	a power-law tail behind the front, and diffusively spread-
-	ing charges near the origin}
+\note{Conserved operator density, etc.}
+
+\note{ballistic front, a power-law tail behind the front, and diffusively spreading charges near the origin}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{khemaniRWeight}
+	\caption{Comparison of circuits with and without conservation laws, at finite and infinite $q$. Each solid line is a right-weight and each dashed line (except red) is a left-weight. (a): the vertical shading corresponds to the three parts of the operator at $2t/L=0.9$, the lump, the tail, and the front. The lump consists of conserved operators and broadens diffusively. The front consists of nonconserved operators emitted at early time and travels ballistically. The tail consists of nonconserved operators emitted at later time and has approximate power-law behavior $\sim(v_Bt-\abs{x})^{-3/2}$ (shown by the red dashed line). (b): In the large $q$ limit, the front has width $=0$ and does not broaden at all (just as in the nonconserving circuit). (c,d): In the nonconserving circuit there are no conserved operators and therefore no central lump. Since the power-law tail is emitted by the lump, there is no tail in this case either. The only structure is broadening front. As discussed previously, the front does not broaden in the large $q$ limit. Figure from~\cite{KhemaniOpSp}.}
+	\label{fig:khemaniRWeight}
+\end{figure}
 
 
 \section{Fractonic systems} \label{sec:frac}
@@ -530,7 +538,7 @@ To test the last prediction, we head back to the operator spreading picture and 
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{PaiTails}
-	\caption{Behavior of the operator right weight behind the front. For the dipole operator, $\rho_R$ decreases with exponent $-3/2$ as in Sec.~\ref{sec:cons}. For the fracton operator the exponent is $-5/2$ instead. }
+	\caption{Behavior of the operator right weight behind the front. Each color plots For the dipole operator, $\rho_R$ decreases with exponent $-3/2$ as in Sec.~\ref{sec:cons}. For the fracton operator the exponent is $-5/2$ instead. }
 	\label{fig:PaiTails}
 \end{figure}
 
