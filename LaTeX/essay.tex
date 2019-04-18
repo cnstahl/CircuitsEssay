@@ -50,6 +50,7 @@
 \renewcommand{\d}{\delta}
 \renewcommand{\l}{\ell}
 \renewcommand{\t}{\tau}
+\renewcommand{\S}{\mathcal{S}}
 \newcommand{\ret}{\text{return}}
 \newcommand{\tot}{\text{tot}}
 \newcommand{\ket}[1]{\left|#1\right\rangle}
@@ -154,7 +155,7 @@ Note that all terms acting at a given time commute with each other. Therefore th
 
 Another example, from Refs.~\cite{ZhangFloq, ChenOtoc}, has time evolution operator 
 \begin{align}
-U_F(T) = e^{-i\frac{T}{2}H_x}e^{-i\frac{T}{2}H_z},
+U_F(T) = e^{-i\frac{T}{2}H_x}e^{-i\frac{T}{2}H_z}, \label{eqn:gamma}
 \end{align}
 with
 \begin{align}
@@ -162,7 +163,7 @@ H_x &= \sum_i g\Gamma X_j,\nn
 H_z &= \sum_i \left[Z_iZ_{i+1} + (h+g\sqrt{1-\Gamma^2}G_i)Z_i\right],
 \end{align}
 where $G_i$ are independent Gaussian random variables. We will use the parameters $(g,h,T) = (0.9045,0.8090,0.8)$ throughout.
-Note that as $\Gamma\to1$ this approaches the kicked Ising model, which thermalizes. As $\Gamma\to1$, this model becomes equivalent to the time-independent Hamiltonian $H=\sum_i\left[Z_iZ_{i+1} + h_iZ_i\right]$ with random field $h_i$, which is localized. For lack of a better term we will call this the $\Gamma$ model.
+Note that as $\Gamma\to1$ this approaches the kicked Ising model, which thermalizes. As $\Gamma\to1$, this model becomes equivalent to the time-independent Hamiltonian $H=\sum_i\left[Z_iZ_{i+1} + h_iZ_i\right]$ with random field $h_i$, which is localized. For lack of a better term we will call Eq.~\ref{eqn:gamma} the $\Gamma$ model.
 
 As in the previous section, we can study the transition between the localized and thermalizing phases by varying a parameter of the model, in this case $\Gamma$. Fig.~\ref{fig:floqtrans} demonstrates the transition using two diagnostics. 
 \begin{figure}
@@ -190,18 +191,17 @@ In Fig.~\ref{fig:floqtrans}, notice the agreement between the two diagnostics in
 
 \section{Thermalization in systems with no conservation laws} \label{sec:ncons}
 
-In this section I'll bring back the concepts of thermalization and show how they can be quantified in random circuits. For the actual construction of circuits I'll use~\cite{NahumRuhmanHuse, NahumEntanglement}.
-For operator hydrodynamics I'll cite~\cite{NahumOpSp, vonKeyserlingkHydro, KhemaniLambda, KhemaniOpSp, JonayEntanglement}. Some of this material is not in RUCs though, so I still have to sort that out.
+This section contains the phenomenology and analysis of thermalization of 
 
 \subsection{Physical systems with no conservation laws} \label{sub:fncons}
 
-As shown previously, the $\Gamma$ model with $\Gamma=0.85$ is deep within the thermalizing phase. Ref.~\cite{ChenOtoc} studied the OTOC of an initially local operator in this model. It uses a \note{slightly different definition of the OTOC...}
+As shown previously, the $\Gamma$ model with $\Gamma=0.85$ is deep within the thermalizing phase. Ref.~\cite{ChenOtoc} studied the OTO correlator of an initially local operator in this model. Recall that whereas thermalization is associated with a growing OTOC, it is associated with a decaying OTO correlator.
 
 The key point is the exponential dependence of the OTO correlator. 
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{ChenExp}
-	\caption{Exponential decay of the OTO correlator in a thermalizing Floquet model with no conserved charges~\cite{ChenOtoc}. For increasing system size, the decay continues to be exponential for a longer time before saturating. The black circles show the non-expenential decay of a Hamiltonian system. This decay is power-law, and will be discussed in the following section.}
+	\caption{Exponential decay of the OTO correlator in a thermalizing Floquet model with no conserved charges~\cite{ChenOtoc}. For increasing system size, the decay continues to be exponential for a longer time before saturating. The black circles show the non-exponential decay of a Hamiltonian system. This decay is power-law, and will be discussed in the following section.}
 	\label{fig:ChenExp}
 \end{figure}
 Fig.~\ref{fig:ChenExp} shows the exponential decay of the OTO correlator for various system sizes. Finite size effects cause the OTO correlator to saturate and therefore deviate from exponential behavior. However, the figure shows that this happens later for larger $L$, suggesting that the exponential decay continues for an arbitrarily long time for large enough $L$.
@@ -325,10 +325,52 @@ H_{xy} &= J_{xy}\sum_i\left[X_iX_{i+1}+Y_iY_{i+1}\right].
 
 \note{ballistic front, a power-law tail behind the front, and diffusively spreading charges near the origin}
 
+A simple conservation law to introduce to quantum circuits is conservation of total $Z$. We simply have to constrain the 2-site gates to conserve $Z_\tot$ for the two sites on which it acts. $Z_\tot$ is then our conserved charge, with charge density $Z_i$.
+We will use spin-$\th{2}$ sites, so gates will be in the $\uparrow\uparrow\to\uparrow\uparrow$, $\downarrow\downarrow\to\downarrow\downarrow$, or $\{\uparrow\downarrow,\downarrow\uparrow\}\to\{\uparrow\downarrow,\downarrow\uparrow\}$ sectors. We will refer to these as the $Z=1$, $Z=0$, and $Z=-1$ sectors, of dimension 1, 4, and 1, respectively. The matrix representations of gates will be $4\times4$ matrices made up of three block matrices, one for each sector.
+
+Like in the unconstrained circuit, we want to have an on-site dimension $q$ that we can use to vary the behavior of the circuit. It would also be nice to preserve the block structure of the gates as we vary $q$, which would not be possible if we replace the spin-$\th{2}$ sites with higher spin. We can satisfy both of these requests by instead replacing the spins with a tensor product between a spin-$\th{2}$ degree of freedom and an unconstrained $q$-dimensional qudit. We do not constrain the gates' action on the qudits.
+This leaves us with $4q^2\times4q^2$ block-diagonal gates, with blocks of size $q^2\times q^2$, $2q^2\times 2q^2$, and $q^2\times q^2$ (Fig.~\ref{fig:khemaniCircuit}).
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{khemaniCircuit}
+	\caption{A quantum circuit constrained to conserve $Z_\tot$. The three blocks are of dimension $q^2\times q^2$, $2q^2\times 2q^2$, and $q^2\times q^2$. Figure from~\cite{KhemaniOpSp}.}
+	\label{fig:khemaniCircuit}
+\end{figure}
+
+The next step is to define a basis for our operators. On the qudit, we will continue to use an abstract Pauli basis $\Sigma_i^\nu$, $\nu=0,\dots,q^2-1$. On the qubit, instead of the usual Pauli operators, we will use the basis~\cite{KhemaniOpSp}
+\begin{align}
+\{\sigma_i^{\mu=0,1,2,3}\} \equiv \{I_i, R_i, L_i,Z_i\}=\{I_i,\frac{\sigma_i^+}{\sqrt{2}}, \frac{\sigma_i^-}{\sqrt{2}}, \sigma_i^z\}
+\end{align}
+We have chosen $\sigma_i^1, \sigma_i^2$ to be normalized raising/lowering operators, or equivalently charge creation/annihilation operators. Then the basis on site $i$ is $B_i^{\mu\nu} \equiv \sigma_i^\mu \otimes \Sigma_i^\nu$. We will write these as $(I\Sigma^\nu)_i$, $(Z\Sigma^\nu)_i$, etc. The basis strings will be of the form \note{$\S=\otimes_iB_i^{\mu_i\nu_i}$.}
+
+Some operators are special because they measure the conserved charge. The local charge density is $Z_i=(ZI)_i$, while the total charge is $Z_\tot=\sum_i(ZI)_i$. Charge conservation is written as 
+\begin{align}
+Z_\tot(t) = U(t)^\dag Z_\tot(0)U(t) = Z\tot(0), \label{eqn:cons}
+\end{align}
+where $U(t)$ is the combined action of the entire circuit.
+
+Along the way to defining the right-weight, we defined the operator amplitude
+\begin{align}
+a_\S(t) = \th{q^L}\Tr\{ \cal{O}(t)\S \},\quad \sum_S\abs{a_\S} = 1,
+\end{align}
+with the latter equality imposed by unitarity. For the new conserved charge we can define the conserved operator amplitude,
+\begin{align}
+a_i^c(t) = \th{(2q)^{L}}\Tr\{\cal{O}(t)(ZI)_i\},
+\end{align}
+and  the ``conserved part" of $\cal{O}(t)$,
+\begin{align}
+\cal{O}^c(t)=\sum_i a_i(t)(ZI)_i.
+\end{align}
+The conservation law~(\ref{eqn:cons}) is then equivalent to 
+\begin{align}
+\sum
+\end{align}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{khemaniRWeight}
-	\caption{Comparison of circuits with and without conservation laws, at finite and infinite $q$. Each solid line is a right-weight and each dashed line (except red) is a left-weight. (a): the vertical shading corresponds to the three parts of the operator at $2t/L=0.9$, the lump, the tail, and the front. The lump consists of conserved operators and broadens diffusively. The front consists of nonconserved operators emitted at early time and travels ballistically. The tail consists of nonconserved operators emitted at later time and has approximate power-law behavior $\sim(v_Bt-\abs{x})^{-3/2}$ (shown by the red dashed line). (b): In the large $q$ limit, the front has width $=0$ and does not broaden at all (just as in the nonconserving circuit). (c,d): In the nonconserving circuit there are no conserved operators and therefore no central lump. Since the power-law tail is emitted by the lump, there is no tail in this case either. The only structure is broadening front. As discussed previously, the front does not broaden in the large $q$ limit. Figure from~\cite{KhemaniOpSp}.}
+	\caption{Comparison of circuits with and without conservation laws, at finite and infinite $q$. Each solid line is a right-weight and each dashed line (except red) is a left-weight. (a): the vertical shading corresponds to the three parts of the operator at $2t/L=0.9$, the lump, the tail, and the front. The lump consists of conserved operators and broadens diffusively. The front consists of nonconserved operators emitted at early time and travels ballistically. The tail consists of nonconserved operators emitted at later time and has approximate power-law behavior $\sim(v_Bt-\abs{x})^{-3/2}$ (shown by the red dashed line). (b): In the large $q$ limit, the front has width $=0$ and does not broaden at all (just as in the nonconserving circuit). (c,d): In the nonconserving circuit there are no conserved operators and therefore no central lump. Since the power-law tail is emitted by the lump, there is no such tail in this case either. The only structure is broadening front. As discussed previously, the front does not broaden in the large $q$ limit. Figure from~\cite{KhemaniOpSp}.}
 	\label{fig:khemaniRWeight}
 \end{figure}
 
