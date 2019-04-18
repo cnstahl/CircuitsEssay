@@ -1,6 +1,14 @@
 ——To Do——
 
-Conserving systems 
+Random walks and diffusion
+Conserving systems
+Quantum dynamics of closed systems
+  Closed quantum systems
+  Thermalization and localization
+  Operator spreading
+  Other measures
+Define circuits
+Intro and conclusion
 
 ——Papers to Read——
 

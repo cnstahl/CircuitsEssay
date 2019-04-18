@@ -51,6 +51,7 @@
 \renewcommand{\l}{\ell}
 \renewcommand{\t}{\tau}
 \renewcommand{\S}{\mathcal{S}}
+\newcommand{\nc}{\text{nc}}
 \newcommand{\ret}{\text{return}}
 \newcommand{\tot}{\text{tot}}
 \newcommand{\ket}[1]{\left|#1\right\rangle}
@@ -110,6 +111,8 @@ We will look at how initially local operators spread in time. They will evolve i
 
 Two measures of the spreading of an operator are the right weight density $\rho_R(i,t)$ and the OTOC $C(i,t)$.
 
+OTO correlator.
+
 \subsection{Other measure of dynamics} \label{sub:other}
 
 Other useful quantity is the bipartite entanglement entropy $S(i,t)$.
@@ -118,10 +121,6 @@ Dynamics studied in~\cite{RakovskyDiff, HuangRenyi}.
 Also mention~\cite{JonayEntanglement}.
 
 I like the transition between thermalizing and localizing phases, so I'll spend some time on that, with sources~\cite{PalHuse, KhemaniCP}. Specifically, the fact that this is not a phase transition of the ground state, like we are used to, and different order parameters for the transition. 
-
-\subsection{Many-body localization} \label{sub:mbl}
-
-If there's time and space\dots
 
 
 \section{Random unitary circuits and Floquet systems} \label{sec:circuits}
@@ -135,6 +134,8 @@ In this essay we will be considering the dynamics of Hamiltonian systems, quantu
 \subsection{Random unitary circuits} \label{sub:ruc}
 
 Quantum circuits, unsurprisingly, are the quantum analogue of classical circuits. As unitarity is a constraint on quantum evolution, they are also called unitary circuits. We will be interested in 
+
+\note{Coarse graining}
 
 \subsection{Floquet systems} \label{sub:floq}
 
@@ -319,7 +320,7 @@ H_{xy} &= J_{xy}\sum_i\left[X_iX_{i+1}+Y_iY_{i+1}\right].
 
 \note{In these ``physical systems," it is possible to have approximately conserved charges, i.e. on the localized side of a phase transition\dots}
 
-\subsection{Circuits with conservation laws} \label{sub:ccons}
+\subsection{Constrained circuits and conserved operators} \label{sub:ccons}
 
 \note{Conserved operator density, etc.}
 
@@ -346,13 +347,13 @@ We have chosen $\sigma_i^1, \sigma_i^2$ to be normalized raising/lowering operat
 
 Some operators are special because they measure the conserved charge. The local charge density is $Z_i=(ZI)_i$, while the total charge is $Z_\tot=\sum_i(ZI)_i$. Charge conservation is written as 
 \begin{align}
-Z_\tot(t) = U(t)^\dag Z_\tot(0)U(t) = Z\tot(0), \label{eqn:cons}
+Z_\tot(t) = U(t)^\dag Z_\tot(0)U(t) = Z_\tot(0), \label{eqn:cons}
 \end{align}
 where $U(t)$ is the combined action of the entire circuit.
 
 Along the way to defining the right-weight, we defined the operator amplitude
 \begin{align}
-a_\S(t) = \th{q^L}\Tr\{ \cal{O}(t)\S \},\quad \sum_S\abs{a_\S} = 1,
+a_\S(t) = \th{q^L}\Tr\{ \cal{O}(t)\S \},\quad \sum_S\abs{a_\S} = 1, \label{eqn:unit}
 \end{align}
 with the latter equality imposed by unitarity. For the new conserved charge we can define the conserved operator amplitude,
 \begin{align}
@@ -364,15 +365,53 @@ and  the ``conserved part" of $\cal{O}(t)$,
 \end{align}
 The conservation law~(\ref{eqn:cons}) is then equivalent to 
 \begin{align}
-\sum
+\sum_i a_i^c(t)=\sum_i a_i^c(0). \label{eqn:consa}
+\end{align}
+Note that Eq.~\ref{eqn:consa} refers to amplitudes, while Eq.~\ref{eqn:unit} refers to squares of amplitudes. Later, we will also want to refer to the conserved and nonconserved right-weights, 
+\begin{align}
+\rho^c(i,t) = \abs{a^c_i(t)^2}, \quad \rho_R^\nc(i,t) = \rho_R(i,t)- 
+	\rho^c(i,t).
 \end{align}
 
+\subsection{Operator spreading in conserving circuits} \label{sub:consop}
+
+We are now ready to discuss the spreading of operators. We will consider the operator $(ZI)_0$ where $i=0$ is the middle of a long chain. There will be three behaviors extracted from our model: diffusion of the conserved operators (forming a ``lump"), ballistic propagation of the ``front" of nonconserved operators, and a power-law ``tail" of nonconserved operators behind the front.
+
+We'll start with the conserved operators. The effect of a Haar-random unitary acting on sites $i$ and $i+1$ is to average the conserved amplitudes, so that
+\begin{align}
+a^c_i(t+1)=a^c_{i+1}(t+1) = \frac{a^c_i(t)+a^c_{i+1}(t)}{2}, \label{eqn:ampevol}
+\end{align}
+where equality holds after Haar-averaging.\footnote{We will we be cavalier about our Haar-averaging. For exact statements see Ref.~\cite{KhemaniOpSp}.} After coarse graining $i\to x$, in the $x, \to\infty$ limit, this behavior results in 
+\begin{align}
+a^c(x,t) = \sqrt{\frac{1}{2\pi t}}e^{-\frac{x^2}{2t}},
+\end{align}
+which is a diffusing lump with diffusion constant $D_c=\th{2}$. Therefore the total weight on conserved operators falls over time,
+\begin{align}
+\rho^c_\tot(t) \simeq \int dx\,\abs{a^c(x,t)} = \int dx\,\th{2\pi t}e^{-x^2/t} 
+	=\th{2\sqrt{\pi t}},
+\end{align}
+with power-law dependence.
+
+If $\rho^c$ is decreasing, then $\rho^\nc$ must be increasing. The effect of Eq.~\ref{eqn:ampevol} is to decrease $\rho^c(i,t)$ by
+\begin{align}
+\delta \rho^c_i(t) = -\frac{(a^c_i(t)-a^c_{i+1}(t))^2}{2}.
+\end{align}
+All of this weight gets shuffled into nonconserved operators. But we know how nonconserved operators spread! In fact, we can simply use the analysis of the previous section to say that there is a front that travels at $v_B$, broadening diffusively with width $\sim\sqrt{D_\rho t}\sim\sqrt{t/q^2}$. In the large $q$ limit, the diffusivity vanishes and therefore the front has zero width.
+
+If there were no remaining lump at the origin, our description of the front would be complete. However, even at late time the lump of conserved operators is emitting nonconerved operators. These operators form a tail lagging behind the front. Since the lump dies as a power law in time and all nonconserved operators travel at $\sim v_B$, the tail has a power-law shape in space. In fact, at time $t$ and position $x$, with $x$ well separated from the origin and from $v_Bt$, the majority of $\rho^\nc_R(x,t)$ comes from operators emitted from the lump at time $t-x/v_B$. If the lump is far away, it can be approximated by a point source with all weight at the origin, emitting nonconserved operators as $\rho^c_\tot$ decreases. So,
+\begin{align}
+\rho_R^\nc(x,t)\sim\pd{\rho_L\tot^c(0,t-x/v_B)}{t} \sim\th{(0,t-x/v_B)^{3/2}}.
+\end{align}
+The fact that the spacial exponent $-3/2$ is equal to $-1/2-1$, where $-1/2$ is the time exponent of the decrease of $\rho_\tot^c$, will become important in our analysis of the fracton circuit.
+
+Since this analysis became abstract rather quickly, Fig.~\ref{fig:khemaniRWeight} shows the interplay between the various quantities. 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{khemaniRWeight}
 	\caption{Comparison of circuits with and without conservation laws, at finite and infinite $q$. Each solid line is a right-weight and each dashed line (except red) is a left-weight. (a): the vertical shading corresponds to the three parts of the operator at $2t/L=0.9$, the lump, the tail, and the front. The lump consists of conserved operators and broadens diffusively. The front consists of nonconserved operators emitted at early time and travels ballistically. The tail consists of nonconserved operators emitted at later time and has approximate power-law behavior $\sim(v_Bt-\abs{x})^{-3/2}$ (shown by the red dashed line). (b): In the large $q$ limit, the front has width $=0$ and does not broaden at all (just as in the nonconserving circuit). (c,d): In the nonconserving circuit there are no conserved operators and therefore no central lump. Since the power-law tail is emitted by the lump, there is no such tail in this case either. The only structure is broadening front. As discussed previously, the front does not broaden in the large $q$ limit. Figure from~\cite{KhemaniOpSp}.}
 	\label{fig:khemaniRWeight}
 \end{figure}
+It shows the large $q$ (ideal) behavior for conserving and nonconserving circuits and also shows how finite $q$ affects these values.
 
 
 \section{Fractonic systems} \label{sec:frac}
