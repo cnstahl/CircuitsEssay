@@ -388,7 +388,7 @@ a^c(x,t) = \sqrt{\frac{1}{2\pi t}}e^{-\frac{x^2}{2t}},
 which is a diffusing lump with diffusion constant $D_c=\th{2}$. Therefore the total weight on conserved operators falls over time,
 \begin{align}
 \rho^c_\tot(t) \simeq \int dx\,\abs{a^c(x,t)} = \int dx\,\th{2\pi t}e^{-x^2/t} 
-	=\th{2\sqrt{\pi t}},
+	=\th{2\sqrt{\pi t}}, \label{eqn:rhoc}
 \end{align}
 with power-law dependence.
 
@@ -404,14 +404,24 @@ If there were no remaining lump at the origin, our description of the front woul
 \end{align}
 The fact that the spacial exponent $-3/2$ is equal to $-1/2-1$, where $-1/2$ is the time exponent of the decrease of $\rho_\tot^c$, will become important in our analysis of the fracton circuit.
 
-Since this analysis became abstract rather quickly, Fig.~\ref{fig:khemaniRWeight} shows the interplay between the various quantities. 
+Since this analysis became abstract rather quickly, Fig.~\ref{fig:khemaniRWeight} shows the qualitative pictures for operators spreading.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{khemaniRWeight}
 	\caption{Comparison of circuits with and without conservation laws, at finite and infinite $q$. Each solid line is a right-weight and each dashed line (except red) is a left-weight. (a): the vertical shading corresponds to the three parts of the operator at $2t/L=0.9$, the lump, the tail, and the front. The lump consists of conserved operators and broadens diffusively. The front consists of nonconserved operators emitted at early time and travels ballistically. The tail consists of nonconserved operators emitted at later time and has approximate power-law behavior $\sim(v_Bt-\abs{x})^{-3/2}$ (shown by the red dashed line). (b): In the large $q$ limit, the front has width $=0$ and does not broaden at all (just as in the nonconserving circuit). (c,d): In the nonconserving circuit there are no conserved operators and therefore no central lump. Since the power-law tail is emitted by the lump, there is no such tail in this case either. The only structure is broadening front. As discussed previously, the front does not broaden in the large $q$ limit. Figure from~\cite{KhemaniOpSp}.}
 	\label{fig:khemaniRWeight}
 \end{figure}
-It shows the large $q$ (ideal) behavior for conserving and nonconserving circuits and also shows how finite $q$ affects these values.
+It includes the large $q$ (ideal) behavior for conserving and nonconserving circuits and also shows how finite $q$ affects these values. The first subfigure shows the lump, front, and tail, while some or all of those features are absent in other systems.
+
+Now that we have fully described the operator spreading for conserving circuits, we are ready to explain the power-law dependence of the OTO correlator in Sec~\ref{sub:fcons}. We will use the language of the OTOC, though, because this is the quantity more commonly seen in the literature now.
+
+Once the operator front is far past $x$ ($v_Bt>>\abs{x}+\sqrt{D_\rho t}$), most strings that have spread past $x$ look random, so they contribute to the equilibrium value of the OTOC,\footnote{This is a simplification. See~\cite{KhemaniOpSp} for details} which is 1. The deviation from the equilibrium value can only be due to operators that have not yet reached $x$ at time $t$, so they must have been at the origin at time $t'=t-x/v_B$. Since the only operators at the origin are the conserved operators, so using~(\ref{eqn:ampevol}) we have
+\begin{align}
+1-C(x,t) = \rho^c_\tot(t-x/v_B) = \th{2\sqrt{\pi(t-x/v_B)}}.
+\end{align}
+Since the OTOC and the OTO correlator are linearly related~(\ref{eqn:OTOCOTO}), this explains the power-law dependence in Sec~\ref{sub:fcons}.
+
+The material so far has introduced all of the dynamics-based material we will need to understand fractonic circuits, but we haven't covered fractons yet! We'll take a brief tour into the physics of fractons before circling back to see how we can understand localization in fractonic circuits using our previous analysis of thermalizing circuits.
 
 
 \section{Fractonic systems} \label{sec:frac}
