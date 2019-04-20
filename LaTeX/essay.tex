@@ -306,7 +306,7 @@ The important features that we can match to the behavior of the floquet model ar
 
 Introducing conserved charges to our systems slows down their dynamics. In this section we will see how this process occurs, in both physical systems and quantum circuits. It is straightforward to introduce conserved charges to the circuits by restricting to gates that satisfy some conservation law. For the physical systems we have two ways to proceed. We can either consider Floquet systems with conservation laws, or systems with time-independent Hamiltonians (with or without further conservation laws).
 
-\subsection{Floquet systems with conserved quntities} \label{sub:fcons}
+\subsection{Floquet systems with conserved quantities} \label{sub:fcons}
 
 We can introduce conserved charges to Floquet systems by ensuring that both partial Hamiltonians in the model obey some conservation law. Ref.~\cite{KhemaniOpSp} studies a model with time evolution operator
 \begin{align}
@@ -427,65 +427,65 @@ In this section we will explore various fractonic systems. We will start with ex
 
 The conservation of dipole moment means that an isolated charge cannot move without creating an isolated dipole somewhere else, which costs energy. Thus, the charges are immobile in the low-energy limit. 
 
-\subsection{Tensor gauge theory} \label{sub:tensor}
-
-We will show how fracton conservation laws naturally lead to tensor gauge theory. Although this is not strictly necessary to understand the dynamics of fracton systems, the literature often refers to fractons using the language of tensor gauge theory. This discussion follows the treatment in~\cite{PretkoFractonGauge}. 
-
-To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to \note{requiring
-\begin{align}
-\phi\to e^{i\alpha}\phi
-\end{align}	
-be a symmetry of the theory,} for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
-
-Gauging this theory requires that the theory be invariant under $\phi\to e^{i\alpha(x,t)}\phi$ for arbitrary $\alpha(x,t)$. However, the derivative of the field now transforms as 
-\begin{align}
-\partial_i\phi\to e^{i\alpha}\left(\partial_i+\partial_i\alpha\right)\phi,\nn
-\partial_t\phi\to e^{i\alpha}\left(\partial_t+\partial_t\alpha\right)\phi.
-	\label{eqn:nconv}
-\end{align}
-This is not a covariant transformation, as it mixes the derivatives of $\phi$ with $\phi$ itself. The standard solution is to introduce gauge derivatives $D_i=\partial_i-iA_i$ and $D_t=\partial_t-i\Phi$, where $\Phi$ recalls the notation for the scalar potential of electromagnetism. We then have 
-\begin{align}
-D_i\phi\to e^{i\alpha}D_i\phi,\nn
-D_t\phi\to e^{i\alpha}D_t\phi,
-\end{align}
-if 
-\begin{align}
-A_i &\to A_i+\partial_i\alpha, \nn
-\Phi&\to\Phi+\partial_t\alpha.
-\end{align}
-We can then go on to calculate field strengths and possible terms in the action, but our main interest is in the fact that the gauge field is a spacetime vector $A_\mu=(\Phi,A_i)$. For more details see~\cite{PretkoFractonGauge}.
-
-We will now go through the same steps for a fracton field $\phi$ in order to show the natural emergence of symmetric tensor gauge fields. $\phi$ is again a complex scalar that conserves charge $Q=\int d^dx\rho$. It also conserves dipole moment $P_i = \int d^dx\rho x^i$ (breaking Lorentz invariance). Together these correspond to phase rotations of the form 
-\begin{align}
-\phi\to e^{i\alpha+i\lambda_ix^i}\phi.
-\end{align}
-We will write this phase as $e^{i\alpha(x)}$ where $\alpha$ is restricted to be linear until we gauge the theory.
-
-Now $\partial_i\phi\to e^{i\alpha}(\partial_i+\lambda_i)\phi$ is no longer covariant. The second derivative 
-\begin{align}
-\partial_i\partial_j\phi\to e^{i\alpha}(\partial_i\partial_j+\lambda_i\partial_j+\lambda_j\partial_i)\phi
-\end{align}
-looks slightly more promising because its symmetric structure can also be obtained from the operator $\partial_i\phi\partial_j\phi$. In fact, the lowest order operator is~\cite{PretkoFractonGauge}
-\begin{align}
-\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi\right).
-\end{align}
-This means that the action can contain this operator.
-
-Gauging the fracton theory so that $\alpha$ is again an arbitrary function, we now find
-\begin{align}
-\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + i(\partial_i\partial_j\alpha)\phi^2\right).
-\end{align}
-This suggests that, instead of constructing the covariant first derivative $D_i\phi$, we construct a covariant second derivative 
-\begin{align}
-D_{ij}\phi^2=\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + iA_{ij}\phi^2,
-\end{align}
-where this is shorthand for $D_{ij}$ being a bilinear derivative operator acting on two copies of the field $\phi$. This operator transforms covariantly if 
-\begin{align}
-A_{ij}\to A_{ij}+\partial_i\partial_j\alpha.
-\end{align}
-This transformation law requires $A_{ij}$ to be symmetric, and we have found our symmetric tensor gauge field. 
-
-The theory still contains a scalar gauge field $\Phi\to\Phi+\partial_t\alpha$. For the construction of the lowest order Lagrangian of this theory, and other possible symmetric tensor gauge theories, see~\cite{PretkoFractonGauge}.
+%\subsection{Tensor gauge theory} \label{sub:tensor}
+%
+%We will show how fracton conservation laws naturally lead to tensor gauge theory. Although this is not strictly necessary to understand the dynamics of fracton systems, the literature often refers to fractons using the language of tensor gauge theory. This discussion follows the treatment in~\cite{PretkoFractonGauge}. 
+%
+%To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to \note{requiring
+%\begin{align}
+%\phi\to e^{i\alpha}\phi
+%\end{align}	
+%be a symmetry of the theory,} for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
+%
+%Gauging this theory requires that the theory be invariant under $\phi\to e^{i\alpha(x,t)}\phi$ for arbitrary $\alpha(x,t)$. However, the derivative of the field now transforms as 
+%\begin{align}
+%\partial_i\phi\to e^{i\alpha}\left(\partial_i+\partial_i\alpha\right)\phi,\nn
+%\partial_t\phi\to e^{i\alpha}\left(\partial_t+\partial_t\alpha\right)\phi.
+%	\label{eqn:nconv}
+%\end{align}
+%This is not a covariant transformation, as it mixes the derivatives of $\phi$ with $\phi$ itself. The standard solution is to introduce gauge derivatives $D_i=\partial_i-iA_i$ and $D_t=\partial_t-i\Phi$, where $\Phi$ recalls the notation for the scalar potential of electromagnetism. We then have 
+%\begin{align}
+%D_i\phi\to e^{i\alpha}D_i\phi,\nn
+%D_t\phi\to e^{i\alpha}D_t\phi,
+%\end{align}
+%if 
+%\begin{align}
+%A_i &\to A_i+\partial_i\alpha, \nn
+%\Phi&\to\Phi+\partial_t\alpha.
+%\end{align}
+%We can then go on to calculate field strengths and possible terms in the action, but our main interest is in the fact that the gauge field is a spacetime vector $A_\mu=(\Phi,A_i)$. For more details see~\cite{PretkoFractonGauge}.
+%
+%We will now go through the same steps for a fracton field $\phi$ in order to show the natural emergence of symmetric tensor gauge fields. $\phi$ is again a complex scalar that conserves charge $Q=\int d^dx\rho$. It also conserves dipole moment $P_i = \int d^dx\rho x^i$ (breaking Lorentz invariance). Together these correspond to phase rotations of the form 
+%\begin{align}
+%\phi\to e^{i\alpha+i\lambda_ix^i}\phi.
+%\end{align}
+%We will write this phase as $e^{i\alpha(x)}$ where $\alpha$ is restricted to be linear until we gauge the theory.
+%
+%Now $\partial_i\phi\to e^{i\alpha}(\partial_i+\lambda_i)\phi$ is no longer covariant. The second derivative 
+%\begin{align}
+%\partial_i\partial_j\phi\to e^{i\alpha}(\partial_i\partial_j+\lambda_i\partial_j+\lambda_j\partial_i)\phi
+%\end{align}
+%looks slightly more promising because its symmetric structure can also be obtained from the operator $\partial_i\phi\partial_j\phi$. In fact, the lowest order operator is~\cite{PretkoFractonGauge}
+%\begin{align}
+%\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi\right).
+%\end{align}
+%This means that the action can contain this operator.
+%
+%Gauging the fracton theory so that $\alpha$ is again an arbitrary function, we now find
+%\begin{align}
+%\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + i(\partial_i\partial_j\alpha)\phi^2\right).
+%\end{align}
+%This suggests that, instead of constructing the covariant first derivative $D_i\phi$, we construct a covariant second derivative 
+%\begin{align}
+%D_{ij}\phi^2=\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + iA_{ij}\phi^2,
+%\end{align}
+%where this is shorthand for $D_{ij}$ being a bilinear derivative operator acting on two copies of the field $\phi$. This operator transforms covariantly if 
+%\begin{align}
+%A_{ij}\to A_{ij}+\partial_i\partial_j\alpha.
+%\end{align}
+%This transformation law requires $A_{ij}$ to be symmetric, and we have found our symmetric tensor gauge field. 
+%
+%The theory still contains a scalar gauge field $\Phi\to\Phi+\partial_t\alpha$. For the construction of the lowest order Lagrangian of this theory, and other possible symmetric tensor gauge theories, see~\cite{PretkoFractonGauge}.
 
 \subsection{More on fractons} \label{sub:morefrac}
 
@@ -531,11 +531,40 @@ or $t_\ret=\pi D C^2$. In $d=2$, $t_\ret=\exp(4\pi DC)$, while for larger $d$, $
 
 At equilibrium, the particle density will be spread out over a region with length scale $\xi\sim\sqrt{Dt_\ret}$ \note{(Why?)}. We will use these facts in the analysis of continuous fracton systems in the next subsection.
 
-\subsection{Analytic predictions} \label{sub:analytic}
+\subsection{Construction of fractonic circuits} \label{sub:construct}
 
-Here we will make analytic predictions for the dynamics of a fracton system in continuous time and space before showing that they match numeric simulations for a fractonic quantum circuit with discrete time and space. We will do this only for $d=1$ systems, but Ref.~\cite{PaiFracton} includes calculations for general $d$.
+In order to construct our fractonic circuits, we need to define charges. The naive solution would be to use a spin-$\th{2}$ system, with spin-up being positive charge and spin-down being negative (similar to the conserving circuits studied previously). However, to define the dipoles we also need a charge-neutral state, which does not exist for spin-$\th{2}$ systems. Instead, we can use a chain of spin-1 sites. The $Z_i=1$ state will be a positive charge, the $Z_i=-1$ state a negative charge, and the $Z_i=0$ state neutral. We will write these states as +, $-$, and 0, respectively.
 
-Start by recalling that fractons (charges) are indeed mobile, but dipole conservation requires that the movement of a fracton is paired with the creation of a dipole. These dipoles are then free to move, and in fact they diffuse randomly (hence our previous discussion of diffusion). Say the fracton, with unit negative charge, starts at the origin, and call its position $R$. Since we are in $d=1$, quantities like position and dipole strength will be scalars.
+Now we need to impose the conservation laws. Charge conservation is equivalent to conservation of $Z_\text{tot}$, so that's easy. In order to impose dipole conservation, we just need to make sure that each of our gates individually conserves dipole. However, that poses a problem because there are no non-trivial 2-site gates that conserve dipole. The solution is to consider 3-site unitary gates (or larger).
+
+This gate set is still very restricted. Consider the initial state $+-0$. The only possible gates that conserve both $Q$ and $P$ are the identity and the gate $+-0\leftrightarrow 0+-$. The gate is defined by its action on states, with the assumption that it acts as the identity on all other states. A list of allowed gates is shown in Tab.~\ref{tab:pai}. Note that there are very few 3-site gates. This raises concerns that the small number of gates affects the behavior of the circuit. We can allow more gates by having the gates each act on more sites, as in Tab.~\ref{tab:pai}. Ref.~\cite{PaiFracton} repeats their calculations for various size gates and finds the same results, so the number of allowed gates is not an issue.
+\input{Pai}
+
+Now that we have 3-site gates, there is one last complication to sort out, which is the placement of the gates. We cannot use the simple alternating structure of Fig.\ref{fig:arch}. Instead, Ref.~\cite{PaiFracton} uses an asymmetric structure, shown in Fig.~\ref{fig:PaiArch}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{PaiArch}
+	\caption{Architecture of the 3-site gate circuit. Each gate is a matrix of the form on the right, where each square is independently chosen from the applicable Haar distribution. The matrix is very sparse, corresponding to the small number of possible transitions. There are 4, as in Tab.~\ref{tab:pai} after adding the negative charge states. Figure from~\cite{PaiFracton}.}
+	\label{fig:PaiArch}
+\end{figure}
+This architecture results in asymmetric lightcone velocities, but we will only look at spreading in one direction, so that will not be an issue.
+
+\subsection{Behavior of fracton charge} \label{sub:fraccharge}
+
+The first question is simply whether the charges are localized. Ref.~\cite{PaiFracton} starts with a state (not an operator) that has a single charge. 
+Recall that positive charge is represented by the $+1$ eigenstate of $Z$. Therefore the state with an initially local fracton is one where $\ex{Z_i}=0$ for all $i$, except for one site $j$ where $\ex{Z_j}=1$. We will choose $j=3$.
+The evolution of $\ex{Z_i}(t)$ is shown in Fig~\ref{fig:PaiSzPeak}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{PaiSzPeak}
+	\caption{Fracton charge density over time. Note that the fracton peak is not significantly lower at $t=200$ than at $t=16$. Figure from~\cite{PaiFracton}}
+	\label{fig:PaiSzPeak}
+\end{figure}
+The asymptotic value of $\ex{Z_3}$ appears to be $\sim0.4$, so some of the charge does flow. This is a numerical simulation so the results cannot be extended to infinite time, but there does not appear to be significant change between $t=200$ and $t=16$.
+
+Since we cannot perfectly demonstrate the localization of charge out to $t=\infty$, we will make more predictions of the behavior of the fractons in continuous time and space before showing that they match numeric simulations for a fractonic quantum circuit with discrete time and space. In Sec~\ref{sub:fracopsp} we predict operator spreading behavior and show that the numerics match the predictions. Hopefully the combined analysis convinces the reader that the circuits truly manifest localization.
+
+Start by recalling that fractons (charges) are indeed mobile, but dipole conservation requires that the movement of a fracton is paired with the creation of a dipole. These dipoles are then free to move, and in fact they diffuse randomly (hence our previous discussion of diffusion). Say the fracton, with unit negative charge, starts at the origin, and call its position $R$. Since we are in $d=1$, quantities like position and dipole strength will be scalars.\footnote{We will only analyze $d=1$ systems, but Ref.~\cite{PaiFracton} includes calculations for general $d$.}
 
 Consider the creation of a single dipole of magnitude $R$. In $d=1$, a random walk returns to the origin in time $\sim D$.  When the dipole returns to the location of the fracton, the fracton reabsorbs the dipole, returning to the origin. Thus in $d=1$ the fracton stays near the origin, constantly emitting and reabsorbing dipoles. We can think of this situation as a diffusing dipole field, with the fracton acting as a source and sink. This results in the equation
 \begin{align}
@@ -554,72 +583,9 @@ P(R) \sim \exp\left(\frac{R^2}{2\sqrt{\pi}DCT}\right), \label{eqn:lange}
 \end{align}
 where $T$ is the strength of the random force. 
 
-There are few prediction that we can test against in the numerical simulation of the circuit. The zeroth prediction is that the fractons are localized. The first is that the tails of fracton density away from the origin (but within the operator spreading front) should take the form of Eq.~\ref{eqn:lange}. Second, as in Eq.~\ref{eqn:lange}, the correlation length of fracton density should scale as $\xi_\text{fracton}\sim \sqrt{DT}$ as the diffusion constant and force strength change. 
+There are two useful prediction from~(\ref{eqn:lange}. The first is that the tails of fracton density away from the origin (but within the operator spreading front) should take the form of Eq.~\ref{eqn:lange} at late time. Second, as in Eq.~\ref{eqn:lange}, the correlation length of fracton density should scale as $\xi_\text{fracton}\sim \sqrt{DT}$ as the diffusion constant and force strength change. 
 
-The other predictions relate to the shape of evolving dipole and fracton operators. Since the dipole density behaves like a simple conserved charge, its operator spreading should look like that in Sec.~\ref{sec:cons}. In particular, for an initially local dipole operator, there should be a linearly propagating front that broadens as $\sqrt{t}$, with a power-law tail behind the front. As in Sec~\ref{sec:cons}, the exponent for this tail is $-3/2$.
-
-The spreading of an initially local fracton operator shares the universal structure. There is a lump at the origin corresponding to fracton operators \note{(does this decrease in time?)}, along with another lump at the origin corresponding to dipole operators. The dipole operators are emitted by the fracton operators in the same way that nonconserved operators are emitted by conserved operators in Sec~\ref{sec:cons}. However, since the dipole operators are also conserved, they do not propagate ($v_{B, \text{dip}}=0$) and this dipole lump remains at the origin.
-
-The dipole operators at the origin have amplitude~\cite{PaiFracton}
-\begin{align}
-a^c(x,t) \sim \frac{x}{t^{3/2}}e^{-x^2/Dt}
-\end{align}
-so the total weight in the dipole lump is
-\begin{align}
-\rho^c_\tot(t) \sim \int dx\,\abs{a^c(x,t} \sim t^{-3/2}. \label{eqn:fraclump}
-\end{align}
-The analogue of~(\ref{eqn:powtail}) is then
-\begin{align}
-\rho_R^\nc(x,t)\sim\pd{\rho_\tot^c(t-x/v_B)}{t} \sim\th{(t-x/v_B)^{5/2}}, 
-\end{align}
-which is the same as in the thermalizing circuit, except with an exponent of $-5/2$. We will say that the third prediction is~(\ref{eqn:fraclump}) and the fourth prediction is the power-law tail with exponent $-3/2$ for dipole operators and $-5/2$ for fracton operators.
-
-The analysis of this section suggests that fractons in a circuit should be localized. It might seem sufficient to simply simulate the circuit and see if the fractons are indeed localized. However, these simulations are limited in system size and simulation time. The extra predictions allow detailed testing of the analytic theory. If all predictions check out, the mechanism behind localization is probably correct, providing a stronger check on the robustness of the localization.
-
-\subsection{Construction of fractonic circuits} \label{sub:construct}
-
-In order to construct our fractonic circuits, we need to define charges. The naive solution would be to use a spin-$\th{2}$ system, with spin-up being positive charge and spin-down being negative. However, in this case there is no obvious background. Instead, we can use a chain of spin-1 sites. The $Z_i=1$ state will be a positive charge, the $Z_i=-1$ state a negative charge, and the $Z_i=0$ state neutral. We will write these states as +, $-$, and 0, respectively.
-
-Now we need to impose the conservation laws. Charge conservation is equivalent to conservation of $Z_\text{tot}$, so that's easy. In order to impose dipole conservation, we just need to make sure that each of our gates individually conserves dipole. However, that poses a problem because there are no non-trivial 2-site gates that conserve dipole. The solution is to consider 3-site unitary gates (or larger).
-
-This gate set is still very restricted. Consider the initial state $+-0$. The only possible gates that conserve both $Q$ and $P$ are the identity and the gate $+-0\leftrightarrow 0+-$. The gate is defined by its action on states, with the assumption that it acts as the identity on all other states. A list of allowed gates is shown in Tab.~\ref{tab:pai}. Note that there are very few 3-site gates. This raises concerns that the small number of gates affects the behavior of the circuit. We can allow more gates by having the gates each act on more sites, as in Tab.~\ref{tab:pai}. Ref.~\cite{PaiFracton} repeats their calculations for various size gates and finds the same results, so the number of allowed gates is not an issue.
-\input{Pai}
-
-Now that we have 3-site gates, there is one last complication to sort out, which is the placement of the gates. We cannot use the simple alternating structure of Fig.\ref{fig:arch}. Instead, Ref.~\cite{PaiFracton} uses an asymmetric structure, shown in Fig.~\ref{fig:PaiArch}.
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{PaiArch}
-	\caption{Architecture of the 3-site gate circuit. Each gate is a matrix of the form on the right, where each square is independently chosen from the applicable Haar distribution. The matrix is very sparse, corresponding to the small number of possible transitions. There are 4, as in Tab.~\ref{tab:pai} after adding the negative charge states. Figure from~\cite{PaiFracton}.}
-	\label{fig:PaiArch}
-\end{figure}
-This architecture results in asymmetric lightcone velocities, but we will only look at spreading in one direction, so that will not be an issue.
-
-\subsection{Numerical simulation} \label{sub:numeric}
-
-As in the rest of this essay, we will discuss numerical results that are taken from another paper, unsurprisingly~\cite{PaiFracton}. We will individually show that the predictions listed in Sec.~\ref{sub:analytic} are met.
-
-The zeroth prediction was that of fracton localization. That can be shown by starting with an initially local fracton operator and calculating its evolution. The chosen operator is $IZIII\dots$, where the only non-identity operator is on site 2. Recall that these are spin-1 systems, so 
-\begin{align}
-Z = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & -1 \end{pmatrix}.
-\end{align}
-The right-weight for this operator is shown in Fig.~\ref{fig:PaiChargeOp}.
-\begin{figure}
-	\centering
-	\includegraphics[width=.49\textwidth]{PaiChargeOp}
-	\includegraphics[width=.49\textwidth]{PaiDipoleOp}
-	\caption{Operator spreading of the fracton operator and dipole operator, in a 21-site system with open boundary conditions. For the fracton, note the persistent peak at site 2, along with the propagating front. The dipole charge also has a propagating front, but the peak is nonexistent at late time. Figures from~\cite{PaiFracton}}
-	\label{fig:PaiChargeOp}
-\end{figure}
-Note that although the peak falls to around .5, it does not fall below that value, even at late time. \note{Is this value significant?}
-
-This is in contrast to the evolution of an initially local dipole operator. Such an operator should be the sum of adjacent fracton operators, so that its eigenstates have positive charge at one state and negative charge at the next. The chosen operator in this case is 
-\begin{align}
-\th{2}\left(IZIII\dots \vphantom{j}-IIZII\dots\right)
-\end{align}
-\note{Shouldn't it be $\th{\sqrt{2}}$?} The initial $\th{2}$ ensures that $\sum_i\rho_R(i)=1$. The time evolution of this operator is also shown in Fig.~\ref{fig:PaiChargeOp}. Note that at late time $\sum_i\rho_R(i, t)$ is essentially flat. This shows that the dipole operator is not localized, and suggests further that the late-time behavior of the fracton operator is true localization. 
-
-To verify the first prediction, we need to move away from our familiar territory of operator spreading. The prediction is that charge density should be proportional to $\exp(R^2/2\sqrt{\pi}DCT)$. Recall that positive charge is represented by the $+1$ eigenstate of $Z$. Therefore the state with an initially local fracton is one where $\ex{Z_i}=0$ for all $i$, except for one site $j$ where $\ex{Z_j}=1$. We will once again choose $j=2$. Then we just have to show that $\ex{Z_i}\sim\exp(R^2/2\sqrt{\pi}DCT)$, $|i-j|=R$, where $\ex{Z_i}$ is evaluated with respect to a time-evolved state.
-
+To verify these predictions, we once again evolve a state that initially has a single charge on site $i=3$. Then we just have to show that at late time $\ex{Z_i}\sim\exp(R^2/2\sqrt{\pi}DCT)$, $|i-3|=R$. 
 In Fig.~\ref{fig:PaiSz} we show a plot of charge density at large $t$. 
 \begin{figure}
 	\centering
@@ -637,17 +603,69 @@ The second prediction also depends on the spreading of charge in a single fracto
 $\xi_\text{fracton}$ can be extracted from the late-time charge density, as the half width at half maximum of the charge density peak.
 Fig.~\ref{fig:PaiSz} also shows this relationship, confirming this prediction.
 
-To test the last prediction, we head back to the operator spreading picture and focus on the fronts of the spreading operators. 
+\subsection{Operator spreading in fracton circuits} \label{sub:fracopsp}
 
+We once again start by looking at basic localization. That can be shown by starting with an initially local fracton operator (not state) and calculating its evolution. The chosen operator is $IZIII\dots$, where the only non-identity operator is on site 2. Recall that these are spin-1 systems, so 
+\begin{align}
+Z = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & -1 \end{pmatrix}.
+\end{align}
+The right-weight for this operator is shown in Fig.~\ref{fig:PaiChargeOp}.
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{PaiTails}
-	\caption{Behavior of the operator right weight behind the front. Each color plots For the dipole operator, $\rho_R$ decreases with exponent $-3/2$ as in Sec.~\ref{sec:cons}. For the fracton operator the exponent is $-5/2$ instead. }
+	\includegraphics[width=.49\textwidth]{PaiChargeOp}
+	\includegraphics[width=.49\textwidth]{PaiDipoleOp}
+	\caption{Operator spreading of the fracton operator and dipole operator, in a 21-site system with open boundary conditions. For the fracton, note the persistent peak at site 2, along with the propagating front. The dipole charge also has a propagating front, but the peak is nonexistent at late time. Figures from~\cite{PaiFracton}}
+	\label{fig:PaiChargeOp}
+\end{figure}
+Note how similar the decrease of $\rho_R(2,t)$ is to $\ex{Z_3}(t)$ in Fig~\ref{fig:PaiSzPeak}.
+
+This is in contrast to the evolution of an initially local dipole operator. Such an operator should be the sum of adjacent fracton operators, so that its eigenstates have positive charge at one state and negative charge at the next. The chosen operator in this case is 
+\begin{align}
+\th{2}\left(IZIII\dots \vphantom{j}-IIZII\dots\right)
+\end{align}
+\note{Shouldn't it be $\th{\sqrt{2}}$?} The initial $\th{2}$ ensures that $\sum_i\rho_R(i)=1$. The time evolution of this operator is also shown in Fig.~\ref{fig:PaiChargeOp}. Note that at late time $\sum_i\rho_R(i, t)$ is essentially flat. This shows that the dipole operator is not localized, and suggests further that the late-time behavior of the fracton operator is true localization. 
+
+So far we have focused on the lumps of the spreading operators. The next step is to study the fronts and tails. Since the dipole density behaves like a simple conserved charge, its operator spreading should look like that in Sec.~\ref{sec:cons}. In particular, for an initially local dipole operator, there should be a linearly propagating front that broadens as $\sqrt{t}$, with a power-law tail behind the front. As in Sec~\ref{sec:cons}, the exponent for this tail is $-3/2$.
+
+The spreading of an initially local fracton operator shares the universal structure. There is a lump at the origin corresponding to fracton operators, along with another lump at the origin corresponding to dipole operators. The dipole operators are emitted by the fracton operators in the same way that nonconserved operators are emitted by conserved operators in Sec~\ref{sec:cons}. However, since the dipole operators are also conserved, they do not propagate ($v_{B, \text{dipole}}=0$) and this dipole lump remains at the origin.
+
+The dipole operators at the origin have amplitude~\cite{PaiFracton}
+\begin{align}
+a^c(x,t) \sim \frac{x}{t^{3/2}}e^{-x^2/Dt}
+\end{align}
+so the total weight in the dipole lump is
+\begin{align}
+\rho^c_\tot(t) \sim \int dx\,\abs{a^c(x,t} \sim t^{-3/2}. \label{eqn:fraclump}
+\end{align}
+This is confirmed in Fig~\ref{fig:PaiFracLump}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{PaiFracLump}
+	\caption{Total operator weight in the central lump (or peak) of the conserved dipole operators. The lump is defined as the original site plus the two on each side. We are only interested in the 3-site gate circuit. Figure from~\cite{PaiFracton}}
+	\label{fig:PaiFracLump}
+\end{figure}
+The conserved operator lump in Sec.~\ref{sub:ccons} decreased $\sim t^{-1/2}$, and~(\ref{eqn:powtail}) showed that this made the tail of $\rho_R^\nc(x,t)\sim (t-x/v_B)^{-3/2}$. For the fracton circuit, we have
+\begin{align}
+\rho_R^\nc(x,t)\sim\pd{\rho_\tot^c(t-x/v_B)}{t} \sim\th{(t-x/v_B)^{5/2}}. 
+\end{align}
+Thus another prediction to check for the fracton circuit is the different exponents for the power-law tails in the operator right-weights of dipole and fracton operators.
+
+Fig.~\ref{fig:PaiTails} shows some diagnostics for the shape of the spreading dipole and fracton operators. In both cases the front broadens diffusively because the operators in the front are non-conserved operators performing a biased random walk. We can also look at the power-law tails for both types of operators at various times. In all cases, the best-fit exponents closely match $-3/2$ and $-5/2$.
+\begin{figure}
+	\centering
+	\includegraphics[width=.51\textwidth]{PaiFronts}
+	\includegraphics[width=.47\textwidth]{PaiTails}
+	\caption{Behavior of the operator right weight at and behind the front. 
+		On the left we see that the operator fronts broaden as $\sqrt{t}$ for both fracton and dipole operators, just as in the case of the charge-conserving circuit.
+		On the right we see the behavior of the tails behind the fronts. Each color plots the power-law tail behind the front at constant time. The tails at different times are rescaled to lie on the same line (but the exponents are not changed). For the dipole operator, $\rho_R$ decreases with exponent $-3/2$ as in Sec.~\ref{sec:cons}. For the fracton operator the exponent is $-5/2$ instead. }
 	\label{fig:PaiTails}
 \end{figure}
 
 
 \section{Results and Conclusions} \label{sec:conc}
+
+The purpose of this essay has been to introduce the reader to quantum dynamics, convince the reader that random unitary circuits are a useful tool in the analysis of dynamics, and show that a certain class of circuits provide a useful model of localization. Along the way is has\dots
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\printbibliography
