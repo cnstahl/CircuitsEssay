@@ -1,7 +1,7 @@
 ——To Do——
 
+Final predictions of fracton circuits
 Random walks and diffusion
-Conserving systems
 Quantum dynamics of closed systems
   Closed quantum systems
   Thermalization and localization
