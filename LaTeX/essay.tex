@@ -322,10 +322,6 @@ H_{xy} &= J_{xy}\sum_i\left[X_iX_{i+1}+Y_iY_{i+1}\right].
 
 \subsection{Constrained circuits and conserved operators} \label{sub:ccons}
 
-\note{Conserved operator density, etc.}
-
-\note{ballistic front, a power-law tail behind the front, and diffusively spreading charges near the origin}
-
 A simple conservation law to introduce to quantum circuits is conservation of total $Z$. We simply have to constrain the 2-site gates to conserve $Z_\tot$ for the two sites on which it acts. $Z_\tot$ is then our conserved charge, with charge density $Z_i$.
 We will use spin-$\th{2}$ sites, so gates will be in the $\uparrow\uparrow\to\uparrow\uparrow$, $\downarrow\downarrow\to\downarrow\downarrow$, or $\{\uparrow\downarrow,\downarrow\uparrow\}\to\{\uparrow\downarrow,\downarrow\uparrow\}$ sectors. We will refer to these as the $Z=1$, $Z=0$, and $Z=-1$ sectors, of dimension 1, 4, and 1, respectively. The matrix representations of gates will be $4\times4$ matrices made up of three block matrices, one for each sector.
 
@@ -375,7 +371,7 @@ Note that Eq.~\ref{eqn:consa} refers to amplitudes, while Eq.~\ref{eqn:unit} ref
 
 \subsection{Operator spreading in conserving circuits} \label{sub:consop}
 
-We are now ready to discuss the spreading of operators. We will consider the operator $(ZI)_0$ where $i=0$ is the middle of a long chain. There will be three behaviors extracted from our model: diffusion of the conserved operators (forming a ``lump"), ballistic propagation of the ``front" of nonconserved operators, and a power-law ``tail" of nonconserved operators behind the front.
+We are now ready to discuss the spreading of operators. We will consider the operator $(ZI)_0$ where $i=0$ is the middle of a long chain. There will be three behaviors extracted from our model: diffusion of the conserved operators (forming a ``lump"), ballistic propagation of the ``front" of nonconserved operators, and a power-law ``tail" of nonconserved operators behind the front. Fig.~\ref{fig:khemaniRWeight} illustrates these three regimes.
 
 We'll start with the conserved operators. The effect of a Haar-random unitary acting on sites $i$ and $i+1$ is to average the conserved amplitudes, so that
 \begin{align}
@@ -398,9 +394,10 @@ If $\rho^c$ is decreasing, then $\rho^\nc$ must be increasing. The effect of Eq.
 \end{align}
 All of this weight gets shuffled into nonconserved operators. But we know how nonconserved operators spread! In fact, we can simply use the analysis of the previous section to say that there is a front that travels at $v_B$, broadening diffusively with width $\sim\sqrt{D_\rho t}\sim\sqrt{t/q^2}$. In the large $q$ limit, the diffusivity vanishes and therefore the front has zero width.
 
-If there were no remaining lump at the origin, our description of the front would be complete. However, even at late time the lump of conserved operators is emitting nonconerved operators. These operators form a tail lagging behind the front. Since the lump dies as a power law in time and all nonconserved operators travel at $\sim v_B$, the tail has a power-law shape in space. In fact, at time $t$ and position $x$, with $x$ well separated from the origin and from $v_Bt$, the majority of $\rho^\nc_R(x,t)$ comes from operators emitted from the lump at time $t-x/v_B$. If the lump is far away, it can be approximated by a point source with all weight at the origin, emitting nonconserved operators as $\rho^c_\tot$ decreases. So,
+If there were no remaining lump at the origin, our description of the front would be complete. However, even at late time the lump of conserved operators is emitting nonconerved operators. These operators form a tail lagging behind the front. Since the lump shrinks as a power law in time and all nonconserved operators travel at $\sim v_B$, the tail has a power-law shape in space. In fact, at time $t$ and position $x$, with $x$ well separated from the origin and from $v_Bt$, the majority of $\rho^\nc_R(x,t)$ comes from operators emitted from the lump at time $t-x/v_B$. If the lump is far away, it can be approximated by a point source with all weight at the origin, emitting nonconserved operators proportional to the decrease in $\rho^c_\tot$. So,
 \begin{align}
-\rho_R^\nc(x,t)\sim\pd{\rho_L\tot^c(0,t-x/v_B)}{t} \sim\th{(0,t-x/v_B)^{3/2}}.
+\rho_R^\nc(x,t)\sim\pd{\rho_\tot^c(t-x/v_B)}{t} \sim\th{(t-x/v_B)^{3/2}}. 
+	\label{eqn:powtail}
 \end{align}
 The fact that the spacial exponent $-3/2$ is equal to $-1/2-1$, where $-1/2$ is the time exponent of the decrease of $\rho_\tot^c$, will become important in our analysis of the fracton circuit.
 
@@ -559,9 +556,25 @@ where $T$ is the strength of the random force.
 
 There are few prediction that we can test against in the numerical simulation of the circuit. The zeroth prediction is that the fractons are localized. The first is that the tails of fracton density away from the origin (but within the operator spreading front) should take the form of Eq.~\ref{eqn:lange}. Second, as in Eq.~\ref{eqn:lange}, the correlation length of fracton density should scale as $\xi_\text{fracton}\sim \sqrt{DT}$ as the diffusion constant and force strength change. 
 
-There is one other prediction, related to the shape of the operator front for dipole and fracton operators. Since the dipole density behaves like a normal conserved charge, its operator spreading should look like that in Sec.~\ref{sec:cons}. In particular, for an initially local dipole operator, there should be a linearly propagating front that broadens as $\sqrt{t}$, with a power-law tail. As in the previous case, the exponent for this tail is $-3/2$.
+The other predictions relate to the shape of evolving dipole and fracton operators. Since the dipole density behaves like a simple conserved charge, its operator spreading should look like that in Sec.~\ref{sec:cons}. In particular, for an initially local dipole operator, there should be a linearly propagating front that broadens as $\sqrt{t}$, with a power-law tail behind the front. As in Sec~\ref{sec:cons}, the exponent for this tail is $-3/2$.
 
-Since an initially local fracton operator can also emit nonconserved operators, it will also have a linearly propagating front. This front will broaden as $\sqrt{t}$ and have a power-law tail. However, the nonconserved operators are actually emitted by the dipole operators, which are in turn emitted by the fracton operator. The fracton density scales as $t^{-1/2}$, meaning that the (conserved) dipole density scales as $\rho_c\sim t^{-3/2}$ and the tail scales as $d\rho_c/dt\sim t^{-5/2}$, a faster decay than in the previous case. 
+The spreading of an initially local fracton operator shares the universal structure. There is a lump at the origin corresponding to fracton operators \note{(does this decrease in time?)}, along with another lump at the origin corresponding to dipole operators. The dipole operators are emitted by the fracton operators in the same way that nonconserved operators are emitted by conserved operators in Sec~\ref{sec:cons}. However, since the dipole operators are also conserved, they do not propagate ($v_{B, \text{dip}}=0$) and this dipole lump remains at the origin.
+
+The dipole operators at the origin have amplitude~\cite{PaiFracton}
+\begin{align}
+a^c(x,t) \sim \frac{x}{t^{3/2}}e^{-x^2/Dt}
+\end{align}
+so the total weight in the dipole lump is
+\begin{align}
+\rho^c_\tot(t) \sim \int dx\,\abs{a^c(x,t} \sim t^{-3/2}. \label{eqn:fraclump}
+\end{align}
+The analogue of~(\ref{eqn:powtail}) is then
+\begin{align}
+\rho_R^\nc(x,t)\sim\pd{\rho_\tot^c(t-x/v_B)}{t} \sim\th{(t-x/v_B)^{5/2}}, 
+\end{align}
+which is the same as in the thermalizing circuit, except with an exponent of $-5/2$. We will say that the third prediction is~(\ref{eqn:fraclump}) and the fourth prediction is the power-law tail with exponent $-3/2$ for dipole operators and $-5/2$ for fracton operators.
+
+The analysis of this section suggests that fractons in a circuit should be localized. It might seem sufficient to simply simulate the circuit and see if the fractons are indeed localized. However, these simulations are limited in system size and simulation time. The extra predictions allow detailed testing of the analytic theory. If all predictions check out, the mechanism behind localization is probably correct, providing a stronger check on the robustness of the localization.
 
 \subsection{Construction of fractonic circuits} \label{sub:construct}
 
