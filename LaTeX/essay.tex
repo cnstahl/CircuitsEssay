@@ -72,49 +72,124 @@
 
 \maketitle
 
+\begin{abstract}
+
+The purpose of this essay is to provide the necessary background to understand the results of~\cite{PaiFracton}, which presents a class of quantum circuits with qualitatively new dynamics. Along the way we will describe quantum statistical mechanics (specifically operator spreading), random unitary circuits, and fractons. In that sense, the stated purpose provides motivation to study these topics.
+
+\end{abstract}
+
 \section{Introduction} \label{sec:intro}
 
-In this essay we will discuss the quantum dynamics of closed systems, showing that the two late-time possibilities are thermalization and localization. We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:ruc} presents various methods of describing dynamics in thermalizing circuits. The majority of circuits currently described in the literature thermalize, although this is not a necessity. One path to localization in random unitary circuits is through fractonic conservation laws. To motivate these we will introduce fractonic systems in Sec.~\ref{sec:frac} and show how they naturally conserve higher moments of charges. Finally, in Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize. We will follow the results of~\cite{PaiFracton}, and in fact the first 4 sections of this essay are designed to build to these results. Sec~\ref{sec:conc} reviews the broad structure of this essay and presents some possibilities for future research.
+Quantum statistical mechanics has recently had an increase in interest. This is due to advancements in experimental control, theoretical and mathematical methods, and computational power. See~\cite{GogolinStatMech, PolkovnikovClosed} for links. The field attempts to reconcile quantum mechanics, which conserves information, with statistical mechanics, in which information is lost. The first key insight is that even with unitary dynamics, information can be ``spread" throughout a system so that it is effectively lost.
 
-\note{Include term ``scrambling, ergodic"}
+The study of quantum statistical mechanics has interesting applications. Unsurprisingly, it describes phenomena in many body physics, such as the Lieb-Robinson bound~\cite{Lieb72, RobertsSwingle}. This is a bound on how fast information can travel in non-relativistic systems. Even in relativistic systems, it is slower than the speed of light. As the information travels it is \emph{scrambled}, or spread out in its environment. The process of information scrambling has applications to high-energy physics. For example, black holes can be shown to be ``fast scramblers"~\cite{SekinoSusskind}, in that they spread local information throughout their internal systems as fast as possible. The fast scrambling of black holes is useful in discussions of black hole unitarity~\cite{HaydenPreskill}.
 
-\note{Always write $S_Z$ as $Z$?}
+The central study of this essay will be quantifying information spreading in many-body systems. Mostly we will be interested in the spreading of operators, but there are other ways to quantify information and its dynamics. Sec.~\ref{sec:dyn} explores the possible late-time behaviors of information scrambling, namely thermalization and localization. It also defines the various measure of scrambling we will use.
+
+We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:circuits} defines the unitary evolution of quantum circuits and outlines methods for introducing conservation laws. It also defines Floquet systems, which act similarly to Hamiltonian systems without conserving energy.
+
+The next two sections cover the quantum dynamics of systems with and without conservation laws. Sec.~\ref{sec:ncons} presents the phenomenology of Floquet systems that lack any conserved quantities. It goes on to show that circuits with no conserved quantities have the same qualitative structure and analytically explain the phenomenology. Sec.~\ref{sec:cons} does the same for systems with a small number of conservation laws, or constraints. These sections primarily report the results of other literature, and the main sources will be~\cite{ChenOtoc, vonKeyserlingkHydro, NahumOpSp, KhemaniOpSp}. All systems in these two sections thermalize. 
+
+One path to localization in random unitary circuits is through fractonic conservation laws. To motivate these we will introduce fractonic systems in Sec.~\ref{sec:frac} and show how they naturally conserve higher moments of charges. Finally, in Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize, following the results of~\cite{PaiFracton}. Sec~\ref{sec:conc} reviews the broad goals of this essay and presents some possibilities for future research.
 
 
 \section{Quantum dynamics of closed systems} \label{sec:dyn}
 
-This section will serve to introduce the reader to the basics of quantum dynamics of closed systems. It will closely follow Ref.~\cite{Nandkishore14}, drawing on other sources for examples.
+This section will serve to introduce the reader to the basics of quantum dynamics of closed systems. It will follow material in the reviews in Refs.~\cite{Cazalilla2010, PolkovnikovClosed, Nandkishore14, GogolinStatMech}, drawing on other sources for examples.
 
-I'll cover operator spreading here, although some of that material may belong in the RUC section. Other sources include~\cite{GogolinStatMech, PolkovnikovClosed, Cazalilla2010}.
+The primary question is how to reconcile thermalization in statistical mechanics with unitarity in quantum mechanics. In statistical mechanics, systems tend to thermalize over time by maximizing entropy. This results in late time states that can be described by only a few parameters, related to conserved quantities such as energy or particle number. This forms the basis of thermodynamics. 
 
-\subsection{Closed quantum systems} \label{sub:closed}
+That evolution towards increasing entropy violates unitarity can be seen in two ways. First, it clearly breaks time reversal symmetry, and unitary dynamics are always reversible. Second, if states at late time can be described by only a small number of parameters (independent of system size), then there must be states that are initially distinct but evolve to be the same. It is in this sense that we say that information is lost.
 
-Quantum statistical mechanics usually considers a quantum system coupled to a bath. As in classical statistical mechanics, this allows the system to exchange energy and conserved charges with the bath. Additionally, the system may become entangled with the bath, leading to dephasing. Then, as in the classical case, the state of the system at long time (is|may be approximated by) the thermal state, $\rho^{\text{th}}(T)=Z^{-1}(T)e^{-H/T}$. 
+\note{What is ``ergodic"}
 
-Sometimes these systems are integrable\dots
+\subsection{Dynamics in closed quantum systems} \label{sub:closed}
 
-\subsection{Thermalization and localization} \label{sub:therm}
+When we consider classical statistical mechanics we usually consider open systems, which are attached to a bath and are able to exchange some conserved quantity with it, such as energy. Then by requiring conservation of total energy and maximization of total entropy we arrive at the canonical ensemble
+\begin{align}
+P(s)=\th{Z}e^{-\beta E(s)},
+\end{align}
+where $P(s)$ is the probability of being in state $s$, and $E(s)$ is its energy. The inverse temperature $\beta$ is related to conservation of energy, as would the chemical potential $\mu$ if the system and bath were allowed to exchange particles. There is one of these parameters for each conserved quantity.
 
-Since the bath itself is quantum mechanical, we could consider the system and bath together as a single closed quantum system. We will take this perspective for the remainder of the essay, referring to the original system as some subsystem. The study of closed quantum systems has expanded recently, driven by experimental, numerical, and theoretical motivations~\cite{GogolinStatMech}.
+It is possible to consider a quantum system coupled to a bath. As in classical statistical mechanics, this allows the system to exchange energy and conserved charges with the bath. Additionally, the system may become entangled with the bath, leading to dephasing. Then, as in the classical case, the state of the system at long time becomes the thermal state,
+\begin{align}
+\rho = \th{Z}e^{-\beta H}
+\end{align}
+where $H$ is the Hamiltonian of the system and $\rho$ is the density operator.
+Here we do not have a conflict with unitarity as the evolution of the system is not unitary. Furthermore we have an answer to ``where does the information go?" It travels into the bath, or gets entangled with bath degrees of freedom. 
 
-I'll discuss the ETH here as it seems to be an important enough result, but I don't think it's strictly necessary for the flow of the essay.
+Since the bath itself is quantum mechanical, we could consider the system and bath together as a single closed quantum system. We will take this perspective for the remainder of the essay, referring to the original system and bath together as the ``system." The old system is now a subsystem of the new system. The entire new system then evolves unitarily, under the rules of closed system quantum mechanics.
 
-I'll continue to follow the Nandkishore review for this section and the section on MBL.
+We now have a partial answer to how thermalization occurs in closed systems. If information is initially local in some subsystem, then at late times the information still exists, but it is spread out, or hidden, in the full system. Thus entropy emerges as entanglement between distant locations. This is the process which we will refer to as \emph{thermalization} for the remainder of this essay.
+
+Once a system thermalizes, its subsystems must ``look" thermal. That is, if $\rho(t)$ is the state of the whole system and $\rho_A(t)=\Tr_B\{\rho(t)\}$ is the state of subsystem $A$, then we must have
+\begin{align}
+\rho_A(t) = \Tr_B\{e^{-H/T}\}. \label{eqn:ETH}
+\end{align}
+This equation holds in the thermodynamic limit, where the system size is taken to be infinite and the state $\rho$ must be at infinite time. In particular, this must be true for states $\rho=\ket{\Phi}\bra{\Phi}$, where $\ket{\Phi}$ is an energy eigenstate. $\ket{\Phi}$ does not evolve in time. Then~(\ref{eqn:ETH}) must hold for all time. Thus, any subsystem of any energy eigenstate must look thermal. This is called the eigenstate thermalization hypothesis (ETH). The ETH is discussed further in Ref.~\cite{Nandkishore14}.
+
+There are some systems that do not obey the ETH hypothesis, i.e. they do not thermalize. These systems are said to be \emph{localized}, in that local information can stay local. It is not necessary for all possible types of local information to be stationary. However, if any information does not spread, the system is said to be localized.
+
+There is another possibility, that systems can be integrable. This means there are a macroscopic number of conserved quantities. Then, even though equilibrium states are defined by their parameters such as $\beta$, $\mu$, there are enough of these parameters that there is no loss of information. We will not consider such systems.
 
 \subsection{Operator spreading as a measure of dynamics} \label{sub:opsp}
 
-How can we measure dynamics?
-Can we look at how states evolve?
-This is tempting, but we would need a background\dots
+So far we have been discussing information as an abstract quantity. What do we actually mean? Based on what we have said, it has to be something that can move and ideally is globally conserved. We will proposed a variety of quantities that stand in for spreading information.
 
-We will look at how initially local operators spread in time. They will evolve in the Heisenberg picture\dots
+If a system conserves a quantity like the $z$-component of spin, this could stand in for information. Then the initial state could be one in which $\ex{S_z} = 0$\footnote{We write the $z$ component of spin as $S_z$, and write $Z=\sigma^3=2S_z$.} everywhere except some small region or point. Then as the system evolves, $\ex{S_z}$ picks up some spacial dependence. 
 
-Two measures of the spreading of an operator are the right weight density $\rho_R(i,t)$ and the OTOC $C(i,t)$.
+This is nice if we have some conserved quantity, but sometimes we do not. The benefit of the above example is that there was some background upon which we could introduce a perturbation. The background must not evolve in time, so that any evolution is due to the perturbation spreading.
+If we tried to look at the evolution of states, the problem would be finding a background state. 
+Eigenstates do not evolve in time, but are no good because they are highly entangled.
 
-OTO correlator.
+Another object that never evolves in time is the identity operator. Other operators (in the Heisenberg picture) evolve, but the identity does not. Thus the perturbations we can use will be local operators. In a 1 dimensional system, an operator like $I_1\otimes I_2\otimes Z_3 \otimes I_4\otimes\cdots\otimes I_L$ contains a perturbation on the third site. 
+
+Next, we have to quantify how far such initially-local operators spread. We will mainly use two quantities, the operator right weight $\rho_R(x,t)$ and the OTOC $C(x,t)$. The systems in this essay will be 1 dimensional and discrete, so we can replace $x$ with an index, $i = 1,2,\dots,L$. Oftentimes $L$ will implicitly taken to be infinite. At each site $i$ there is a $q$-dimensional Hilbert space, and the system is the tensor product of all these sites. For example, $q=2$ corresponds to a spin chain of spin-$\half$ particles.
+
+Next we need a basis for operators. In the $q=2$ case we will use the Pauli basis $\{I, X, Y, Z\} = \{\sigma^0, \sigma^1, \sigma^2, \sigma^3\}$, where $\sigma^0$ is the identity. All of these operators satisfy $(\sigma^\mu)^2=I$. For $q>2$ it is possible to define a generalization of this basis~\cite{vonKeyserlingkHydro}. A Pauli string $\S$ is then an operator on the whole system, made as a tensor product of Pauli operators, of the form
+\begin{align}
+\S^\mu = \bigotimes_i\sigma_i^{\mu_i}.
+\end{align}
+We will often drop the superscript in $\S^\mu$, and write sums over the basis as $\sum_\mu$ or $\sum_\S$. We also use the notation 
+\begin{align}
+IZXY\dots X \equiv I_1\otimes Z_2\otimes X_3\otimes Y_4 \otimes\dots\otimes X_L.
+\end{align}
+Pauli strings form a orthogonal basis for operators on the whole system, satisfying $\Tr\{\S^\mu\S^\nu\} = 2^L\delta^{\mu\nu}$. For general $q$ the RHS is $q^L\delta^{\mu\nu}$. 
+
+For a general operator $\cal{O}(t)$,
+\begin{align}
+\cal{O}(t) &= \sum_\S a_\S(t) \S,\nn
+a_\S(t) &= \Tr\{\cal{O}(t) \S \}/2^L.
+\end{align}
+We will refer to the $a_\S$ as amplitudes, and $\abs{a_\S}^2$ as weights. Normalizing the operator so that $\Tr\{\cal{O}(0)^\dag\cal{O}(0) \}=1$ implies that $\sum_\S \abs{a_\S(0)}^2=1$. Unitarity then requires $\sum_\S \abs{a_\S(t)}^2=1$ for all $t$. This means that the total operator weight is a conserved quantity, which can move between Pauli strings.
+
+Consider the evolution of an initially local operator, such as $\cal{O}(t=0)=Z_{j}$. Locality implies that at early time, $\cal{O}(t)$ should still be the identity on sites $i$ where $\abs{i-j}$ is large. Gradually, more weight moves to strings that have support farther away from $j$. To measure this effect we define the operator right weight
+\begin{align}
+\rho_R(i,t) = \sum_{\substack{\text{$\S$ that end}\\\text{on site $i$}}}\abs{a_\S(t)}^2.
+\end{align}
+To say that $\S$ ``ends" on site $i$ means that the operator on site $i$ is non-identity, and the operators on site $j$ for all $j>i$ are identities.
+Properly normalized operators will have $\sum_i\rho_R(i,t)=1$, so that $\rho_R(i,t)$ acts as a conserved density. In general, the right weight starts concentrated near the origin, and spreads out at a velocity called the butterfly velocity $v_B$. 
+
+The right weight is only sensitive to the edges of spreading operators. To probe the structure of the bulk of an operator, we use the out-of-time-order commutator (OTOC), defined as
+\begin{align}
+C(i,t) &= \half Tr\left\{\abs{[\cal{O}(t), Z_i]}^2\right\}\nn
+&\propto \sum_{\substack{\text{$\S$ such that}\\\text{$\S_i = X, Y$}}} \abs{a_\S(t)}^2
+\end{align}
+where $Z_i$ has not been evolved in time. We can also use different single site Pauli operators in different contexts. 
+In the literature the OTOC is often defined as an expectation value with respect to a thermal state. The trace is equivalent to such an expectation value at infinite temperature.
+Unlike the right weight, this is not a conserved density. At early time, the OTOC is 0 everywhere away from the initial perturbation at site $j$. At late time, the OTOC approaches an equilibrium value inside $\abs{i-j} = v_B t$. The OTOC is often normalized so that this value is $1$. Fig.~\ref{fig:vonKSpreading} shows how the right weight and OTOC are related in a representative system.
+
+One related quantity is the OTO correlator 
+\begin{align}
+F(i,t) = \Tr\{\cal{O}(t) Z_i\cal{O}(t) Z_i\}.
+\end{align}
+$Z_i$ is both Hermitian and unitary. If $\cal{O}(t)$ is as well, it can be shown that $C(i,t)=1-\Re F(i,t)$.
+
+When we take the thermodynamic limit, $i$ is replaced with the continuous variable $x$. Then the right weight is a continuous conserved variable. Thus its evolution equations look like hydrodynamics equations. This is called emergent hydrodynamics. 
 
 \subsection{Other measure of dynamics} \label{sub:other}
 
+\note{Is any of this useful or necessary?}
 Other useful quantity is the bipartite entanglement entropy $S(i,t)$.
 Other possible entropies: Renyi entropies.
 Dynamics studied in~\cite{RakovskyDiff, HuangRenyi}.
@@ -133,19 +208,28 @@ In this essay we will be considering the dynamics of Hamiltonian systems, quantu
 
 \subsection{Random unitary circuits} \label{sub:ruc}
 
-Quantum circuits, unsurprisingly, are the quantum analogue of classical circuits. As unitarity is a constraint on quantum evolution, they are also called unitary circuits. We will be interested in 
+Quantum circuits, unsurprisingly, are the quantum analogue of classical circuits. As unitarity is a constraint on quantum evolution, they are also called unitary circuits. They consist of successively applying unitary operations to local pairs or groups of sites. Because we are looking at the evolution of operators, we will make sure to always refer to the gates as gates, and reserve the word ``operator" for the object that evolves in time.
 
-\note{Coarse graining}
+The simplest example is the brickwork circuit, made of 2-site unitaries. Fig.~\ref{fig:vonKgates} shows such a circuit.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{vonKgates}
+	\caption{Brickwork architecture. In this figure $s$ and $\tau$ are the microscopic variables while $x$ and $t$ are the coarse-grained variables. Figure from~\cite{vonKeyserlingkHydro}.}
+	\label{fig:vonKgates}
+\end{figure}
+The even-odd nature of the gates suggests defining two sets of variables: $(i,\t)$ increase by 1 at each site and after each layer of the circuit. On the other hand, $(x,t) = (i/2,\t/2)$ are defined so that all sites at integer $x$ are equivalent. The term ``coarse-graining" refers to the process of replacing $(i,\t)$ with $(x,t)$, but also refers to replacing these with continuous variables.
+
+The ``random" part of random unitary circuits come from the choice of gates at each site. Each gate will be chosen from the Haar measure, a measure that is invariant under translations of the group manifold of gates. Essentially this just means a uniform distribution. If the circuit is unconstrained, the Haar measure is over all gates. If we want to include some conservation law, we divide the space of gates into sectors based on the conserved quantity and choose Haar-random gates within each sector. Sec.~\ref{sub:ccons} describes this process in detail.
 
 \subsection{Floquet systems} \label{sub:floq}
 
-Theres a thorny issue that we brushed asie when we discussed systems without conserved quantities. We defined the systems by their Hamiltonians, but any system with a Hamiltonian conserves energy. As discussed in Sec.~\ref{sec:intro}, random circuits need not have any conserved quantities at all. How then can we compare them to any sort of Hamiltonian system?
+In the next section we will discuss systems with no conservation laws. It would be nice to define the systems by their Hamiltonians, but any system with a Hamiltonian conserves energy. As discussed above, random circuits need not have any conserved quantities at all. How then can we compare them to any sort of Hamiltonian system?
 
 The resolution lies in Floquet systems. In this branch of systems, there is a succession of Hamiltonians applied, each for a set amount of time. For example, if we ``turn on" Hamiltonian $H_1$ for time $T/2$ and then $H_2$ for $T/2$, then the Floquet unitary time evolution operator for one whole period of time $T$ is 
 \begin{align}
 U_F(T) = U_2\left(\frac{T}{2}\right)\; U_1\left(\frac{T}{2}\right) = e^{-i\frac{T}{2}H_2} e^{-i\frac{T}{2}H_1}.
 \end{align}
-For $t=nT$ with $n\in \mathbb{Z}$, the time evolution operator is $U(t)=U^n(T),$ while for noninteger multiples of $T$ it is more complicated. 
+For $t=nT$ with $n\in \mathbb{Z}$, the time evolution operator is $U(t)=U^n(T),$ while for noninteger multiples of $T$ it is more complicated. Hamiltonian and Floquet system are collectively referred to as \emph{physical systems.}
 
 One example is the kicked Ising model~\cite{vonKeyserlingkHydro}, with 
 \begin{align}
@@ -427,65 +511,65 @@ In this section we will explore various fractonic systems. We will start with ex
 
 The conservation of dipole moment means that an isolated charge cannot move without creating an isolated dipole somewhere else, which costs energy. Thus, the charges are immobile in the low-energy limit. 
 
-%\subsection{Tensor gauge theory} \label{sub:tensor}
-%
-%We will show how fracton conservation laws naturally lead to tensor gauge theory. Although this is not strictly necessary to understand the dynamics of fracton systems, the literature often refers to fractons using the language of tensor gauge theory. This discussion follows the treatment in~\cite{PretkoFractonGauge}. 
-%
-%To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to \note{requiring
-%\begin{align}
-%\phi\to e^{i\alpha}\phi
-%\end{align}	
-%be a symmetry of the theory,} for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
-%
-%Gauging this theory requires that the theory be invariant under $\phi\to e^{i\alpha(x,t)}\phi$ for arbitrary $\alpha(x,t)$. However, the derivative of the field now transforms as 
-%\begin{align}
-%\partial_i\phi\to e^{i\alpha}\left(\partial_i+\partial_i\alpha\right)\phi,\nn
-%\partial_t\phi\to e^{i\alpha}\left(\partial_t+\partial_t\alpha\right)\phi.
-%	\label{eqn:nconv}
-%\end{align}
-%This is not a covariant transformation, as it mixes the derivatives of $\phi$ with $\phi$ itself. The standard solution is to introduce gauge derivatives $D_i=\partial_i-iA_i$ and $D_t=\partial_t-i\Phi$, where $\Phi$ recalls the notation for the scalar potential of electromagnetism. We then have 
-%\begin{align}
-%D_i\phi\to e^{i\alpha}D_i\phi,\nn
-%D_t\phi\to e^{i\alpha}D_t\phi,
-%\end{align}
-%if 
-%\begin{align}
-%A_i &\to A_i+\partial_i\alpha, \nn
-%\Phi&\to\Phi+\partial_t\alpha.
-%\end{align}
-%We can then go on to calculate field strengths and possible terms in the action, but our main interest is in the fact that the gauge field is a spacetime vector $A_\mu=(\Phi,A_i)$. For more details see~\cite{PretkoFractonGauge}.
-%
-%We will now go through the same steps for a fracton field $\phi$ in order to show the natural emergence of symmetric tensor gauge fields. $\phi$ is again a complex scalar that conserves charge $Q=\int d^dx\rho$. It also conserves dipole moment $P_i = \int d^dx\rho x^i$ (breaking Lorentz invariance). Together these correspond to phase rotations of the form 
-%\begin{align}
-%\phi\to e^{i\alpha+i\lambda_ix^i}\phi.
-%\end{align}
-%We will write this phase as $e^{i\alpha(x)}$ where $\alpha$ is restricted to be linear until we gauge the theory.
-%
-%Now $\partial_i\phi\to e^{i\alpha}(\partial_i+\lambda_i)\phi$ is no longer covariant. The second derivative 
-%\begin{align}
-%\partial_i\partial_j\phi\to e^{i\alpha}(\partial_i\partial_j+\lambda_i\partial_j+\lambda_j\partial_i)\phi
-%\end{align}
-%looks slightly more promising because its symmetric structure can also be obtained from the operator $\partial_i\phi\partial_j\phi$. In fact, the lowest order operator is~\cite{PretkoFractonGauge}
-%\begin{align}
-%\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi\right).
-%\end{align}
-%This means that the action can contain this operator.
-%
-%Gauging the fracton theory so that $\alpha$ is again an arbitrary function, we now find
-%\begin{align}
-%\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + i(\partial_i\partial_j\alpha)\phi^2\right).
-%\end{align}
-%This suggests that, instead of constructing the covariant first derivative $D_i\phi$, we construct a covariant second derivative 
-%\begin{align}
-%D_{ij}\phi^2=\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + iA_{ij}\phi^2,
-%\end{align}
-%where this is shorthand for $D_{ij}$ being a bilinear derivative operator acting on two copies of the field $\phi$. This operator transforms covariantly if 
-%\begin{align}
-%A_{ij}\to A_{ij}+\partial_i\partial_j\alpha.
-%\end{align}
-%This transformation law requires $A_{ij}$ to be symmetric, and we have found our symmetric tensor gauge field. 
-%
-%The theory still contains a scalar gauge field $\Phi\to\Phi+\partial_t\alpha$. For the construction of the lowest order Lagrangian of this theory, and other possible symmetric tensor gauge theories, see~\cite{PretkoFractonGauge}.
+\subsection{Tensor gauge theory} \label{sub:tensor}
+
+We will show how fracton conservation laws naturally lead to tensor gauge theory. Although this is not strictly necessary to understand the dynamics of fracton systems, the literature often refers to fractons using the language of tensor gauge theory. This discussion follows the treatment in~\cite{PretkoFractonGauge}. 
+
+To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to \note{requiring
+\begin{align}
+\phi\to e^{i\alpha}\phi
+\end{align}	
+be a symmetry of the theory,} for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
+
+Gauging this theory requires that the theory be invariant under $\phi\to e^{i\alpha(x,t)}\phi$ for arbitrary $\alpha(x,t)$. However, the derivative of the field now transforms as 
+\begin{align}
+\partial_i\phi\to e^{i\alpha}\left(\partial_i+\partial_i\alpha\right)\phi,\nn
+\partial_t\phi\to e^{i\alpha}\left(\partial_t+\partial_t\alpha\right)\phi.
+	\label{eqn:nconv}
+\end{align}
+This is not a covariant transformation, as it mixes the derivatives of $\phi$ with $\phi$ itself. The standard solution is to introduce gauge derivatives $D_i=\partial_i-iA_i$ and $D_t=\partial_t-i\Phi$, where $\Phi$ recalls the notation for the scalar potential of electromagnetism. We then have 
+\begin{align}
+D_i\phi\to e^{i\alpha}D_i\phi,\nn
+D_t\phi\to e^{i\alpha}D_t\phi,
+\end{align}
+if 
+\begin{align}
+A_i &\to A_i+\partial_i\alpha, \nn
+\Phi&\to\Phi+\partial_t\alpha.
+\end{align}
+We can then go on to calculate field strengths and possible terms in the action, but our main interest is in the fact that the gauge field is a spacetime vector $A_\mu=(\Phi,A_i)$. For more details see~\cite{PretkoFractonGauge}.
+
+We will now go through the same steps for a fracton field $\phi$ in order to show the natural emergence of symmetric tensor gauge fields. $\phi$ is again a complex scalar that conserves charge $Q=\int d^dx\rho$. It also conserves dipole moment $P_i = \int d^dx\rho x^i$ (breaking Lorentz invariance). Together these correspond to phase rotations of the form 
+\begin{align}
+\phi\to e^{i\alpha+i\lambda_ix^i}\phi.
+\end{align}
+We will write this phase as $e^{i\alpha(x)}$ where $\alpha$ is restricted to be linear until we gauge the theory.
+
+Now $\partial_i\phi\to e^{i\alpha}(\partial_i+\lambda_i)\phi$ is no longer covariant. The second derivative 
+\begin{align}
+\partial_i\partial_j\phi\to e^{i\alpha}(\partial_i\partial_j+\lambda_i\partial_j+\lambda_j\partial_i)\phi
+\end{align}
+looks slightly more promising because its symmetric structure can also be obtained from the operator $\partial_i\phi\partial_j\phi$. In fact, the lowest order operator is~\cite{PretkoFractonGauge}
+\begin{align}
+\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi\right).
+\end{align}
+This means that the action can contain this operator.
+
+Gauging the fracton theory so that $\alpha$ is again an arbitrary function, we now find
+\begin{align}
+\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + i(\partial_i\partial_j\alpha)\phi^2\right).
+\end{align}
+This suggests that, instead of constructing the covariant first derivative $D_i\phi$, we construct a covariant second derivative 
+\begin{align}
+D_{ij}\phi^2=\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + iA_{ij}\phi^2,
+\end{align}
+where this is shorthand for $D_{ij}$ being a bilinear derivative operator acting on two copies of the field $\phi$. This operator transforms covariantly if 
+\begin{align}
+A_{ij}\to A_{ij}+\partial_i\partial_j\alpha.
+\end{align}
+This transformation law requires $A_{ij}$ to be symmetric, and we have found our symmetric tensor gauge field. 
+
+The theory still contains a scalar gauge field $\Phi\to\Phi+\partial_t\alpha$. For the construction of the lowest order Lagrangian of this theory, and other possible symmetric tensor gauge theories, see~\cite{PretkoFractonGauge}.
 
 \subsection{More on fractons} \label{sub:morefrac}
 

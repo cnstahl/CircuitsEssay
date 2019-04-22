@@ -1,13 +1,9 @@
 ——To Do——
 
-Final predictions of fracton circuits
+Narrow down dynamics measures
+  Remove phase transition?
+More about fractons
 Random walks and diffusion
-Quantum dynamics of closed systems
-  Closed quantum systems
-  Thermalization and localization
-  Operator spreading
-  Other measures
-Define circuits
 Intro and conclusion
 
 ——Papers to Read——
