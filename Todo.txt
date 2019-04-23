@@ -1,8 +1,7 @@
 ——To Do——
 
-Narrow down dynamics measures
-  Remove phase transition?
-Conserving floquiet models
+Remove phase transition?
+Remove symmetric tensor theory?
 More about fractons
 Random walks and diffusion
 Intro and conclusion
@@ -15,12 +14,7 @@ DeutschClosed
 
 ——Notes——
 
-'Trotterize' continuous time evolution into discrete
-https://en.wikipedia.org/wiki/Time-evolving_block_decimation
-Provides a good excuse for looking at circuits
-
 ——Timeline——
 
-Apr 21  Email Lamacraft draft
 Apr 26  Meet with Lamacraft
 May 02  Essay due
