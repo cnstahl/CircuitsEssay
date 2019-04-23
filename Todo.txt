@@ -2,6 +2,7 @@
 
 Narrow down dynamics measures
   Remove phase transition?
+Conserving floquiet models
 More about fractons
 Random walks and diffusion
 Intro and conclusion
