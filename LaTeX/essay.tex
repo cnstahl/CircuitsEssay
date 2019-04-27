@@ -1,11 +1,15 @@
 \documentclass[a4paper,11pt]{article}
+%\usepackage[]{hyperref}     
+\usepackage[colorlinks=true]{hyperref}
+\hypersetup{citecolor = blue, linktocpage=true}
 \usepackage{epsfig,amssymb,amsmath,}
 \usepackage{color}
 
-\textwidth=18cm%6.25true in
-\textheight=24.5cm%9.65true in
-\voffset=-2.5cm%-1true in
-\hoffset=-0.75true in
+%\textwidth=18cm%6.25true in
+%\textheight=24.5cm%9.65true in
+%\voffset=-2.5cm%-1true in
+%\hoffset=-0.75true in
+\usepackage[margin=1in, bottom=1.5 in]{geometry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage[sorting=none, url=false, style=numeric-comp]{biblatex}
@@ -19,8 +23,6 @@
 
 \usepackage{tikz}
 \usetikzlibrary{arrows}
-\usepackage[]{hyperref}     
-%\hypersetup{citecolor = blue, linktocpage=true}
 \usepackage{titlesec}
 \titleformat{\subsection}
 {\normalfont\large\bfseries}{\thesubsection}{1em}{}
@@ -547,68 +549,6 @@ The defining feature of fractons is the conservation of higher moments of a cons
 
 Ref.~\cite{NandkishoreFractons} is a broader introduction to fractons. In addition to the fractons that arise through tensor field theory, which are massless, it is possible to create massive fractons using exactly solvable lattice spin models. These models include the X-cube model and Haah's code. Fractons also have interesting connections to branches of physics from elasticity to gravity~\cite{PretkoElasticity, PretkoGravity}.
 
-\subsection{Tensor gauge theory} \label{sub:tensor}
-
-\note{Is this section necessary, or even useful?}
-
-We will show how fracton conservation laws naturally lead to tensor gauge theory. Although this is not strictly necessary to understand the dynamics of fracton systems, the literature often refers to fractons using the language of tensor gauge theory. This discussion follows the treatment in~\cite{PretkoFractonGauge}. 
-
-To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to \note{requiring
-\begin{align}
-\phi\to e^{i\alpha}\phi
-\end{align}	
-be a symmetry of the theory,} for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
-
-Gauging this theory requires that the theory be invariant under $\phi\to e^{i\alpha(x,t)}\phi$ for arbitrary $\alpha(x,t)$. However, the derivative of the field now transforms as 
-\begin{align}
-\partial_i\phi\to e^{i\alpha}\left(\partial_i+\partial_i\alpha\right)\phi,\nn
-\partial_t\phi\to e^{i\alpha}\left(\partial_t+\partial_t\alpha\right)\phi.
-	\label{eqn:nconv}
-\end{align}
-This is not a covariant transformation, as it mixes the derivatives of $\phi$ with $\phi$ itself. The standard solution is to introduce gauge derivatives $D_i=\partial_i-iA_i$ and $D_t=\partial_t-i\Phi$, where $\Phi$ recalls the notation for the scalar potential of electromagnetism. We then have 
-\begin{align}
-D_i\phi\to e^{i\alpha}D_i\phi,\nn
-D_t\phi\to e^{i\alpha}D_t\phi,
-\end{align}
-if 
-\begin{align}
-A_i &\to A_i+\partial_i\alpha, \nn
-\Phi&\to\Phi+\partial_t\alpha.
-\end{align}
-We can then go on to calculate field strengths and possible terms in the action, but our main interest is in the fact that the gauge field is a spacetime vector $A_\mu=(\Phi,A_i)$. For more details see~\cite{PretkoFractonGauge}.
-
-We will now go through the same steps for a fracton field $\phi$ in order to show the natural emergence of symmetric tensor gauge fields. $\phi$ is again a complex scalar that conserves charge $Q=\int d^dx\rho$. It also conserves dipole moment $P_i = \int d^dx\rho x^i$ (breaking Lorentz invariance). Together these correspond to phase rotations of the form 
-\begin{align}
-\phi\to e^{i\alpha+i\lambda_ix^i}\phi.
-\end{align}
-We will write this phase as $e^{i\alpha(x)}$ where $\alpha$ is restricted to be linear until we gauge the theory.
-
-Now $\partial_i\phi\to e^{i\alpha}(\partial_i+\lambda_i)\phi$ is no longer covariant. The second derivative 
-\begin{align}
-\partial_i\partial_j\phi\to e^{i\alpha}(\partial_i\partial_j+\lambda_i\partial_j+\lambda_j\partial_i)\phi
-\end{align}
-looks slightly more promising because its symmetric structure can also be obtained from the operator $\partial_i\phi\partial_j\phi$. In fact, the lowest order operator is~\cite{PretkoFractonGauge}
-\begin{align}
-\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi\right).
-\end{align}
-This means that the action can contain this operator.
-
-Gauging the fracton theory so that $\alpha$ is again an arbitrary function, we now find
-\begin{align}
-\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + i(\partial_i\partial_j\alpha)\phi^2\right).
-\end{align}
-This suggests that, instead of constructing the covariant first derivative $D_i\phi$, we construct a covariant second derivative 
-\begin{align}
-D_{ij}\phi^2=\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + iA_{ij}\phi^2,
-\end{align}
-where this is shorthand for $D_{ij}$ being a bilinear derivative operator acting on two copies of the field $\phi$. This operator transforms covariantly if 
-\begin{align}
-A_{ij}\to A_{ij}+\partial_i\partial_j\alpha.
-\end{align}
-This transformation law requires $A_{ij}$ to be symmetric, and we have found our symmetric tensor gauge field. 
-
-The theory still contains a scalar gauge field $\Phi\to\Phi+\partial_t\alpha$. For the construction of the lowest order Lagrangian of this theory, and other possible symmetric tensor gauge theories, see~\cite{PretkoFractonGauge}.
-
 
 \section{Localization in fractonic circuits} \label{sec:fraccirc}
 
@@ -617,37 +557,6 @@ This section will mostly cover the results in~\cite{PaiFracton}. I'll go through
 Since the dipole density is a conserved charge whose higher moments are not conserved, it should behave the way that charge density did in the thermalizing charge conserving circuit.
 
 The entirety of this section is based on the work in~\cite{PaiFracton}.
-
-\subsection{Random walks in $d=1$} \label{sub:walks}
-
-The diffusion operator is $\mathcal{D} = \partial_t-D\partial_x^2$, where $D$ is the diffusion constant. Consider the function $G(x,t)=(4\pi Dt)^{-d/2} e^{-x^2/4Dt}$. We can see that $\mathcal{D}G(x,t)=0$ for $t>0$ 
-\begin{align}
-\partial_t G(x,t) &= \phantom{D}(4\pi D)^{-\frac{d}{2}} \left[-\frac{d}{2} 
-	t^{-\frac{d}{2}-1} + t^{-\frac{d}{2}}\frac{x^2}{4Dt^2} \right]
-	e^{\frac{-x^2}{4Dt}},\\
-D\partial_x^2 G(x,t) &= D(4\pi D)^{-\frac{d}{2}} \vec{\partial_x}\cdot 
-	\frac{-\vec{x}}{2Dt}e^{\frac{-x^2}{4Dt}} \nn
-&= D(4\pi D)^{-\frac{d}{2}} \left[-\frac{d}{2D} 
-	t^{-\frac{d}{2}
-	-1} + t^{-\frac{d}{2}}\frac{x^2}{4D^2t^2} \right]e^{\frac{-x^2}{4Dt}}, \\ 
-\mathcal{D}G(x,t) &= 0.
-\end{align}
-Furthermore, at early time we have $G(x,t)\xrightarrow[t\to0]{}\delta(x)$:
-\begin{align}
-G(x,0) = 0, \quad x\ne 0,\\
-\int dx\, G(x,t) = (4\pi Dt)^{-d/2}(4\pi Dt)^{d/2}=1\quad \forall t,
-\end{align}
-so $G(x,t)$ acts as a Green's function, or propagator, for the diffusion kernel.
-
-From this function we can estimate how long it takes for a randomly walking particle to return to the origin, the return time $t_\ret$. This is done by setting an arbitrarily high constant $C$, and finding at what time the integrated propagator at the origin reaches that value. For $d=1$,
-\begin{align}
-C &= \int_{0}^{t_\ret}dt\,G(0,t)\\
-&= \int_{0}^{t_\ret}dt\, (4\pi Dt)^{-1/2}\\
-&= \sqrt{\frac{t_\ret}{\pi D}},
-\end{align}
-or $t_\ret=\pi D C^2$. In $d=2$, $t_\ret=\exp(4\pi DC)$, while for larger $d$, $t_\ret=\infty$, which is to say the particle never returns to the origin. 
-
-At equilibrium, the particle density will be spread out over a region with length scale $\xi\sim\sqrt{Dt_\ret}$ \note{(Why?)}. We will use these facts in the analysis of continuous fracton systems in the next subsection.
 
 \subsection{Construction of fractonic circuits} \label{sub:construct}
 
@@ -795,5 +704,101 @@ Some possible further steps in the study of fractonic circuits include an explor
 \nocite{apsrev41Control}
 \bibliography{../global,revtex-custom}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+
+\section{Random walks in $d=1$} \label{sec:walks}
+
+The diffusion operator is $\mathcal{D} = \partial_t-D\partial_x^2$, where $D$ is the diffusion constant. Consider the function $G(x,t)=(4\pi Dt)^{-d/2} e^{-x^2/4Dt}$. We can see that $\mathcal{D}G(x,t)=0$ for $t>0$ 
+\begin{align}
+\partial_t G(x,t) &= \phantom{D}(4\pi D)^{-\frac{d}{2}} \left[-\frac{d}{2} 
+t^{-\frac{d}{2}-1} + t^{-\frac{d}{2}}\frac{x^2}{4Dt^2} \right]
+e^{\frac{-x^2}{4Dt}},\\
+D\partial_x^2 G(x,t) &= D(4\pi D)^{-\frac{d}{2}} \vec{\partial_x}\cdot 
+\frac{-\vec{x}}{2Dt}e^{\frac{-x^2}{4Dt}} \nn
+&= D(4\pi D)^{-\frac{d}{2}} \left[-\frac{d}{2D} 
+t^{-\frac{d}{2}
+	-1} + t^{-\frac{d}{2}}\frac{x^2}{4D^2t^2} \right]e^{\frac{-x^2}{4Dt}}, \\ 
+\mathcal{D}G(x,t) &= 0.
+\end{align}
+Furthermore, at early time we have $G(x,t)\xrightarrow[t\to0]{}\delta(x)$:
+\begin{align}
+G(x,0) = 0, \quad x\ne 0,\\
+\int dx\, G(x,t) = (4\pi Dt)^{-d/2}(4\pi Dt)^{d/2}=1\quad \forall t,
+\end{align}
+so $G(x,t)$ acts as a Green's function, or propagator, for the diffusion kernel.
+
+From this function we can estimate how long it takes for a randomly walking particle to return to the origin, the return time $t_\ret$. This is done by setting an arbitrarily high constant $C$, and finding at what time the integrated propagator at the origin reaches that value. For $d=1$,
+\begin{align}
+C &= \int_{0}^{t_\ret}dt\,G(0,t)\\
+&= \int_{0}^{t_\ret}dt\, (4\pi Dt)^{-1/2}\\
+&= \sqrt{\frac{t_\ret}{\pi D}},
+\end{align}
+or $t_\ret=\pi D C^2$. In $d=2$, $t_\ret=\exp(4\pi DC)$, while for larger $d$, $t_\ret=\infty$, which is to say the particle never returns to the origin. 
+
+At equilibrium, the particle density will be spread out over a region with length scale $\xi\sim\sqrt{Dt_\ret}$ \note{(Why?)}. We will use these facts in the analysis of continuous fracton systems in the next subsection.
+
+
+\section{Tensor gauge theory} \label{sec:tensor}
+
+We will show how fracton conservation laws naturally lead to tensor gauge theory. Although this is not strictly necessary to understand the dynamics of fracton systems, the literature often refers to fractons using the language of tensor gauge theory. This discussion follows the treatment in~\cite{PretkoFractonGauge}. 
+
+To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to \note{requiring
+	\begin{align}
+	\phi\to e^{i\alpha}\phi
+	\end{align}	
+	be a symmetry of the theory,} for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
+
+Gauging this theory requires that the theory be invariant under $\phi\to e^{i\alpha(x,t)}\phi$ for arbitrary $\alpha(x,t)$. However, the derivative of the field now transforms as 
+\begin{align}
+\partial_i\phi\to e^{i\alpha}\left(\partial_i+\partial_i\alpha\right)\phi,\nn
+\partial_t\phi\to e^{i\alpha}\left(\partial_t+\partial_t\alpha\right)\phi.
+\label{eqn:nconv}
+\end{align}
+This is not a covariant transformation, as it mixes the derivatives of $\phi$ with $\phi$ itself. The standard solution is to introduce gauge derivatives $D_i=\partial_i-iA_i$ and $D_t=\partial_t-i\Phi$, where $\Phi$ recalls the notation for the scalar potential of electromagnetism. We then have 
+\begin{align}
+D_i\phi\to e^{i\alpha}D_i\phi,\nn
+D_t\phi\to e^{i\alpha}D_t\phi,
+\end{align}
+if 
+\begin{align}
+A_i &\to A_i+\partial_i\alpha, \nn
+\Phi&\to\Phi+\partial_t\alpha.
+\end{align}
+We can then go on to calculate field strengths and possible terms in the action, but our main interest is in the fact that the gauge field is a spacetime vector $A_\mu=(\Phi,A_i)$. For more details see~\cite{PretkoFractonGauge}.
+
+We will now go through the same steps for a fracton field $\phi$ in order to show the natural emergence of symmetric tensor gauge fields. $\phi$ is again a complex scalar that conserves charge $Q=\int d^dx\rho$. It also conserves dipole moment $P_i = \int d^dx\rho x^i$ (breaking Lorentz invariance). Together these correspond to phase rotations of the form 
+\begin{align}
+\phi\to e^{i\alpha+i\lambda_ix^i}\phi.
+\end{align}
+We will write this phase as $e^{i\alpha(x)}$ where $\alpha$ is restricted to be linear until we gauge the theory.
+
+Now $\partial_i\phi\to e^{i\alpha}(\partial_i+\lambda_i)\phi$ is no longer covariant. The second derivative 
+\begin{align}
+\partial_i\partial_j\phi\to e^{i\alpha}(\partial_i\partial_j+\lambda_i\partial_j+\lambda_j\partial_i)\phi
+\end{align}
+looks slightly more promising because its symmetric structure can also be obtained from the operator $\partial_i\phi\partial_j\phi$. In fact, the lowest order operator is~\cite{PretkoFractonGauge}
+\begin{align}
+\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi\right).
+\end{align}
+This means that the action can contain this operator.
+
+Gauging the fracton theory so that $\alpha$ is again an arbitrary function, we now find
+\begin{align}
+\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi \to e^{2i\alpha} \left(\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + i(\partial_i\partial_j\alpha)\phi^2\right).
+\end{align}
+This suggests that, instead of constructing the covariant first derivative $D_i\phi$, we construct a covariant second derivative 
+\begin{align}
+D_{ij}\phi^2=\phi\partial_i\partial_j\phi-\partial_i\phi\partial_j\phi + iA_{ij}\phi^2,
+\end{align}
+where this is shorthand for $D_{ij}$ being a bilinear derivative operator acting on two copies of the field $\phi$. This operator transforms covariantly if 
+\begin{align}
+A_{ij}\to A_{ij}+\partial_i\partial_j\alpha.
+\end{align}
+This transformation law requires $A_{ij}$ to be symmetric, and we have found our symmetric tensor gauge field. 
+
+The theory still contains a scalar gauge field $\Phi\to\Phi+\partial_t\alpha$. For the construction of the lowest order Lagrangian of this theory, and other possible symmetric tensor gauge theories, see~\cite{PretkoFractonGauge}.
+
 
 \end{document}
