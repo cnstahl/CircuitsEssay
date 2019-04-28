@@ -82,7 +82,7 @@ The purpose of this essay is to provide the necessary background to understand t
 
 \section{Introduction} \label{sec:intro}
 
-Quantum statistical mechanics has recently blossomed due to advancements in experimental control, theoretical and mathematical methods, and computational power. See~\cite{GogolinStatMech, PolkovnikovClosed} for links. The field attempts to reconcile quantum mechanics, which conserves information, with statistical mechanics, in which information is lost. The key insight is that even with unitary dynamics, information can be ``spread" throughout a system so that it is effectively lost.
+Quantum statistical mechanics has recently blossomed due to advancements in experimental control, theoretical and mathematical methods, and computational power. See Refs.~\cite{GogolinStatMech, PolkovnikovClosed} and citations therein. The field attempts to reconcile quantum mechanics, which conserves information, with statistical mechanics, in which information is lost. The key insight is that even with unitary dynamics, information can be ``spread" throughout a system so that it is effectively lost.
 
 The study of quantum statistical mechanics has interesting applications. Unsurprisingly, it describes phenomena in many body physics, such as the Lieb-Robinson bound~\cite{Lieb72, RobertsSwingle}. This is a bound on how fast information can travel in non-relativistic systems. Even in relativistic systems, it is slower than the speed of light. As the information travels it is \emph{scrambled}, or spread out in its environment. The process of information scrambling has applications to high-energy physics. For example, black holes are ``fast scramblers"~\cite{SekinoSusskind}, in that they spread local information throughout their internal systems as fast as possible. The fast scrambling of black holes is useful in discussions of black hole unitarity~\cite{HaydenPreskill}.
 
@@ -92,15 +92,13 @@ The central study of this essay will be quantifying information spreading in man
 
 We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:circuits} defines the unitary evolution of quantum circuits and outlines methods for introducing conservation laws. It also defines Floquet systems, which are similarly to Hamiltonian systems but do not conserve energy.
 
-The next two sections cover the quantum dynamics of systems with and without conservation laws. Sec.~\ref{sec:ncons} presents the phenomenology of Floquet systems that lack any conserved quantities. It goes on to analytically calculate the dynamics of circuits with no conserved quantities and show that they behave like Floquet systems.
-\note{The analytic behavior\dots classical behavior\dots reason for circuits}
+The next two sections cover the quantum dynamics of systems with and without conservation laws. Sec.~\ref{sec:ncons} presents the phenomenology of Floquet systems that lack any conserved quantities. It goes on to analytically calculate the dynamics of circuits with no conserved quantities and show that they behave like Floquet systems. The advantage of the circuits is that, through Haar-averaging, they admit classical descriptions of $\rho_R$ and the OTOC, which are easy to simulate or solve exactly.
 Sec.~\ref{sec:cons} does the same for systems with a small number of conservation laws, or constraints. These sections primarily report the results of other literature, and the main sources will be~\cite{ChenOtoc, vonKeyserlingkHydro, NahumOpSp, KhemaniOpSp}. All systems in these two sections thermalize. 
 
-One path to localization in random unitary circuits is through fractonic conservation laws. These are constraints that not only conserve some quantity, but also its higher moments. An example would be the conservation of charge and dipole.
-To motivate these we will introduce fractonic systems in Sec.~\ref{sec:frac} and show how they naturally conserve higher moments of charges. Finally, in Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize, following the results of~\cite{PaiFracton}. Importantly, the relevant calculations suggest that similar circuits in 2 dimensions should also localize, which is usually thought to be impossible.
+One path to localization in random unitary circuits is through fractonic conservation laws. These are constraints that not only conserve some quantity, but also its higher moments. An example would be the conservation of charge and dipole. In Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize, following the results of~\cite{PaiFracton}. Importantly, the relevant calculations suggest that similar circuits in 2 dimensions should also localize.
 Sec~\ref{sec:conc} reviews the broad goals of this essay and presents some possibilities for future research.
 
-The systems in this essay will be 1 dimensional and discrete, so we can label space with an index, $i = 1,2,\dots,L$. Oftentimes $L$ will implicitly taken to be infinite. At each site $i$ there is a $q$-dimensional Hilbert space, and the system is the tensor product of all these sites. For example, $q=2$ corresponds to a spin chain of spin-$\half$ particles.
+The systems in this essay will be 1 dimensional and discrete, so we can label space with an index, $i = 1,2,\dots,L$. Oftentimes $L$ will implicitly taken to be infinite in analytic descriptions. Numerical simulations are always done at finite $L$, and in this case the ``thermodynamic limit" refers to taking $L$ to $\infty$ proportionally to some time scale. At each site $i$ there is a $q$-dimensional Hilbert space, and the system is the tensor product of all these sites. For example, $q=2$ corresponds to a spin chain of spin-$\half$ particles. Initial states will always be product states.
 
 
 \section{Quantum dynamics of closed systems} \label{sec:dyn}
@@ -200,13 +198,47 @@ The OTOC is more common than the OTO correlator in the literature, so this relat
 
 \subsection{Other measure of dynamics} \label{sub:other}
 
-\note{Is any of this useful or necessary?}
-Other useful quantity is the bipartite entanglement entropy $S(i,t)$.
-Other possible entropies: Renyi entropies.
-Dynamics studied in~\cite{RakovskyDiff, HuangRenyi}.
-Also mention~\cite{JonayEntanglement}.
+Another useful measure of dynamics is the bipartite entanglement entropy $S(i,t)$. Consider a spin chain, with the whole chain in a pure state. Cut the chain between site $i$ and site $i+1$, so that there are now two subsystems, $A$ and $B$, with states $\rho_A$ and $\rho_B$, respectively. Define the entropy as 
+\begin{align}
+S(i,t) \equiv S(A) = \Tr\rho_A\log\rho_A.
+\end{align}
+Since the whole system is in a pure state, we have
+\begin{align}
+S(i,t)=S(A)=S(B).
+\end{align}
+Furthermore, since the chain is initially in a pure state, the initial entropy is initially
+\begin{align}
+S(i,0)= 0,
+\end{align}
+meaning there is an obvious background entropy level.
 
-I like the transition between thermalizing and localizing phases, so I'll spend some time on that, with sources~\cite{PalHuse, KhemaniCP}. Specifically, the fact that this is not a phase transition of the ground state, like we are used to, and different order parameters for the transition. 
+Entropy can only increase across a ``cut" or ``bond" when spins on either side become entangled with each other. This is the sense in which $S(i,t)$ is a good measure of information spreading. Refs.~\cite{BardarsonPollmannMoore, NahumEntanglement, NahumRuhmanHuse, JonayEntanglement} study the spreading of entanglement in spin systems. It is also possible to study the dynamics of higher R\'{e}nyi entropies 
+\begin{align}
+S_n(A) &= \th{1-n}\log\Tr(\rho_A)^n\nn
+&\rightarrow_{n\to 1}\Tr\rho_A\log\rho_A,
+\end{align}
+which differ in some ways from the $n=1$ case. Refs~\cite{RakovskyDiff, HuangRenyi} investigate higher R\'{e}nyi in conserving circuits. 
+
+Lastly, it is possible to distinguish thermalizing systems from localizing ones without even studying their dynamics. One way is through the distribution of energy eigenvalues, which only works in systems that have Hamiltonians. The idea is that in the large-system limit, eigenvalues should be distributed with some statistics. Thermalizing systems follow Gaussian orthogonal ensemble (GOE) level statistics, while localized systems follow Poisson statistics~\cite{OganesyanHuse}. One distinguishing factor is that thermalizing systems (and GOE statistics) obey level repulsion, where adjacent energies are unlikely to be close to degenerate.
+
+With that distinction in mind, we start by taking all the eigenvalues $E^i$ in ascending order, and defining the level spacing $\delta^i = E^i-E^{i-1}$. The ratio of adjacent gaps is~\cite{OganesyanHuse}
+\begin{align}
+r^i = \frac{\min\{\delta^i, \delta^{i+1}\}}{\max\{\delta^i, \delta^{i+1}\}}.
+\end{align}
+Uniformly distributed eigenvalues would result in $r^i=1$. We can then average over states $i$ and also average over any disorder present in the model to obtain the average ratio, $r$. With perfect GOE statistics we would expect $r\approx0.53$, while with perfect Poisson statistics we would expect $r\approx0.39$.
+
+Finite size systems will have some deviation from the expected values, but we can use $r$ to watch a system transition from thermalizing to localized. An example~\cite{PalHuse} is the Heisenberg chain with a random field
+\begin{align}
+H = \sum_i\left(X_iX_{i+1} + Y_iY_{i+1} + X_iX_{i+1}\right)+\sum_i h_iZ_i,
+\end{align}
+with $h_i$ drawn uniformly from $[-h,h]$. As $h$ varies between 0.5 and 12.5, $r$ approaches first 0.53 and then 0.39. 
+\begin{figure}
+	\centering
+	\includegraphics[width=.6\textwidth]{PalTrans}
+	\caption{Quantum phase transition of the Heisenberg chain with random field of strength $h$. Note that the transition becomes sharper for higher $L$. Figure from~\cite{PalHuse}.}
+	\label{fig:PalTrans}
+\end{figure}
+In some ways this looks like a classical phase transition. There is an order parameter that undergoes an increasingly sharp transition as system size increases, approaching a step function. However, this transition is controlled by an external parameter, not by the temperature. In fact, the temperature in this model is infinite (given the unweighted average among energy eigenvalues). Furthermore, classical phase transitions rely on the concept of thermal equilibrium, but there is no such concept in localized models. This transition is called a quantum phase transition.
 
 
 \section{Random unitary circuits and Floquet systems} \label{sec:circuits}
@@ -242,15 +274,15 @@ The resolution lies in Floquet systems. In this branch of systems, there is a su
 U_F(T) = U_2\left(\frac{T}{2}\right)\; U_1\left(\frac{T}{2}\right) = e^{-i\frac{T}{2}H_2} e^{-i\frac{T}{2}H_1}.
 \end{align}
 For $t=nT$ with $n\in \mathbb{Z}$, the time evolution operator is $U(t)=U^n(T),$ while for noninteger multiples of $T$ it is more complicated. Hamiltonian and Floquet system are collectively referred to as \emph{physical systems.}
+%
+%One example is the kicked Ising model~\cite{vonKeyserlingkHydro}, with 
+%\begin{align}
+%H_1 &= \phantom{h}\sum_i\left(Z_iZ_{i+1}+gZ_i\right),\nn
+%H_2 &= h\sum_iX_i. \label{eqn:kicked}
+%\end{align}
+%Note that all terms acting at a given time commute with each other. Therefore this Floquet model can be written as a unitary circuit (not random) with 2-site gates. 
 
-One example is the kicked Ising model~\cite{vonKeyserlingkHydro}, with 
-\begin{align}
-H_1 &= \phantom{h}\sum_i\left(Z_iZ_{i+1}+gZ_i\right),\nn
-H_2 &= h\sum_iX_i. \label{eqn:kicked}
-\end{align}
-Note that all terms acting at a given time commute with each other. Therefore this Floquet model can be written as a unitary circuit (not random) with 2-site gates. 
-
-Another example, from Refs.~\cite{ZhangFloq, ChenOtoc}, has time evolution operator 
+One example, from Refs.~\cite{ZhangFloq, ChenOtoc}, has time evolution operator 
 \begin{align}
 U_F(T) = e^{-i\frac{T}{2}H_x}e^{-i\frac{T}{2}H_z}, \label{eqn:gamma}
 \end{align}
@@ -303,7 +335,7 @@ The key point is the exponential dependence of the OTO correlator.
 \end{figure}
 Fig.~\ref{fig:ChenExp} shows the exponential decay of the OTO correlator at constant $i$ for various system sizes. Finite size effects cause the OTO correlator to saturate and therefore deviate from exponential behavior. However, the figure shows that this happens later for larger $L$, suggesting that the exponential decay continues for an arbitrarily long time for large enough $L$.
 
-Ref.~\cite{vonKeyserlingkHydro} cranks $\Gamma$ all the way to 1, to study the kicked Ising model, defined in Eq.~\ref{eqn:kicked}. It goes beyond the early-time exponential dependence to study the saturation. The quantity under inspection is now the OTOC rather than the OTO correlator, so it should start at 0 and saturate to 1. There is also a focus on the operator right- and left-weights, $\rho_L$ and $\rho_R$.
+Ref.~\cite{vonKeyserlingkHydro} cranks $\Gamma$ all the way to 1, to study the kicked Ising model. It goes beyond the early-time exponential dependence to study the saturation. The quantity under inspection is now the OTOC rather than the OTO correlator, so it should start at 0 and saturate to 1. There is also a focus on the operator right- and left-weights, $\rho_L$ and $\rho_R$.
 
 Fig.~\ref{fig:vonKSpreading} shows the qualitative behavior of the right weight and OTOC. Although it is for the quantum circuit, the qualitative behavior is the same (that's the whole point of this essay). At each site, exponential growth of both $\rho_R$ and the OTOC begins when the site enters the light cone. Exponential growth continues until the front reaches the site, at which point $\rho_R$ peaks and the OTOC begins to saturate. Just as in the $\Gamma$ model, the OTOC approaches its asymptotic value exponentially. 
 Figs.~\ref{fig:vonKSpreading}~(a) and (b) can be thought of as horizontal slices though Fig.~\ref{fig:vonKSpreading}~(c). To compare with Fig.~\ref{fig:ChenExp}, imagine a vertical slice through~\ref{fig:vonKSpreading}~(c), with $t=0$ occurring at the position of the light cone.
@@ -414,7 +446,7 @@ The first Hamiltonian system we will study, from Ref.~\cite{ChenOtoc}, is the He
 H = \sum_i\left(X_iX_{i+1} + Y_iY_{i+1} + X_iX_{i+1}\right)+\sum_i h_iZ_i,
 	\label{eqn:heis}
 \end{align}
-where ${h_i}$ are drawn from a uniform distribution on $[-W,W]$. This conserves $Z_\tot=\sum_i Z_i$. 
+where ${h_i}$ are drawn from a uniform distribution on $[-W,W]$ (the new notation is only to match Ref.~\cite{ChenOtoc}). This conserves $Z_\tot=\sum_i Z_i$. 
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{ChenPow}
@@ -504,7 +536,7 @@ where equality holds after Haar-averaging.\footnote{We will we be cavalier about
 \begin{align}
 a^c(x,t) = \sqrt{\frac{1}{2\pi t}}e^{-\frac{x^2}{2t}},
 \end{align}
-which is a diffusing lump with diffusion constant $D_c=\th{2}$. Therefore the total weight on conserved operators falls over time,
+which is a diffusing lump with drift velocity $v_c=0$ and diffusion constant $D_c=\th{2}$. Therefore the total weight on conserved operators falls over time,
 \begin{align}
 \rho^c_\tot(t) \simeq \int dx\,\abs{a^c(x,t)} = \int dx\,\th{2\pi t}e^{-x^2/t} 
 	=\th{2\sqrt{\pi t}}, \label{eqn:rhoc}
@@ -543,20 +575,22 @@ Since the OTOC and the OTO correlator are linearly related~(\ref{eqn:OTOCOTO}), 
 The material so far has introduced all of the dynamics-based material we will need to understand fractonic circuits, but we haven't covered fractons yet! We'll take a brief tour into the physics of fractons before circling back to see how we can understand localization in fractonic circuits using our previous analysis of thermalizing circuits.
 
 
-\section{Fractonic systems} \label{sec:frac}
-
-The defining feature of fractons is the conservation of higher moments of a conserved charge, such as dipole strength. The conservation of dipole moment means that an isolated charge cannot move without creating an isolated dipole somewhere else, which costs energy. Thus, the charges are immobile in the low-energy limit. This seems like a promising place to look for localization. This section discusses fractons in general, while Sec~\ref{sec:fraccirc} describes dynamics in their circuits.
-
-Ref.~\cite{NandkishoreFractons} is a broader introduction to fractons. In addition to the fractons that arise through tensor field theory, which are massless, it is possible to create massive fractons using exactly solvable lattice spin models. These models include the X-cube model and Haah's code. Fractons also have interesting connections to branches of physics from elasticity to gravity~\cite{PretkoElasticity, PretkoGravity}.
-
-
 \section{Localization in fractonic circuits} \label{sec:fraccirc}
 
-This section will mostly cover the results in~\cite{PaiFracton}. I'll go through their analytic results and show that their numerics match up. I'd prefer not to do my own numerics because I assume anything I can do in the next month and a half will be a subset of what they achieved, but if you think my essay would benefit from some validation of their numerics at lower $L$, then I'll go for it. 
+We want to find circuits that localize 
+Conservation laws slowed the dynamics, so maybe it is not too surprising that there is a class of conservation laws that can stop spreading in some cases, leading to localization. One such conservation law is conservation of higher moments of charge, such as dipole strength. Systems with such conservation laws are called \emph{fractonic} systems.
 
-Since the dipole density is a conserved charge whose higher moments are not conserved, it should behave the way that charge density did in the thermalizing charge conserving circuit.
+We will start by arguing why higher moment conservation laws lead to localization, and briefly introduce some of the recent literature involving fractons. We will then analyze a fractonic circuit. Our plan in this section will be slightly different than in the previous two. We will first calculate analytic behavior of the fractonic circuits and then show numerical simulation of the circuit itself, to show that it matches the expected behavior.
 
-The entirety of this section is based on the work in~\cite{PaiFracton}.
+\subsection{Fractonic systems} \label{sub:frac}
+
+The defining feature of fractons is the conservation of higher moments of a conserved charge, such as dipole strength. The conservation of dipole moment means that an isolated charge cannot move without creating an isolated dipole somewhere else, which costs energy. Thus, single charges (also called fractons) are immobile in the low-energy limit. This seems like a promising place to look for localization.
+Although the charges are immobile, isolated dipoles are free to move. Their only constraint is that their total number must be conserved (modulo the movement of fractons). This is the same constraint that charge had in the conserving circuit. We will see that dipoles behave similar to to the way charges acted in that circuit.
+
+Ref.~\cite{NandkishoreFractons} is a broader introduction to fractons. One path toward the creation of fractons is gauge field theory, specifically one with a symmetric tensor gauge. This is as opposed to a vector gauge, which naturally conserves charge. Although this essay does not require tensor gauge theory, it is common to see in the literature. Appendix~\ref{sec:tensor} has a brief outline of this approach, which also has interesting connections to branches of physics ranging from elasticity to gravity~\cite{PretkoElasticity, PretkoGravity}.
+In addition to the fractons that arise through tensor gauge field theory, which are massless, it is possible to create massive fractons using exactly solvable lattice spin models. These models include the X-cube model and Haah's code~\cite{CastelnovoGlass, HaahCode}.
+
+The remainder of this section is based on the work in~\cite{PaiFracton}. We will construct a circuit with manifest fractonic conservation laws, so we do not need to worry about construction of physical fractonic systems.
 
 \subsection{Construction of fractonic circuits} \label{sub:construct}
 
@@ -564,10 +598,10 @@ In order to construct our fractonic circuits, we need to define charges. The nai
 
 Now we need to impose the conservation laws. Charge conservation is equivalent to conservation of $Z_\text{tot}$, so that's easy. In order to impose dipole conservation, we just need to make sure that each of our gates individually conserves dipole. However, that poses a problem because there are no non-trivial 2-site gates that conserve dipole. The solution is to consider 3-site unitary gates (or larger).
 
-This gate set is still very restricted. Consider the initial state $+-0$. The only possible gates that conserve both $Q$ and $P$ are the identity and the gate $+-0\leftrightarrow 0+-$. The gate is defined by its action on states, with the assumption that it acts as the identity on all other states. A list of allowed gates is shown in Tab.~\ref{tab:pai}. Note that there are very few 3-site gates. This raises concerns that the small number of gates affects the behavior of the circuit. We can allow more gates by having the gates each act on more sites, as in Tab.~\ref{tab:pai}. Ref.~\cite{PaiFracton} repeats their calculations for various size gates and finds the same results, so the number of allowed gates is not an issue.
+This gate set is still very restricted. Consider the initial state $+-0$. The only possible gates that conserve both $Q$ and $P$ are the identity and the gate $+-0\leftrightarrow 0+-$. The gate is defined by its action on states, with the assumption that it acts as the identity on all other states. A list of allowed gates is shown in Table~\ref{tab:pai}. Note that there are very few 3-site gates. This raises concerns that the small number of gates affects the behavior of the circuit. We can allow more gates by having the gates each act on more sites, as in Table~\ref{tab:pai}. Ref.~\cite{PaiFracton} repeats their calculations for various size gates and finds the same results, so the number of allowed gates is not an issue.
 \input{Pai}
 
-Now that we have 3-site gates, there is one last complication to sort out, which is the placement of the gates. We cannot use the simple alternating structure of Fig.\ref{fig:vonKgates}. Instead, Ref.~\cite{PaiFracton} uses an asymmetric structure, shown in Fig.~\ref{fig:PaiArch}.
+Now that we have 3-site gates, there is one last complication to sort out, which is the placement of the gates. We cannot use the simple alternating structure of Fig~.\ref{fig:vonKgates}. Instead, Ref.~\cite{PaiFracton} uses an asymmetric structure, shown in Fig.~\ref{fig:PaiArch}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{PaiArch}
@@ -710,7 +744,9 @@ Some possible further steps in the study of fractonic circuits include an explor
 
 \section{Random walks in $d=1$} \label{sec:walks}
 
-The diffusion operator is $\mathcal{D} = \partial_t-D\partial_x^2$, where $D$ is the diffusion constant. Consider the function $G(x,t)=(4\pi Dt)^{-d/2} e^{-x^2/4Dt}$. We can see that $\mathcal{D}G(x,t)=0$ for $t>0$ 
+Biased random walks~\cite{RoussellStatMech}.
+
+We will call the diffusion operator $\mathcal{D} = \partial_t-D\partial_x^2$. Consider the function $G(x,t)=(4\pi Dt)^{-d/2} e^{-x^2/4Dt}$. We can see that $\mathcal{D}G(x,t)=0$ for $t>0$ 
 \begin{align}
 \partial_t G(x,t) &= \phantom{D}(4\pi D)^{-\frac{d}{2}} \left[-\frac{d}{2} 
 t^{-\frac{d}{2}-1} + t^{-\frac{d}{2}}\frac{x^2}{4Dt^2} \right]
@@ -737,18 +773,18 @@ C &= \int_{0}^{t_\ret}dt\,G(0,t)\\
 \end{align}
 or $t_\ret=\pi D C^2$. In $d=2$, $t_\ret=\exp(4\pi DC)$, while for larger $d$, $t_\ret=\infty$, which is to say the particle never returns to the origin. 
 
-At equilibrium, the particle density will be spread out over a region with length scale $\xi\sim\sqrt{Dt_\ret}$ \note{(Why?)}. We will use these facts in the analysis of continuous fracton systems in the next subsection.
+At equilibrium, the particle density will be spread out over a region with length scale $\xi\sim\sqrt{Dt_\ret}$. We will use these facts in the analysis of continuous fracton systems in the next subsection.
 
 
 \section{Tensor gauge theory} \label{sec:tensor}
 
 We will show how fracton conservation laws naturally lead to tensor gauge theory. Although this is not strictly necessary to understand the dynamics of fracton systems, the literature often refers to fractons using the language of tensor gauge theory. This discussion follows the treatment in~\cite{PretkoFractonGauge}. 
 
-To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to \note{requiring
-	\begin{align}
-	\phi\to e^{i\alpha}\phi
-	\end{align}	
-	be a symmetry of the theory,} for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
+To start, we will briefly review the familiar form of U(1) gauge theory. Consider a complex scalar field $\phi(x,t)$. We will treat time and space separately despite the theory being Lorentz invariant because the fracton theory is not Lorentz invariant. The charge density of this field is $\rho =\phi^\dag\phi$, with total charge $Q=\int d^dx \rho$. Requiring $Q=\text{const.}$ is equivalent to requiring
+\begin{align}
+\phi\to e^{i\alpha}\phi
+\end{align}	
+be a symmetry of the theory, for constant $\alpha$. At this point $\phi$ and all of its derivatives and powers transform covariantly, which is to say that each operator transforms as $\mathcal{O}\to e^{in\alpha}\mathcal{O}$ under the phase rotation.
 
 Gauging this theory requires that the theory be invariant under $\phi\to e^{i\alpha(x,t)}\phi$ for arbitrary $\alpha(x,t)$. However, the derivative of the field now transforms as 
 \begin{align}

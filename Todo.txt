@@ -1,10 +1,9 @@
 ——To Do——
 
-Remove phase transition?
-Remove symmetric tensor theory?
-More about fractons
 Random walks and diffusion
-Intro and conclusion
+Small things
+  Product state
+Make it shorter
 
 ——Papers to Read——
 
@@ -12,9 +11,6 @@ GogolinStatMech
   Links therein
 DeutschClosed
 
-——Notes——
-
 ——Timeline——
 
-Apr 26  Meet with Lamacraft
 May 02  Essay due
