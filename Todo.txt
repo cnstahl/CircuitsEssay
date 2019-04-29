@@ -1,6 +1,5 @@
 ——To Do——
 
-Random walks and diffusion
 Small things
   Product state
 Make it shorter
@@ -8,6 +7,8 @@ Make it shorter
 ——Questions——
 
 How do I get out of the Huse circle?
+Is there localization in the Chalker & de Luca paper?
+Why doesn't the random walk calculation work?
 
 ——Timeline——
 

@@ -86,14 +86,14 @@ Quantum statistical mechanics has recently blossomed due to advancements in expe
 
 The study of quantum statistical mechanics has interesting applications. Unsurprisingly, it describes phenomena in many body physics, such as the Lieb-Robinson bound~\cite{Lieb72, RobertsSwingle}. This is a bound on how fast information can travel in non-relativistic systems. Even in relativistic systems, it is slower than the speed of light. As the information travels it is \emph{scrambled}, or spread out in its environment. The process of information scrambling has applications to high-energy physics. For example, black holes are ``fast scramblers"~\cite{SekinoSusskind}, in that they spread local information throughout their internal systems as fast as possible. The fast scrambling of black holes is useful in discussions of black hole unitarity~\cite{HaydenPreskill}.
 
-This process of information spreading is called \emph{thermalization}, because it allows quantum systems to reach a state that looks thermal. Some systems can thermalize and some can not. One class of systems that cannot are called \emph{localized}. This type of system, discovered by Anderson~\cite{AndersonDiff}, has been the source of much of the recent interest in quantum statistical mechanics.
+This process of information spreading is called \emph{thermalization}, because it allows quantum systems to reach a state that looks thermal. Some systems can thermalize and some can not. One class of systems that cannot are called \emph{localized}. This type of system, discovered by Anderson~\cite{AndersonDiff}, has been a recent interest in quantum statistical mechanics.
 
 The central study of this essay will be quantifying information spreading in many-body systems. Mostly we will be interested in the spreading of operators, but there are other ways to quantify information and its dynamics. Sec.~\ref{sec:dyn} explores the possible late-time behaviors of information scrambling, namely thermalization and localization, and defines the various measure of scrambling we will use.
 
-We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:circuits} defines the unitary evolution of quantum circuits and outlines methods for introducing conservation laws. It also defines Floquet systems, which are similarly to Hamiltonian systems but do not conserve energy.
+We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:circuits} defines the unitary evolution of quantum circuits and outlines methods for introducing conservation laws. It also defines Floquet systems, which are similar to Hamiltonian systems but do not conserve energy.
 
 The next two sections cover the quantum dynamics of systems with and without conservation laws. Sec.~\ref{sec:ncons} presents the phenomenology of Floquet systems that lack any conserved quantities. It goes on to analytically calculate the dynamics of circuits with no conserved quantities and show that they behave like Floquet systems. The advantage of the circuits is that, through Haar-averaging, they admit classical descriptions of $\rho_R$ and the OTOC, which are easy to simulate or solve exactly.
-Sec.~\ref{sec:cons} does the same for systems with a small number of conservation laws, or constraints. These sections primarily report the results of other literature, and the main sources will be~\cite{ChenOtoc, vonKeyserlingkHydro, NahumOpSp, KhemaniOpSp}. All systems in these two sections thermalize. 
+Sec.~\ref{sec:cons} does the same for systems with a small number of conservation laws, or constraints. These sections primarily report the results of other literature, and the main sources will be~\cite{ChenOtoc, vonKeyserlingkHydro, NahumOpSp, KhemaniOpSp}. The physical systems and circuits we study in these two sections thermalize, which leads to the question: can a circuit be localized?
 
 One path to localization in random unitary circuits is through fractonic conservation laws. These are constraints that not only conserve some quantity, but also its higher moments. An example would be the conservation of charge and dipole. In Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize, following the results of~\cite{PaiFracton}. Importantly, the relevant calculations suggest that similar circuits in 2 dimensions should also localize.
 Sec~\ref{sec:conc} reviews the broad goals of this essay and presents some possibilities for future research.
@@ -103,7 +103,7 @@ The systems in this essay will be 1 dimensional and discrete, so we can label sp
 
 \section{Quantum dynamics of closed systems} \label{sec:dyn}
 
-This section will serve to introduce the reader to the basics of quantum dynamics of closed systems. It will follow material in the reviews in Refs.~\cite{Cazalilla2010, PolkovnikovClosed, Nandkishore14, GogolinStatMech}. The primary question is how to reconcile thermalization in statistical mechanics with unitarity in quantum mechanics. In statistical mechanics, systems tend to thermalize over time by maximizing entropy. This results in late time states that can be described by only a few parameters, related to conserved quantities such as energy or particle number. This forms the basis of thermodynamics. 
+This section will serve to introduce the reader to the basics of quantum dynamics of closed systems. It will follow material in the reviews in Refs.~\cite{Cazalilla2010, PolkovnikovClosed, Nandkishore14, GogolinStatMech}. The primary question is how to reconcile thermalization in statistical mechanics with unitarity in quantum mechanics. In statistical mechanics, systems tend to thermalize over time by maximizing entropy, $S(\rho)=-\Tr\rho\log\rho$. This results in late time states that can be described by only a few parameters, related to conserved quantities such as energy or particle number. This forms the basis of thermodynamics. 
 
 That evolution towards increasing entropy violates unitarity can be seen in two ways. First, it clearly breaks time reversal symmetry, and unitary dynamics are always reversible. Second, if states at late time can be described by only a small number of parameters (independent of system size), then there must be states that are initially distinct but evolve to be the same. It is in this sense that we say that information is lost.
 
@@ -200,7 +200,7 @@ The OTOC is more common than the OTO correlator in the literature, so this relat
 
 Another useful measure of dynamics is the bipartite entanglement entropy $S(i,t)$. Consider a spin chain, with the whole chain in a pure state. Cut the chain between site $i$ and site $i+1$, so that there are now two subsystems, $A$ and $B$, with states $\rho_A$ and $\rho_B$, respectively. Define the entropy as 
 \begin{align}
-S(i,t) \equiv S(A) = \Tr\rho_A\log\rho_A.
+S(i,t) \equiv S(A) = -\Tr\rho_A\log\rho_A.
 \end{align}
 Since the whole system is in a pure state, we have
 \begin{align}
@@ -214,8 +214,8 @@ meaning there is an obvious background entropy level.
 
 Entropy can only increase across a ``cut" or ``bond" when spins on either side become entangled with each other. This is the sense in which $S(i,t)$ is a good measure of information spreading. Refs.~\cite{BardarsonPollmannMoore, NahumEntanglement, NahumRuhmanHuse, JonayEntanglement} study the spreading of entanglement in spin systems. It is also possible to study the dynamics of higher R\'{e}nyi entropies 
 \begin{align}
-S_n(A) &= \th{1-n}\log\Tr(\rho_A)^n\nn
-&\rightarrow_{n\to 1}\Tr\rho_A\log\rho_A,
+S_n(A) & \hspace{8pt} =\hspace{8pt} \th{1-n}\log\Tr(\rho_A)^n\nn
+&\xrightarrow[n\to 1]{}-\Tr\rho_A\log\rho_A,
 \end{align}
 which differ in some ways from the $n=1$ case. Refs~\cite{RakovskyDiff, HuangRenyi} investigate higher R\'{e}nyi in conserving circuits. 
 
@@ -410,9 +410,9 @@ which is the equation for a biased random walk that steps to the right with prob
 Therefore, for any operator initially local at position $x_0$, $\rho_R$ spreads linearly with a front located near position $x = x_0 + v_B t$. The front spreads diffusively as $\ex{x^2}-\ex{x}^2=2Dt$~\cite{vonKeyserlingkHydro}. The values are
 \begin{align}
 v_B &= p^2-(1-p)^2 = \frac{q^2-1}{q^2+1},\nn
-D   &= \sqrt{1-v_B^2}/4 = \frac{q/2}{q^2+1}.
+D   &= \sqrt{1-v_B^2}/4 = \frac{q/2}{q^2+1}. \label{eqn:Dncons}
 \end{align}
-These results can be summarized in Fig.~\ref{fig:vonKSpreading}.
+These results, which are calculated in App.~\ref{sec:walks}, can be summarized in Fig.~\ref{fig:vonKSpreading}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{vonKSpreading}
@@ -536,7 +536,7 @@ where equality holds after Haar-averaging.\footnote{We will we be cavalier about
 \begin{align}
 a^c(x,t) = \sqrt{\frac{1}{2\pi t}}e^{-\frac{x^2}{2t}},
 \end{align}
-which is a diffusing lump with drift velocity $v_c=0$ and diffusion constant $D_c=\th{2}$. Therefore the total weight on conserved operators falls over time,
+which is a diffusing lump with drift velocity $v_c=0$ and diffusion constant $D_c=\th{2}$. Once again see App.~\ref{sec:walks} for calculations. Therefore the total weight on conserved operators falls over time,
 \begin{align}
 \rho^c_\tot(t) \simeq \int dx\,\abs{a^c(x,t)} = \int dx\,\th{2\pi t}e^{-x^2/t} 
 	=\th{2\sqrt{\pi t}}, \label{eqn:rhoc}
@@ -744,7 +744,28 @@ Some possible further steps in the study of fractonic circuits include an explor
 
 \section{Random walks in $d=1$} \label{sec:walks}
 
-Biased random walks~\cite{RoussellStatMech}.
+Here we will briefly review biased random walks and diffusion in $d=1$, relying on Refs.~\cite{RoussellStatMech, MarenduAsp}. Consider a random walker on a line with discrete position $i$ and discrete time $\t$. At time $\t$ the probability of being at site $i$ is $P(i,\t)$. At each time step the walker moves to the right with probability $p$ and to the left with probability $q$, and stays stationary with probability $1-p-q$. Thus,
+\begin{align}
+P(i,\t+1) = pP(i-1,\t)+qP(i+1,\t)+(1-p-q)P(i,\t).
+\end{align}
+Our goal is to coarse-grain this evolution equation to arrive at a diffusion equation.
+We can start to make time continuous by replacing $\t\to t$, $\t+1\to t+\Delta t$, but we will not take $\Delta t\to0$ until the end. This gives us
+\begin{align}
+P(i,t+\Delta t) &= pP(i-1,\t)+qP(i+1,\t)+(1-p-q)P(i,\t),\nn
+\frac{\Delta P}{\Delta t}(i,t) &= \frac{p}{\Delta t} P(i-1,\t) + \frac{q}{\Delta t}P(i+1,\t)-\frac{p+q}{\Delta t}P(i,\t),
+\end{align}
+where the LHS will become $\partial P/\partial t$ once we take the continuous limit.
+
+The spacial continuous limit is more difficult, and will rely on the discrete second derivative
+\begin{align}
+\frac{\Delta^2y}{\Delta x^2} = \frac{y(x+\Delta x) + y(x-\Delta x) - 2 y(x)}{\Delta x^2}.
+\end{align}
+We then go through the same procedure with $i\to x$, $i+1\to x+\Delta x$, to get
+\begin{align}
+\frac{\Delta P}{\Delta t} &= \frac{q+p}{2\Delta t}\Delta x^2\frac{\Delta^2P}{\Delta x^2} - \frac{p-q}{\Delta t}\Delta x\frac{\Delta P}{\Delta x},\nn
+\pd{P}{t}&= D\pdn{P}{x}{2}-v_B\pd{P}{x},
+\end{align}
+where in the final line we have defined $D\equiv\frac{q+p}{2}\frac{\Delta x^2}{\Delta t}$ and $v_B\equiv(q+p)\frac{\Delta x}{\Delta t}$, and then taken $\Delta x$ and $\Delta t\to 0$. We can use this to calculate $D$ and $v_B$ in Sec.~\ref{sub:cncons} and Sec.~\ref{sub:ccons}. We now set $v_B=0$ to study the diffusion process.
 
 We will call the diffusion operator $\mathcal{D} = \partial_t-D\partial_x^2$. Consider the function $G(x,t)=(4\pi Dt)^{-d/2} e^{-x^2/4Dt}$. We can see that $\mathcal{D}G(x,t)=0$ for $t>0$ 
 \begin{align}
