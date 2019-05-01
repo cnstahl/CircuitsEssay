@@ -71,8 +71,37 @@
 \author{Charles Stahl}
 
 \begin{document}
-
-\maketitle
+	
+\begin{titlepage}
+	\begin{center}
+		\vspace*{1cm}
+		
+		\Huge
+		\textbf{Modeling Quantum Dynamics Using Random Unitary Circuits}
+		
+		\vspace{0.5cm}
+		\LARGE
+		Exploring thermalization and localization using conservation laws
+		
+		\vspace{5.5cm}
+		
+		\input{brickcircuit}
+		
+		\vspace{3.5cm}
+		
+		An essay set by Dr. Austen Lamacraft
+		
+		\vspace{0.8cm}
+		
+%		\includegraphics[width=0.4\textwidth]{university}
+		
+		\Large
+		Submitted in partial fulfillment of the \\
+		requirements of the Cambridge University\\
+		Mathematical Tripos Part III
+		
+	\end{center}
+\end{titlepage}
 
 \begin{abstract}
 
@@ -86,24 +115,24 @@ Quantum statistical mechanics has recently blossomed due to advancements in expe
 
 The study of quantum statistical mechanics has interesting applications. Unsurprisingly, it describes phenomena in many body physics, such as the Lieb-Robinson bound~\cite{Lieb72, RobertsSwingle}. This is a bound on how fast information can travel in non-relativistic systems. Even in relativistic systems, it is slower than the speed of light. As the information travels it is \emph{scrambled}, or spread out in its environment. The process of information scrambling has applications to high-energy physics. For example, black holes are ``fast scramblers"~\cite{SekinoSusskind}, in that they spread local information throughout their internal systems as fast as possible. The fast scrambling of black holes is useful in discussions of black hole unitarity~\cite{HaydenPreskill}.
 
-This process of information spreading is called \emph{thermalization}, because it allows quantum systems to reach a state that looks thermal. Some systems can thermalize and some can not. One class of systems that cannot are called \emph{localized}. This type of system, discovered by Anderson~\cite{AndersonDiff}, has been a recent interest in quantum statistical mechanics.
+This process of information spreading is called \emph{thermalization}, because it allows quantum systems to reach a state that looks thermal. Some systems can thermalize and some can not. One class of systems that cannot thermalize exhibit a behavior called \emph{localization}. This type of system, discovered by Anderson~\cite{AndersonDiff}, has been of recent interest in quantum statistical mechanics.
 
 The central study of this essay will be quantifying information spreading in many-body systems. Mostly we will be interested in the spreading of operators, but there are other ways to quantify information and its dynamics. Sec.~\ref{sec:dyn} explores the possible late-time behaviors of information scrambling, namely thermalization and localization, and defines the various measure of scrambling we will use.
 
 We will then describe how to study these processes using random unitary circuits. Sec.~\ref{sec:circuits} defines the unitary evolution of quantum circuits and outlines methods for introducing conservation laws. It also defines Floquet systems, which are similar to Hamiltonian systems but do not conserve energy.
 
-The next two sections cover the quantum dynamics of systems with and without conservation laws. Sec.~\ref{sec:ncons} presents the phenomenology of Floquet systems that lack any conserved quantities. It goes on to analytically calculate the dynamics of circuits with no conserved quantities and show that they behave like Floquet systems. The advantage of the circuits is that, through Haar-averaging, they admit classical descriptions of $\rho_R$ and the OTOC, which are easy to simulate or solve exactly.
+The next two sections cover the quantum dynamics of systems with and without conservation laws. Sec.~\ref{sec:ncons} presents the phenomenology of Floquet systems that lack any conserved quantities. It goes on to analytically calculate the dynamics of circuits with no conserved quantities and show that they behave like Floquet systems. The advantage of the circuits is that, through Haar-averaging, they admit classical descriptions of the right weight $\rho_R$ and the OTOC, which are easy to simulate or solve exactly.
 Sec.~\ref{sec:cons} does the same for systems with a small number of conservation laws, or constraints. These sections primarily report the results of other literature, and the main sources will be~\cite{ChenOtoc, ZhangFloq, vonKeyserlingkHydro, NahumOpSp, KhemaniOpSp}. The physical systems and circuits we study in these two sections thermalize, which leads to the question: can a circuit be localized?
 
-One path to localization in random unitary circuits is through fractonic conservation laws. These are constraints that not only conserve some quantity, but also its higher moments. An example would be the conservation of charge and dipole. In Sec.~\ref{sec:fraccirc} we will show that circuits that conserve these higher moments of charge indeed localize, following the results of~\cite{PaiFracton}. Importantly, the relevant calculations suggest that similar circuits in 2 dimensions should also localize.
+One path to localization in random unitary circuits is through \emph{fractonic} conservation laws. These are constraints that not only conserve some quantity, but also its higher moments. An example would be the conservation of charge and dipole. In Sec.~\ref{sec:fraccirc} we will show that in $d=1$, circuits that conserve these higher moments of charge indeed localize, following the results of~\cite{PaiFracton}. Importantly, the relevant calculations suggest that similar circuits in 2 dimensions should also localize.
 Sec~\ref{sec:conc} reviews the broad goals of this essay and presents some possibilities for future research.
 
-The systems in this essay will be 1 dimensional and discrete, so we can label space with an index, $i = 1,2,\dots,L$. Oftentimes $L$ will implicitly taken to be infinite in analytic descriptions. Numerical simulations are always done at finite $L$, and in this case the ``thermodynamic limit" refers to taking $L$ to $\infty$ proportionally to some time scale. At each site $i$ there is a $q$-dimensional Hilbert space, and the system is the tensor product of all these sites. For example, $q=2$ corresponds to a spin chain of spin-$\half$ particles. Then the Hilbert space of the whole system will have dimension $q^L$. Initial states will always be product states.
+The systems in this essay will be 1 dimensional and discrete, so we can label space with an index, $i = 1,2,\dots,L$. Oftentimes $L$ will implicitly taken to be infinite in analytic descriptions. Numerical simulations are always done at finite $L$, and in this case the ``thermodynamic limit" refers to taking $L$ to $\infty$ proportionally to some time scale. At each site $i$ there is a $q$-dimensional Hilbert space, and the system is the tensor product of all these sites. For example, $q=2$ corresponds to a spin chain of spin-$\half$ particles. Then the Hilbert space of the whole system will have dimension $q^L$. Initial states will always be product states, and entire systems will always be in pure states.
 
 
 \section{Quantum dynamics of closed systems} \label{sec:dyn}
 
-This section will serve to introduce the reader to the basics of quantum dynamics of closed systems. It will follow material in the reviews in Refs.~\cite{Cazalilla2010, PolkovnikovClosed, Nandkishore14, GogolinStatMech}. The primary question is how to reconcile thermalization in statistical mechanics with unitarity in quantum mechanics. In statistical mechanics, systems tend to thermalize over time by maximizing entropy, $S(\rho)=-\Tr\rho\log\rho$. This results in late time states that can be described by only a few parameters, related to conserved quantities such as energy or particle number. This forms the basis of thermodynamics. 
+This section will serve to introduce the reader to the basics of quantum dynamics of closed systems. It will follow material in the reviews in Refs.~\cite{Cazalilla2010, PolkovnikovClosed, Nandkishore14, GogolinStatMech}. The primary question is how to reconcile thermalization in statistical mechanics with unitarity in quantum mechanics. In statistical mechanics, systems tend to thermalize over time by maximizing entropy, $S(\rho)=-\Tr\rho\log\rho$ for state $\rho$. This results in late time states that can be described by only a few parameters, related to conserved quantities such as energy or particle number. This forms the basis of thermodynamics. 
 
 That evolution towards increasing entropy violates unitarity can be seen in two ways. First, it clearly breaks time reversal symmetry, and unitary dynamics are always reversible. Second, if states at late time can be described by only a small number of parameters (independent of system size), then there must be states that are initially distinct but evolve to be the same. It is in this sense that we say that information is lost.
 
@@ -115,16 +144,21 @@ P(s)=\th{Z}e^{-\beta E(s)},
 \end{align}
 where $P(s)$ is the probability of being in state $s$, and $E(s)$ is its energy. The inverse temperature $\beta$ is related to conservation of energy, as would the chemical potential $\mu$ if the system and bath were allowed to exchange particles. There is one of these parameters for each conserved quantity.
 
-It is possible to consider a quantum system coupled to a bath. As in classical statistical mechanics, this allows the system to exchange energy and conserved charges with the bath. Additionally, the system may become entangled with the bath, leading to dephasing. Then, as in the classical case, the state of the system at long time becomes the thermal state,
+We can also consider a quantum system coupled to a bath. Call the system $A$ and the bath $B$. As in classical statistical mechanics, this allows the system to exchange energy and other conserved quantities with the bath. Additionally, the system may become entangled with the bath, leading to dephasing. Then, as in the classical case, the state of the system at long time becomes the thermal state
 \begin{align}
-\rho = \th{Z}e^{-\beta H}
+\rho_A = \th{Z}e^{-\beta H_A},
 \end{align}
-where $H$ is the Hamiltonian of the system and $\rho$ is the density operator.
-Here we do not have a conflict with unitarity as the evolution of the system is not unitary. Furthermore we have an answer to ``where does the information go?" It travels into the bath, or gets entangled with bath degrees of freedom. 
+where $H_A$ is the Hamiltonian of the system and $\rho_A$ is the density operator. This is not a pure state, and the entropy
+\begin{align}
+S_A=-\Tr\rho_A\log\rho_A
+\end{align}
+is non-zero, even if the system started in a pure state (with $S_A=0$).
+
+This does not result in any contradictions, because the system does not evolve unitarily, rather the system-bath combination $AB$ does. Thus $AB$ is still a pure state. This means all entropy is entanglement entropy between $A$ and $B$. Furthermore we have an answer to ``where does the information go?" It travels into the bath, or gets entangled with bath degrees of freedom. 
 
 Since the bath itself is quantum mechanical, we could consider the system and bath together as a single closed quantum system. We will take this perspective for the remainder of the essay, referring to the original system and bath together as the ``system." The old system is now a subsystem of the new system. The entire new system then evolves unitarily, under the rules of closed system quantum mechanics.
 
-But if the system is closed, how can it lose information? We can port our answer from open systems into the closed system by looking at subsystems. If information is initially local in some subsystem, then at late times the information still exists, but it is spread out, or hidden, in the full system. Thus entropy emerges as entanglement between distant locations. This is the process which we will refer to as \emph{thermalization} for the remainder of this essay.
+But if the system is closed, how can it lose information? The answer should be the same as in the open system, with the whole system taking the place of the bath. If information is initially local in some subsystem, then at late times the information still exists, but it is spread out, or hidden, in the full system. Thus entropy emerges as entanglement between distant locations. This is the process which we will refer to as thermalization for the remainder of this essay.
 
 Once a system thermalizes, its subsystems must ``look" thermal. That is, if $\rho(t)$ is the state of the whole system and $\rho_A(t)=\Tr_B\{\rho(t)\}$ is the state of subsystem $A$, then we must have
 \begin{align}
@@ -132,7 +166,7 @@ Once a system thermalizes, its subsystems must ``look" thermal. That is, if $\rh
 \end{align}
 This equation holds in the thermodynamic limit, where the system size is taken to be infinite and the state $\rho$ must be at infinite time. In particular, this must be true for states $\rho=\ket{\Phi}\bra{\Phi}$, where $\ket{\Phi}$ is an energy eigenstate. $\ket{\Phi}$ does not evolve in time. Then~(\ref{eqn:ETH}) must hold for all time. Thus, any subsystem of any energy eigenstate must look thermal. This is called the eigenstate thermalization hypothesis (ETH). The ETH is discussed further in Ref.~\cite{Nandkishore14}.
 
-There are some systems that do not obey the ETH hypothesis, i.e. they do not thermalize. These systems are either \emph{integrable} or \emph{localized}. Integrable systems have a macroscopic number of conserved quantities. Then, even though equilibrium states are defined by their parameters such as $\beta$, $\mu$, the number of such parameters increases with systems size. Then thermal states may be so complex that there is no loss of information. In some sense this is not surprising, due to the large number of conserved quantities. 
+There are some systems that do not obey the ETH hypothesis, i.e. they do not thermalize. These systems are either \emph{integrable} or localized. Integrable systems have a macroscopic number of conserved quantities. Then, even though equilibrium states are defined by their parameters such as $\beta$, $\mu$, the number of such parameters increases with systems size. Then thermal states may be so complex that there is no loss of information. In some sense this is not surprising, due to the large number of conserved quantities. 
 
 Localized systems, on the other hand, still have an order-1 quantity of conserved quantities, but are not described at late time by thermal ensembles. This is achieved by some initially local staying local at late time. 
 It is not necessary for all possible types of local information to be stationary. However, if any information does not spread, the system is said to be localized. For the remainder of this essay we will be interested in thermalizing and localized systems.
@@ -146,7 +180,7 @@ If a system conserves a quantity like the $z$-component of spin, this could be o
 This is nice if we have some conserved quantity, but sometimes we do not. We could try looking at the evolution of the state of the system, but the problem would be finding a background state that does not evolve. 
 Eigenstates do not evolve in time, but are no good because they are highly entangled.
 
-Another object that never evolves in time is the identity operator. Other operators evolve in the Heisenberg picture, but the identity does not. The perturbations we can use will be local non-identity operators. In a 1 dimensional system, an operator like $I_1\otimes I_2\otimes Z_3 \otimes I_4\otimes\cdots\otimes I_L$ contains a perturbation on the third site. 
+Another object that never evolves in time is the identity operator. Other operators evolve in the Heisenberg picture, but the identity does not, i.e. $I(t)=U(t)IU^\dag(t)=I$. The perturbations we can use will be local non-identity operators. In a 1 dimensional system, an operator like $I_1\otimes I_2\otimes Z_3 \otimes I_4\otimes\cdots\otimes I_L$ contains a perturbation on the third site. 
 
 We have to quantify how far such initially-local operators spread. We will mainly use two quantities, the operator right weight $\rho_R(x,t)$ and the OTOC $C(x,t)$. First we need a basis for operators. In the $q=2$ case we will use the Pauli basis $\{I, X, Y, Z\} = \{\sigma^0, \sigma^1, \sigma^2, \sigma^3\}$, where $\sigma^0$ is the identity. All of these operators satisfy $(\sigma^\mu)^2=I$. For $q>2$ it is possible to define a generalization of this basis~\cite{vonKeyserlingkHydro}. A Pauli string $\S$ is then an operator on the whole system, made as a tensor product of Pauli operators, of the form
 \begin{align}
@@ -161,7 +195,7 @@ Pauli strings form a orthogonal basis for operators on the whole system, satisfy
 For a general operator $\cal{O}(t)$,
 \begin{align}
 \cal{O}(t) &= \sum_\S a_\S(t) \S,\nn
-a_\S(t) &= \Tr\{\cal{O}(t) \S \}/2^L.
+a_\S(t) &= \Tr\{\cal{O}(t) \S \}/q^L.
 \end{align}
 We will refer to the $a_\S$ as amplitudes, and $\abs{a_\S}^2$ as weights. Amplitudes will have arbitrary phases, so the average of $a_\S$ over any random quantities will vanish.
 Normalizing the operator so that $\Tr\{\cal{O}(0)^\dag\cal{O}(0) \}=1$ implies that $\sum_\S \abs{a_\S(0)}^2=1$. Unitarity then requires $\sum_\S \abs{a_\S(t)}^2=1$ for all $t$. This means that the total operator weight is a conserved quantity, which can move between Pauli strings.
@@ -178,11 +212,11 @@ When we take the thermodynamic limit, $i$ is replaced with the continuous variab
 The right weight is only sensitive to the edges of spreading operators. To probe the structure of the bulk of an operator, we might want to use the commutator of the spreading operator $\cal{O}(t)$ with a local operator $W_i$ that has not been evolved in time. However, this will suffer the same fate as $a_\S$, in that its uncorrelated phases will vanish after averaging over any present randomness. For this reason we use the out-of-time-order commutator (OTOC), defined as
 \begin{align}
 C(i,t) &= \half Tr\left\{\abs{[\cal{O}(t), W_i]}^2\right\}\nn
-&\propto \sum_{\substack{\text{$\S$ such that}\\\text{$\S_i = X, Y$}}} \abs{a_\S(t)}^2.
+&\propto \sum_{\substack{\text{$\S$ such that}\\\text{$\S_i \ne I_i, W_i$}}} \abs{a_\S(t)}^2.
 \end{align}
 Unlike the right weight, this is not a conserved density. At early time, the OTOC is 0 everywhere away from the initial perturbation at site $j$. At late time, the OTOC approaches an equilibrium value near $j$. This is because most Pauli strings are essentially random in their bulk. The OTOC is often normalized so that the equilibrium value is unity. 
 
-One can think of the right weight as a measure of the edge of an operator, and the OTOC as a measure of where the operator has spread to. Both start localized near site $j$. The right-weight generally travels in a blob, spreading out as it moves so as to preserve total weight. The OTOC starts to approach its equilibrium value when the first bit of right weight passes site $i$, and should reach that value once all the right weight is past.
+One can think of the right weight as a measure of the edge of an operator, and the OTOC as a measure of the bulk of an operator. Both start localized near site $j$. The right-weight generally travels in a blob, spreading out as it moves so as to preserve total weight. The OTOC starts to approach its equilibrium value when the first bit of right weight passes site $i$, and should reach that value once all the right weight is past.
 Fig.~\ref{fig:vonKSpreading} shows how the right weight and OTOC are related in a representative system.
 
 One related quantity is the OTO correlator 
@@ -283,40 +317,22 @@ For $t=nT$ with $n\in \mathbb{Z}$, the time evolution operator is $U(t)=U^n(T),$
 %\end{align}
 %Note that all terms acting at a given time commute with each other. Therefore this Floquet model can be written as a unitary circuit (not random) with 2-site gates. 
 
-One example, from Refs.~\cite{ZhangFloq, ChenOtoc}, has time evolution operator 
-\begin{align}
-U_F(T) = e^{-i\frac{T}{2}H_x}e^{-i\frac{T}{2}H_z}, \label{eqn:gamma}
-\end{align}
-with
+One example, from Refs.~\cite{ZhangFloq, ChenOtoc}, has partial Hamiltonians 
 \begin{align}
 H_x &= \sum_i g\Gamma X_j,\nn
-H_z &= \sum_i \left[Z_iZ_{i+1} + (h+g\sqrt{1-\Gamma^2}G_i)Z_i\right],
+H_z &= \sum_i \left[Z_iZ_{i+1} + (h+g\sqrt{1-\Gamma^2}G_i)Z_i\right], \label{eqn:gamma}
 \end{align}
 where $G_i$ are independent Gaussian random variables. We will use the parameters $(g,h,T) = (0.9045,0.8090,0.8)$ throughout.
 Note that as $\Gamma\to1$ this approaches the kicked Ising model, which thermalizes. As $\Gamma\to1$, this model becomes equivalent to the time-independent Hamiltonian $H=\sum_i\left[Z_iZ_{i+1} + h_iZ_i\right]$ with random field $h_i$, which is localized. For lack of a better term we will call Eq.~\ref{eqn:gamma} the $\Gamma$ model.
 
-As in the previous section, we can study the transition between the localized and thermalizing phases by varying a parameter of the model, in this case $\Gamma$. Fig.~\ref{fig:floqtrans} demonstrates the transition using two diagnostics. 
+As in the previous section, we can study the transition between the localized and thermalizing phases by varying a parameter of the model, in this case $\Gamma$. Fig.~\ref{fig:floqtrans} demonstrates the transition, 
 \begin{figure}
 	\centering
-	\includegraphics[width=.3\linewidth]{ZhangTransition1}
-	\includegraphics[width=.3\linewidth]{ZhangTransition2}
-	\caption{Dynamical phase transition of the $\Gamma$ model. (a) demonstrates the phase transition through the average entanglement entropy between halves of the chain. (c) shows the same transition, but using the level statistics parameter. Figure from~\cite{ZhangFloq}.}
+	\includegraphics[width=.5\linewidth]{ZhangTransition1}
+	\caption{Dynamical phase transition of the $\Gamma$ model, showing the level statistics parameter. At $\Gamma=1$ this is the (thermalizing) kicked Ising model, while at $\Gamma=0$ this is a localized time-independent Hamiltonian. Figure from~\cite{ZhangFloq}.}
 	\label{fig:floqtrans}
 \end{figure}
-The first is the entanglement entropy between two halves of the chain in energy eigenstates, 
-\begin{align}
-S_E \equiv -\Tr\{\rho_L\log\rho_L\} = -\Tr\{\rho_R\log\rho_R\},\label{eqn:Shalf}
-\end{align}
-where $\rho_L$ and $\rho_R$ are reduced density matrices of the right and left halves of the chain, with no relation to the operator right- and left-weights. The second equality in~(\ref{eqn:Shalf}) is due to the whole chain being in a pure state. The maximal possible entanglement between these halves is $S_\text{max}=L/2$, but random pure states will be close to the Page value~\cite{Page, ZhangTherm}
-\begin{align}
-S_R = \frac{L}{2} - \th{2\ln 2} -\mathcal{O}\left(\th{2^L}\right).
-\end{align}
-
-In the thermalizing phase the eigenstates have ``volume law" entanglement, close to $S_R$, while in the localized phase they have ``boundary law" entanglement, constant in $L$~\cite{ZhangFloq}. Therefore for large enough $L$, $S_E/S_R$ should distinguish between the phases. After averaging over all eigenstates for a given disorder realization and then averaging over disorder realizations, we arrive at $S_\text{norm} = \ex{S_E}/S_R$.
-
-Alternatively we can use the level statistics parameter $r$ discussed previously. In the thermalizing phase the energies should follow GOE statistics with $r \approx 0.53$, while in the localizing phase the energies are Poisson distributed with $r\approx 0.39$. The dashed lines in Fig.~\ref{fig:floqtrans} show these values.
-
-In Fig.~\ref{fig:floqtrans}, notice the agreement between the two diagnostics in the critical value $\Gamma_c$. Furthermore, both transitions become sharper for increasing $L$, as one would expect. The suggestion is that the transition is singular in the thermodynamic limit. In Sec.~\ref{sub:fncons} we will study this model at $\Gamma=.85$, deep in the thermalizing phase.
+using the level statistics parameter $r$ discussed previously. In the thermalizing phase the energies should follow GOE statistics with $r \approx 0.53$, while in the localizing phase the energies are Poisson distributed with $r\approx 0.39$. The dashed lines in Fig.~\ref{fig:floqtrans} show these values. The transition becomes sharper for increasing $L$, as one would expect. The suggestion is that the transition is singular in the thermodynamic limit. In Sec.~\ref{sub:fncons} we will study this model at $\Gamma=.85$, deep in the thermalizing phase.
 
 
 \section{Thermalization in systems with no conservation laws} \label{sec:ncons}
@@ -325,7 +341,7 @@ We are now ready to measure the dynamics of some of the systems we introduced. A
 
 \subsection{Floquet systems with no conservation laws} \label{sub:fncons}
 
-As shown previously, the $\Gamma$ model with $\Gamma=0.85$ is deep within the thermalizing phase. Ref.~\cite{ChenOtoc} studied the OTO correlator of an initially local operator in this model. Recall that whereas thermalization is associated with a growing OTOC, it is associated with a decaying OTO correlator (Eq.~\ref{eqn:OTOCOTO})
+As shown previously, the $\Gamma$ model with $\Gamma=0.85$ is deep within the thermalizing phase. It also has no conservation laws. Ref.~\cite{ChenOtoc} studied the OTO correlator of an initially local operator in this model. Recall that whereas thermalization is associated with a growing OTOC, it is associated with a decaying OTO correlator (Eq.~\ref{eqn:OTOCOTO})
 
 The key point is the exponential dependence of the OTO correlator. 
 \begin{figure}
@@ -334,12 +350,12 @@ The key point is the exponential dependence of the OTO correlator.
 	\caption{Exponential decay of the OTO correlator in a thermalizing Floquet model with no conserved charges. For increasing system size, the decay continues to be exponential for a longer time before saturating. For comparison, the black circles show the non-exponential decay of a Hamiltonian system. This decay is power-law, and will be discussed in the following section. Figure from~\cite{ChenOtoc}.}
 	\label{fig:ChenExp}
 \end{figure}
-Fig.~\ref{fig:ChenExp} shows the exponential decay of the OTO correlator at constant $i$ for various system sizes. Finite size effects cause the OTO correlator to saturate and therefore deviate from exponential behavior. However, the figure shows that this happens later for larger $L$, suggesting that the exponential decay continues for an arbitrarily long time for large enough $L$.
+Fig.~\ref{fig:ChenExp} shows the exponential decay of the OTO correlator at constant $i$ for various system sizes. Finite size effects cause the OTO correlator to saturate and therefore deviate from exponential behavior at late time. However, the figure shows that this happens later for larger $L$, suggesting that the exponential decay continues for an arbitrarily long time for large enough $L$.
 
 Ref.~\cite{vonKeyserlingkHydro} cranks $\Gamma$ all the way to 1, to study the kicked Ising model. It goes beyond the early-time exponential dependence to study the saturation. The quantity under inspection is now the OTOC rather than the OTO correlator, so it should start at 0 and saturate to 1. There is also a focus on the operator right- and left-weights, $\rho_L$ and $\rho_R$.
 
 Fig.~\ref{fig:vonKSpreading} shows the qualitative behavior of the right weight and OTOC. Although it is for the quantum circuit, the qualitative behavior is the same (that's the whole point of this essay). At each site, exponential growth of both $\rho_R$ and the OTOC begins when the site enters the light cone. Exponential growth continues until the front reaches the site, at which point $\rho_R$ peaks and the OTOC begins to saturate. Just as in the $\Gamma$ model, the OTOC approaches its asymptotic value exponentially. 
-Figs.~\ref{fig:vonKSpreading}~(a) and (b) can be thought of as horizontal slices though Fig.~\ref{fig:vonKSpreading}~(c). To compare with Fig.~\ref{fig:ChenExp}, imagine a vertical slice through~\ref{fig:vonKSpreading}~(c), with $t=0$ occurring at the position of the light cone.
+Figs.~\ref{fig:vonKSpreading}(a) and (b) can be thought of as horizontal slices though Fig.~\ref{fig:vonKSpreading}(c). To compare with Fig.~\ref{fig:ChenExp}, imagine a vertical slice through~\ref{fig:vonKSpreading}(c), with $t=0$ occurring at the position of the light cone. The presence of a lightcone in the circuit means that, at site $i$, we should replace $t=0$ from the Floquet model with $t=iv_B$ in the circuit. 
 
 The behavior of the right weight is that the front propagates linearly at a velocity called the butterfly velocity, $v_B$. Consider $\rho(i,t)$. For $t<<v_B i$, the spreading operator has not yet reached $i$ and $\rho(i,t)$ is small. As the peak passes site $i$, a significant number of Pauli strings in the operator end on $i$. In the future, most strings end after $i$ so $\rho_R(i)$ is again small. For a given $t$, $\rho_R(i)$ peaks at $i=v_B t$. This peak broadens as it travels, with a width $\sim t^\alpha$~\cite{vonKeyserlingkHydro}.
 \begin{figure}
@@ -355,17 +371,15 @@ Fig.~\ref{fig:vonKalpha} shows that $\alpha\approx .5$, so that the peaks spread
 
 The simplest circuit to design would have 2-site gates and no constraints on gate choice. Such a circuit has the same architecture as Fig.~\ref{fig:vonKgates}, with each gate chosen from the Haar measure over all possible gates. Our goal is to find the dynamics of $\rho_R(i,t)$ under the action of the full circuit, and our analysis will follow~\cite{vonKeyserlingkHydro}. The first step in doing so is to calculate the dynamics of $\rho_R$ under a single gate. 
 
-We want to calculate $\rho_R(i,\tau+1)$ and $\rho_R(i+1, \tau+1)$ (Fig.~\ref{fig:2sites}). It should be clear that these quantities only depend on $\rho_R(i,\tau)$ and $\rho_R(i+1, \tau)$. In fact it is even simpler, in that $\rho_R(i,\tau+1)$ and $\rho_R(i+1, \tau+1)$ only depend on the sum $\rho_R(i,\tau) + \rho_R(i+1, \tau)$. 
-
+We want to calculate $\rho_R(i,\tau+1)$ and $\rho_R(i+1, \tau+1)$ (Fig.~\ref{fig:2sites}). It should be clear that these quantities only depend on $\rho_R(i,\tau)$ and $\rho_R(i+1, \tau)$. 
 \begin{figure}
 	\centering
 	\input{2sites}
 	\caption{Diagram of the operator weights before and after the application of the gate. Values at $\t+1$ are calculated in the text.}
 	\label{fig:2sites}
 \end{figure}
-
 Looking at $\rho_R(i,\tau)$ and $\rho_R(i+1, \tau)$ is equivalent to looking only at Pauli strings which are $I$ on all sites past $i+1$ but are non-identity on either $i$ or $i+1$ (or both).
-This leaves us with $q^4-1$ two-site operators to consider. The Haar-random gate transforms any of these operators to any other with equal probability~\cite{BrownScrambling}, regardless of whether the initial operator was an identity on site $i+1$. This is why the final values only depend on $\rho_R(i,\tau) + \rho_R(i+1, \tau)$.
+This leaves us with $q^4-1$ two-site operators to consider. The Haar-random gate transforms any of these operators to any other with equal probability~\cite{BrownScrambling}, regardless of whether the initial operator was an identity on site $i+1$. For this reason the final values only depend on $\rho_R(i,\tau) + \rho_R(i+1, \tau)$.
 
 Of the $q^4+1$ final operators, $q^2-1$ are the identity on site $i+1$. These operators contribute to $\rho_R(i,\tau+1)$, while the rest contribute to $\rho_R(i+1, \tau+1)$. In other words the weight moves to site $i$ with probability $p_\text{back} = \frac{q^2-1}{q^4-1} = \th{q^2+1}$ or moves forward with probability $p\equiv 1- p_\text{back} = \frac{q^2}{q^2+1}$. Thus
 \begin{align}
@@ -374,7 +388,7 @@ Of the $q^4+1$ final operators, $q^2-1$ are the identity on site $i+1$. These op
 \end{align}
 This is true at each individual gate. If there were a gate at each site at each time, this would be the final word. However, since the dynamics will only be periodic in every two layers of the circuit, we must calculate the dynamics for two layers to get the whole picture.
 
-To do so, we will define some dense but useful notation. Since the sum of weights at consecutive sites is so important, we will abbreviate it as
+To do so, we will define some dense but useful notation. Since the sum of weights at consecutive sites is important, we will abbreviate it as
 \begin{align}
 \tilde{\rho}_R(i,\t) \equiv \rho_R(i,\tau) + \rho_R(i+1, \tau). \label{eqn:rhotil}
 \end{align}
@@ -431,7 +445,7 @@ In the limit $t\to\infty$,
 \rho_R(x,t) \approx \frac{q^{2(x+t)}}{(1+q^2)^{2t}} \th{\sqrt{\pi t}}4^t
 = \frac{q^{2x}}{\sqrt{\pi t}} \left(\frac{2q}{1+q^2}\right)^{2t}.
 \end{align}
-Ref.~\cite{vonKeyserlingkHydro} shows that this quantity is related to the OTOC, and the exponential dependence on $t$ explains the exponential relaxation to its equilibrium value.
+Ref.~\cite{vonKeyserlingkHydro} shows that this quantity is related to the OTOC, and the exponential dependence on $t$ explains the exponential relaxation to its equilibrium value. It might seem counterintuitive that the exponential behavior is at late time in this system while it was at early time in the Floquet model. This is due to the presence of the light cone, which pushes behavior to be later in the circuit.
 
 The important features that we can match to the behavior of the Floquet model are the exponential growth in the OTOC at late time and the behavior of the front of the spreading operator. As in the kicked Ising model, we have shown that the front moves linearly. The front has a width $\sim \sqrt{Dt}$, which is to say $\alpha=0.5$
 
@@ -467,7 +481,7 @@ H_{xy} &= J_{xy}\sum_i\left[X_iX_{i+1}+Y_iY_{i+1}\right],
 \end{align}
 which similarly conserves $Z_\tot$.
 
-Here , we can look at the behavior of the right-weight. Operators still have fronts that propagate at $v_B$ and spread diffusively in time. However, unlike in the previous systems, not all weight is in the front. See the shape of the operators in Fig.~\ref{fig:KhemaniShape}. There is a lump that remains at the origin, before fully diffusing at late time.
+Here, we can look at the behavior of the right-weight. Operators still have fronts that propagate at $v_B$ and spread diffusively in time. However, unlike in the previous systems, not all weight is in the front. See the shape of the operators in Fig.~\ref{fig:KhemaniShape}. There is a lump that remains at the origin, before fully diffusing at late time.
 Thus, the features we will be looking for in circuits with conserved quantities are the power-law dependence of the OTO correlator/OTOC and the stationary lump in the right weight.
 \begin{figure}
 	\centering
@@ -479,7 +493,7 @@ Thus, the features we will be looking for in circuits with conserved quantities 
 \subsection{Constrained circuits and conserved operators} \label{sub:ccons}
 
 A simple conservation law to introduce to quantum circuits is conservation of total $Z$. We simply have to constrain the 2-site gates to conserve $Z_\tot$ for the two sites on which it acts. $Z_\tot$ is then our conserved charge, with charge density $Z_i$.
-We will use spin-$\th{2}$ sites, so gates will be in the $\uparrow\uparrow\to\uparrow\uparrow$, $\downarrow\downarrow\to\downarrow\downarrow$, or $\{\uparrow\downarrow,\downarrow\uparrow\}\to\{\uparrow\downarrow,\downarrow\uparrow\}$ sectors. We will refer to these as the $Z=1$, $Z=0$, and $Z=-1$ sectors, of dimension 1, 4, and 1, respectively. The matrix representations of gates will be $4\times4$ matrices made up of three block matrices, one for each sector, as in Fig~\ref{fig:khemaniCircuit}.
+We will use spin-$\th{2}$ sites, so gates will be in the $\{\uparrow\uparrow\}\to\{\uparrow\uparrow\}$, $\{\downarrow\downarrow\}\to\{\downarrow\downarrow\}$, or $\{\uparrow\downarrow,\downarrow\uparrow\}\to\{\uparrow\downarrow,\downarrow\uparrow\}$ sectors. We will refer to these as the $Z=1$, $Z=0$, and $Z=-1$ sectors, of dimension 1, 4, and 1, respectively. The matrix representations of gates will be $4\times4$ matrices made up of three block matrices, one for each sector, as in Fig~\ref{fig:khemaniCircuit}.
 
 Like in the unconstrained circuit, we want to have an on-site dimension $q$ that we can use to vary the behavior of the circuit. It would also be nice to preserve the block structure of the gates as we vary $q$, which would not be possible if we replace the spin-$\th{2}$ sites with higher spin. We can satisfy both of these requests by instead replacing the spins with a tensor product between a spin-$\th{2}$ degree of freedom and an unconstrained $q$-dimensional qudit. We do not constrain the gates' action on the qudits.
 This leaves us with $4q^2\times4q^2$ block-diagonal gates, with blocks of size $q^2\times q^2$, $2q^2\times 2q^2$, and $q^2\times q^2$ (Fig.~\ref{fig:khemaniCircuit}).
@@ -509,17 +523,13 @@ a_\S(t) = \th{q^L}\Tr\{ \cal{O}(t)\S \},\quad \sum_S\abs{a_\S}^2 = 1, \label{eqn
 \end{align}
 with the latter equality imposed by unitarity. For the new conserved charge we can define the conserved operator amplitude,
 \begin{align}
-a_i^c(t) = \th{(2q)^{L}}\Tr\{\cal{O}(t)(ZI)_i\},
-\end{align}
-and  the ``conserved part" of $\cal{O}(t)$,
-\begin{align}
-\cal{O}^c(t)=\sum_i a_i(t)(ZI)_i.
+a_i^c(t) = \th{(2q)^{L}}\Tr\{\cal{O}(t)(ZI)_i\}.
 \end{align}
 The conservation law~(\ref{eqn:cons}) is then equivalent to 
 \begin{align}
 \sum_i a_i^c(t)=\sum_i a_i^c(0). \label{eqn:consa}
 \end{align}
-Note that Eq.~\ref{eqn:consa} refers to amplitudes, while Eq.~\ref{eqn:unit} refers to squares of amplitudes. Later, we will also want to refer to the conserved and nonconserved right-weights, 
+Note that Eq.~\ref{eqn:consa} conserves amplitudes, while Eq.~\ref{eqn:unit} conserves weights. Later, we will also want to refer to the conserved and nonconserved right-weights, 
 \begin{align}
 \rho^c(i,t) = \abs{a^c_i(t)}^2, \quad \rho_R^\nc(i,t) = \rho_R(i,t)- 
 	\rho^c(i,t).
@@ -555,7 +565,7 @@ If there were no remaining lump at the origin, our description of the front woul
 \rho_R^\nc(x,t)\sim\pd{\rho_\tot^c(t-x/v_B)}{t} \sim\th{(t-x/v_B)^{3/2}}. 
 	\label{eqn:powtail}
 \end{align}
-The fact that the spacial exponent $-3/2$ is equal to $-1/2-1$, where $-1/2$ is the time exponent of the decrease of $\rho_\tot^c$, will become important in our analysis of the fracton circuit.
+The fact that the spacial exponent $-\frac{3}{2}$ is equal to $-\th{2}-1$, where $-\th{2}$ is the time exponent of the decrease of $\rho_\tot^c$, will be useful in our analysis of the fracton circuit.
 
 Since this analysis became abstract rather quickly, Fig.~\ref{fig:khemaniRWeight} shows the qualitative pictures for operators spreading.
 \begin{figure}
@@ -580,7 +590,7 @@ The material so far has introduced all of the dynamics-based material we will ne
 
 We want to find circuits that localize. It would be trivial to make a circuit that does not allow certain quantities to spread. For example, we could only include 2-site gates in the $\{\uparrow\uparrow\}\to\{\uparrow\uparrow\}$ and $\{\downarrow\downarrow\}\to\{\downarrow\downarrow\}$ sectors. Then the charge would never spread. However it would be far more interesting to find a circuit that does allow such spreading, where some charge still has not spread at late time.
 
-Conservation laws slowed the dynamics, so maybe it is not too surprising that there is a class of conservation laws that can stop spreading in some cases, leading to localization. One such conservation law is conservation of higher moments of charge, such as dipole strength. Systems with such conservation laws are called \emph{fractonic} systems.
+Conservation laws slowed the dynamics, so maybe it is not too surprising that there is a class of conservation laws that can stop spreading in some cases, leading to localization. One such conservation law is conservation of higher moments of charge, such as dipole strength. Systems with such conservation laws are called fractonic systems.
 
 We will start by arguing why higher moment conservation laws lead to localization, and briefly introduce some of the recent literature involving fractons. We will then analyze a fractonic circuit. Our plan in this section will be slightly different than in the previous two. We will first calculate analytic behavior of the fractonic circuits and then show numerical simulation of the circuit itself, to show that it matches the expected behavior.
 
